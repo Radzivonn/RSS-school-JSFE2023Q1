@@ -49,6 +49,7 @@ button:hover {
   background: #FDDCC4;
 }
 
+/* preview section */
 .wrapper {
   width: 100%;
   height: auto;
@@ -153,4 +154,38 @@ button:hover {
 .preview-info p {
   font-size: 1.07em;
   line-height: 160%;
-}/*# sourceMappingURL=style.css.map */
+}
+
+/* preview section */
+/* About section */
+#about-section {
+  margin: 6.3% 0 7.9%;
+}
+
+.about-block {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.about-image {
+  width: 25%;
+  height: 408px;
+  float: left;
+}
+
+.about-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 35.83%;
+  height: 380px;
+  overflow: hidden;
+}
+.about-text p {
+  font-size: 15px;
+  line-height: 160%;
+  color: #4C4C4C;
+}
+
+/* About section *//*# sourceMappingURL=style.css.map */

@@ -57,6 +57,7 @@ button {
 	}
 }
 
+/* preview section */
 .wrapper {
 	width: 100%;
 	height: auto;
@@ -166,3 +167,37 @@ button {
 		line-height: 160%;
 	}
 }
+/* preview section */
+
+/* About section */
+#about-section {
+	margin: 6.3% 0 7.9%;
+}
+
+.about-block {
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+}
+
+.about-image {
+	width: 25%;
+	height: 408px;
+	float: left;
+}
+
+.about-text {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	width: 35.83%;
+	height: 380px;
+	overflow: hidden;
+
+	p {
+		font-size: 15px;
+		line-height: 160%;
+		color: #4C4C4C;
+	}
+}
+/* About section */
