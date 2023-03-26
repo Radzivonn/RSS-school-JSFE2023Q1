@@ -7,6 +7,48 @@ body {
   color: white;
 }
 
+h2 {
+  font-size: 3.14em;
+  line-height: 130%;
+  letter-spacing: 0.06em;
+}
+
+h3 {
+  font-size: 2.5em;
+  line-height: 130%;
+  letter-spacing: 0.06em;
+  color: #545454;
+  text-align: center;
+}
+
+h4 {
+  font-size: 1.43em;
+  line-height: 115%;
+  letter-spacing: 0.06em;
+  color: #545454;
+}
+
+h5 {
+  font-size: 1.07em;
+  letter-spacing: 0.1em;
+  line-height: 110%;
+}
+
+button {
+  width: 45%;
+  height: 52px;
+  background: #F1CDB3;
+  border-radius: 100px;
+  font-size: 17px;
+  line-height: 130%;
+  letter-spacing: 0.06em;
+  color: #292929;
+  transition: all 0.3s ease 0s;
+}
+button:hover {
+  background: #FDDCC4;
+}
+
 .wrapper {
   width: 100%;
   height: auto;
@@ -34,6 +76,7 @@ body {
   display: flex;
   justify-content: space-between;
   color: white;
+  margin-bottom: 18.58%;
 }
 
 .header-logo-text {
@@ -46,12 +89,10 @@ body {
   font-size: 32px;
   line-height: 110%;
   letter-spacing: 0.06em;
-  color: white;
+  color: #F1CDB3;
 }
-.header-logo-text h3 {
-  font-size: 13px;
+.header-logo-text h5 {
   line-height: 15px;
-  letter-spacing: 0.1em;
 }
 
 .header-navigation {
@@ -71,15 +112,45 @@ body {
 }
 .header-menu .menu-item {
   font-family: Arial sans-serif;
-  color: white;
+  color: #CDCDCD;
   transition: all 0.3s ease 0s;
 }
 .header-menu .menu-item:after {
   content: "";
   display: block;
+  width: 0;
+  transition: all 50ms ease 0s;
   background-color: #F1CDB3;
 }
-.header-menu .menu-item:hover:after {
-  width: inherit;
+.header-menu .menu-item:hover {
+  color: #FAFAFA;
+}
+.header-menu .menu-item:active:after {
+  width: 100%;
   height: 3px;
+}
+
+#previewBGpuppyImg {
+  max-width: 698px;
+  max-height: 728px;
+  position: absolute;
+  bottom: 0;
+  right: 40px;
+}
+
+.preview-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 38.33%;
+  height: 322px;
+}
+.preview-info h2 {
+  display: block;
+  width: 67.39%;
+  line-height: 130%;
+}
+.preview-info p {
+  font-size: 1.07em;
+  line-height: 160%;
 }/*# sourceMappingURL=style.css.map */
