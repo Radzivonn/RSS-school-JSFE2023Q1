@@ -4,7 +4,7 @@
 body {
   height: 100%;
   font-family: Georgia sans-serif;
-  color: white;
+  color: #545454;
 }
 
 h2 {
@@ -17,7 +17,6 @@ h3 {
   font-size: 2.5em;
   line-height: 130%;
   letter-spacing: 0.06em;
-  color: #545454;
   text-align: center;
 }
 
@@ -25,7 +24,6 @@ h4 {
   font-size: 1.43em;
   line-height: 115%;
   letter-spacing: 0.06em;
-  color: #545454;
 }
 
 h5 {
@@ -150,10 +148,12 @@ button:hover {
   display: block;
   width: 67.39%;
   line-height: 130%;
+  color: white;
 }
 .preview-info p {
   font-size: 1.07em;
   line-height: 160%;
+  color: #CDCDCD;
 }
 
 /* preview section */
@@ -306,4 +306,54 @@ button:hover {
   white-space: nowrap;
 }
 
-/* Help section *//*# sourceMappingURL=style.css.map */
+/* Help section */
+/* Donation section */
+#donation-section {
+  height: 462px;
+  padding: 6.2% 0 7.8%;
+  background: #F6F6F6;
+}
+
+.donation-block {
+  width: 76.25%;
+  height: 282px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 auto;
+}
+
+#donation-image {
+  width: 55.19%;
+}
+
+.donation-info {
+  width: 41.53%;
+  height: inherit;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: start;
+}
+.donation-info h3 {
+  text-align: left;
+}
+.donation-info p {
+  font-family: Arial sans-serif;
+  font-size: 12px;
+  line-height: 18px;
+  color: #B2B2B2;
+}
+
+.card-number-block {
+  width: 92.11%;
+  height: 15.25%;
+  display: flex;
+  justify-content: space-between;
+  background: #F1CDB3;
+  padding: 10px 15px;
+  border-radius: 9px;
+}
+.card-number-block a {
+  color: #545454;
+}/*# sourceMappingURL=style.css.map */
