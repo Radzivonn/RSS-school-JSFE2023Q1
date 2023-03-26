@@ -9,6 +9,10 @@ $normalLinksColor: #CDCDCD;
 $hoverLinksColor: #FAFAFA;
 $defaultTransition: all 0.3s ease 0s;
 
+html {
+	scroll-behavior: smooth;
+}
+
 body {
 	height: 100%;
 	font-family: Georgia sans-serif;
@@ -19,6 +23,7 @@ h2 {
 	font-size: 3.14em;
 	line-height: 130%;
 	letter-spacing: 0.06em;
+	white-space: nowrap;
 }
 
 h3 {
@@ -59,6 +64,7 @@ button {
 .wrapper {
 	width: 100%;
 	height: auto;
+	overflow-x: hidden;
 }
 
 .main-container {
@@ -71,7 +77,7 @@ button {
 	position: relative;
 	width: 100%;
 	height: 908px;
-	background: center/cover url('../../assets/images/previewBG-gradient.jpg');
+	background: center/cover url("../../assets/images/previewBG-gradient.jpg");
 	object-fit: cover;
 	padding: 60px 0 0;
 }
@@ -99,6 +105,7 @@ button {
 	}
 	h5 {
 		line-height: 15px;
+		color: white;
 	}
 }
 
@@ -116,28 +123,36 @@ button {
 	list-style: none;
 	font-size: 1.07em;
 	line-height: 160%;
-	.menu-item {
-		font-family: Arial sans-serif;
-		color: $normalLinksColor;
-		transition: $defaultTransition;
+}
+
+.menu-item {
+	font-family: Arial sans-serif;
+	color: $normalLinksColor;
+	transition: $defaultTransition;
+	&:after {
+		content: '';
+		display: block;
+		width: 0;
+		transition: all 50ms ease 0s;
+		background-color: $normalColor;
+	}
+
+	&:hover {
+		color: $hoverLinksColor
+	}
+
+	&:active {
 		&:after {
-			content: '';
-			display: block;
-			width: 0;
-			transition: all 50ms ease 0s;
-			background-color: $normalColor;
+			width: 100%;
+			height: 3px;
 		}
+	}
+}
 
-		&:hover {
-			color: $hoverLinksColor
-		}
-
-		&:active {
-			&:after {
-				width: 100%;
-				height: 3px;
-			}
-		}
+.active-tab {
+	&:after {
+		width: 100%;
+		height: 3px;
 	}
 }
 
@@ -193,7 +208,9 @@ button {
 	width: 35.83%;
 	height: 380px;
 	overflow: hidden;
-
+	h3 {
+		text-align: left;
+	}
 	p {
 		font-size: 15px;
 		line-height: 160%;
@@ -279,7 +296,7 @@ button {
 }
 
 .pets-block-button {
-	width: 26.1%;
+	width: 100%;
 }
 /* Pets section */
 
@@ -304,7 +321,7 @@ button {
 	display: flex;
 	justify-content: center;
 	flex-wrap: wrap;
-	gap: 11.6%;
+	gap: 11.5%;
 	row-gap: 55px;
 }
 
@@ -372,3 +389,56 @@ button {
 		color: #545454;
 	}
 }
+/* Donation section */
+
+/* Footer */
+.footer {
+	position: relative;
+	width: 100%;
+	height: 350px;
+	background: center/cover url("../../assets/images/previewBG-gradient.jpg");
+	object-fit: cover;
+	padding: 5.08% 3.13% 4.69%;
+}
+
+.footer-block {
+	height: 225px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.footer-info-block {
+	width: 60.83%;
+	display: grid;
+	grid-auto-flow: column;
+	grid-template-columns: repeat(2, 1fr);
+	grid-template-rows: 90px 45px 32px;
+	grid-gap: 30px 21.92%;
+	justify-content: space-between;
+	align-content: center;
+	h3 {
+		color: white;
+		text-align: left;
+		white-space: nowrap;
+	}
+	h4 {
+		white-space: nowrap;
+		color: $normalColor;
+	}
+}
+
+.info-block {
+	display: flex;
+	align-items: center;
+	gap: 20px;
+}
+
+#footer-image {
+	// margin-top: 27px;
+	// align-self: center;
+	position: absolute;
+	bottom: 0;
+	right: 3.13%;
+}
+/* Footer */

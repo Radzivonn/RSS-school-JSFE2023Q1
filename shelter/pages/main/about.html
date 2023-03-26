@@ -15,27 +15,28 @@
 	
 	<div class="wrapper">
 		<section class="preview-block">
-			<div class="main-container">
+			<div class="main-container" style="height: inherit">
 				<header class="header">
-					<div class="header-logo-text">
+					<a class="header-logo-text" href="#">
 						<h1> Cozy House </h1>
 						<h5> Shelter for pets in Boston </h5>
-					</div>
+					</a>
 					<nav class="header-navigation">
 						<ul class="header-menu">
-							<li> <a href="#" class="menu-item"> About the shelter </a> </li>
+							<li> <a href="#" class="menu-item active-tab"> About the shelter </a> </li>
 							<li> <a href="../pets/pets.html" class="menu-item"> Our pets </a> </li>
-							<li> <a href="#help" class="menu-item"> Help the shelter </a> </li>
-							<li> <a href="#Contacts" class="menu-item"> Contacts </a> </li>
+							<li> <a href="#help-section" class="menu-item"> Help the shelter </a> </li>
+							<li> <a href="#contacts" class="menu-item"> Contacts </a> </li>
 						</ul>
 					</nav>
 				</header>
 				<div class="preview-info">
 					<h2> Not only people <br> need a house </h2>
-					<p> We offer to give a chance to a little and nice puppy with an extremely wide and open heart. 
-							He or she will love you more than anybody else in the world, you will see!
+					<p>
+						We offer to give a chance to a little and nice puppy with an extremely wide and open heart. 
+						He or she will love you more than anybody else in the world, you will see!
 					</p>
-					<button class="preview-button"> Make a friend </button>
+					<a href="#section-pets"> <button class="preview-button"> Make a friend </button> </a>
 				</div>
 				<img id="previewBGpuppyImg" src="../../assets/images/previewBG-puppy.png" alt="puppy">
 			</div>
@@ -87,10 +88,10 @@
 							</div>
 						</div>
 						<button class="arrowButton"> 
-							<img src="../../assets/icons/Arrow.svg" alt="arrow"> 
+							<img src="../../assets/icons/Arrow.svg" alt="arrow" style="transform: rotate(180deg)"> 
 						</button>
 					</div>
-					<button class="pets-block-button"> Get to know the rest </button>
+					<a href="../pets/pets.html" style="width: 26.1%"> <button class="pets-block-button"> Get to know the rest </button> </a>
 				</div>
 			</div>
 		</section>
@@ -161,6 +162,35 @@
 				</div>
 			</div>
 		</section>
+		<footer class="footer" id="contacts">
+			<div class="main-container">
+				<div class="footer-block">
+					<div class="footer-info-block">
+						<h3> For questions <br> and suggestions</h3>
+						<a class="info-block" href="https://mail.google.com/">
+							<img src="../../assets/icons/icon-email.svg" alt="icon">
+							<h4> email@shelter.com </h4>
+						</a>
+						<a class="info-block" href="tel:+136745677554">
+							<img src="../../assets/icons/icon-phone.svg" alt="icon">
+							<h4> +13 674 567 75 54 </h4>
+						</a>
+						<h3> We are waiting <br> for your visit </h3>
+						<a class="info-block"
+						href="https://www.google.by/maps/place/One+Beacon+Street/@42.3581039,-71.0630464,1056m/data=!3m2!1e3!5s0x8847599b8a76e59b:0xeb13c736d00feebc!4m6!3m5!1s0x89e37084b03c3f77:0x78bf403c1d0509c5!8m2!3d42.3584622!4d-71.0607745!16zL20vMDQ3YjB4?hl=ru">
+							<img src="../../assets/icons/pin.svg" alt="icon">
+							<h4> 1 Central Street, Boston <br> (entrance from the store) </h4>
+						</a>
+						<a class="info-block"
+						href="https://www.google.by/maps/place/One+Beacon+Street/@42.3581039,-71.0630464,1056m/data=!3m2!1e3!5s0x8847599b8a76e59b:0xeb13c736d00feebc!4m6!3m5!1s0x89e37084b03c3f77:0x78bf403c1d0509c5!8m2!3d42.3584622!4d-71.0607745!16zL20vMDQ3YjB4?hl=ru">
+							<img src="../../assets/icons/pin.svg" alt="icon">
+							<h4> 118 South Park, London </h4>
+						</a>
+					</div>
+					<img id="footer-image" src="../../assets/images/footer-puppy.png" alt="image">
+				</div>
+			</div>
+		</footer>
 	</div>
 </body>
 </html>
