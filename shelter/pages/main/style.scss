@@ -201,3 +201,84 @@ button {
 	}
 }
 /* About section */
+
+/* Pets section */
+#section-pets {
+	height: 877px;
+	background: #F6F6F6;
+	padding: 6.2% 0 7.8%;
+}
+
+.pets-block {
+	height: 697px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.pets-slider {
+	width: 100%;
+	height: 435px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	button {
+		background-color: rgba($color: #000000, $alpha: 0);
+		border: 2px solid $normalColor;
+		&:hover {
+			background: $hoverColor;
+			border-color: #FDDCC4;
+		}
+		&:active {
+			background: $normalColor;
+		}
+	}
+}
+
+.pets-row {
+	width: 83.3%;
+	height: inherit;
+	display: flex;
+	gap: 9%;
+}
+
+.pet-card {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	align-items: center;
+	width: 27%;
+	height: inherit;
+	background: $hoverLinksColor;
+	transition: $defaultTransition;
+	padding-bottom: 3%;
+	cursor: pointer;
+	button {
+		width: 69.26%;
+	}
+
+	&:hover {
+		background: #FFFFFF;
+		button {
+			background: $hoverColor;
+			border-color: #FDDCC4;
+		}
+	}
+}
+
+.arrowButton {
+	display: flex;
+	justify-content: center;
+  align-items: center;
+	width: 52px;
+	height: 52px;
+	border-radius: 50%;
+	cursor: pointer;
+	transition: all 0.2s ease 0s;
+}
+
+.pets-block-button {
+	width: 26.1%;
+}
+/* Pets section */
