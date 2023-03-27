@@ -1,0 +1,246 @@
+@import '../../assets/main-styles/nullstyle.css';
+@import '../../assets/main-styles/fonts.css';
+@import '../../assets/main-styles/my-default-styles.css';
+
+$normalColor: #F1CDB3;
+$hoverColor: #FDDCC4;
+$TextColor: white;
+$normalLinksColor: #CDCDCD;
+$hoverLinksColor: #FAFAFA;
+$defaultTransition: all 0.3s ease 0s;
+
+/* preview section */
+.preview-block {
+	position: relative;
+	width: 100%;
+	height: 908px;
+	background: center/cover url("../../assets/images/previewBG-gradient.jpg");
+	object-fit: cover;
+	padding: 60px 0 0;
+}
+
+#previewBGpuppyImg {
+	max-width: 698px;
+	max-height: 728px;
+	position: absolute;
+	bottom: 0;
+	right: 0;
+}
+
+.preview-info {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	width: 38.33%;
+	height: 322px;
+	h2 {
+		display: block;
+		width: 67.39%;
+		line-height: 130%;
+		color: white;
+	}
+	p {
+		font-size: 1.07em;
+		line-height: 160%;
+		color: $normalLinksColor;
+	}
+}
+
+.preview-button {
+	a {
+		color: #292929;
+	}
+}
+
+/* preview section */
+
+/* About section */
+#about-section {
+	margin: 6.3% 0 7.9%;
+}
+
+.about-block {
+	display: flex;
+	justify-content: center;
+	gap: 10%;
+	align-items: center;
+}
+
+.about-image {
+	width: 25%;
+	height: 408px;
+	float: left;
+}
+
+.about-text {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	width: 35.83%;
+	height: 380px;
+	overflow: hidden;
+	h3 {
+		text-align: left;
+	}
+	p {
+		font-size: 15px;
+		line-height: 160%;
+		color: #4C4C4C;
+	}
+}
+/* About section */
+
+/* Pets section */
+#section-pets {
+	height: 877px;
+	background: #F6F6F6;
+	padding: 6.25% 0 7.8%;
+}
+
+.pets-block {
+	height: 697px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	gap: 60px;
+	align-items: center;
+}
+
+.pets-slider {
+	width: 100%;
+	height: 435px;
+	display: flex;
+	//justify-content: space-between;
+	gap: 4.42%;
+	align-items: center;
+	button {
+		background-color: rgba($color: #000000, $alpha: 0);
+		border: 2px solid $normalColor;
+		&:hover {
+			background: $hoverColor;
+			border-color: #FDDCC4;
+		}
+		&:active {
+			background: $normalColor;
+		}
+	}
+}
+
+.pets-row {
+	width: 82.5%;
+	height: inherit;
+	display: flex;
+	gap: 9.09%;
+}
+
+.arrowButton {
+	display: flex;
+	justify-content: center;
+  align-items: center;
+	width: 52px;
+	height: 52px;
+	border-radius: 50%;
+	cursor: pointer;
+	transition: all 0.2s ease 0s;
+}
+
+.pets-block-button {
+	width: 17.25%;
+	button {
+		width: 100%; 
+		color: #292929 ;
+	}
+}
+/* Pets section */
+
+/* Help section */
+#help-section {
+	margin: 6.25% 0 7.8%;
+}
+
+.help-block {
+	width: 85.42%;
+	height: 430px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 60px;
+	margin: 0 auto;
+}
+
+.help-cards-block {
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	flex-wrap: wrap;
+	gap: 11.5%;
+	row-gap: 55px;
+}
+
+.help-card {
+	height: 51.13%;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	align-items: center;
+	flex: 0 2;
+	h4 {
+		white-space: nowrap;
+	}
+}
+/* Help section */
+
+/* Donation section */
+#donation-section {
+	height: 462px;
+	padding: 6.25% 0 7.8%;
+	background: #F6F6F6;
+}
+
+.donation-block {
+	width: 76.25%;
+	height: 282px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin: 0 auto;
+}
+
+#donation-image {
+	width: 55.19%
+}
+
+.donation-info {
+	width: 41.53%;
+	height: inherit;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	align-items: start;
+	h3 {
+		text-align: left;
+	}
+	h5 {
+		letter-spacing: 0.06em;
+	}
+	p {
+		font-family: Arial sans-serif;
+		font-size: 12px;
+		line-height: 18px;
+		color: #B2B2B2;
+	}
+}
+
+.card-number-block {
+	width: 92.11%;
+	height: 15.25%;
+	display: flex;
+	justify-content: space-between;
+	background: $normalColor;
+	padding: 10px 15px;
+	border-radius: 9px;
+	a {
+		color: #545454;
+	}
+}
+/* Donation section */

@@ -1,0 +1,109 @@
+@import '../../assets/main-styles/nullstyle.css';
+@import '../../assets/main-styles/fonts.css';
+@import '../../assets/main-styles/my-default-styles.css';
+.wrapper {
+  padding-top: 120px;
+}
+
+/* Header */
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 120px;
+  background: white;
+  color: #545454;
+}
+
+.header-content {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 30px 0;
+}
+
+.header-navigation {
+  width: 36.92%;
+}
+
+.header-logo-text {
+  height: 60px;
+}
+.header-logo-text h1 {
+  color: #545454;
+}
+.header-logo-text h5 {
+  color: #292929;
+}
+
+.menu-item {
+  color: #545454;
+}
+.menu-item.active-tab, .menu-item:hover {
+  color: #292929;
+}
+
+/* Header */
+/* Our friends section */
+#our-friends-section {
+  background: #F6F6F6;
+  padding: 6.25% 0 7.8%;
+}
+
+.pets-block {
+  width: 100%;
+  height: 1162px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.pets-block button {
+  background-color: rgba(0, 0, 0, 0);
+  border: 2px solid #F1CDB3;
+  transition: all 0.3s ease 0s;
+}
+.pets-block button:enabled:hover {
+  background: #FDDCC4;
+  border-color: #FDDCC4;
+}
+.pets-block button:enabled:active {
+  background: #F1CDB3;
+}
+.pets-block button:disabled {
+  border-color: #CDCDCD;
+  color: #CDCDCD;
+  cursor: default;
+}
+.pets-block button.active-button {
+  background: #F1CDB3;
+}
+
+.pets-list {
+  width: 100%;
+  height: 885px;
+  display: grid;
+  grid-template-columns: repeat(4, 22.5%);
+  grid-template-rows: repeat(2, 46.77%);
+  grid-gap: 43px 40px;
+}
+
+.pet-card {
+  width: auto;
+  height: auto;
+}
+
+.pagination-bar {
+  width: 28.33%;
+  height: 52px;
+  display: flex;
+  justify-content: space-between;
+  margin: 0 auto;
+}
+
+.pagination-button {
+  width: 15.29%;
+  height: inherit;
+}
+
+/* Our friends section */
