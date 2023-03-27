@@ -39,6 +39,10 @@
   color: #CDCDCD;
 }
 
+.preview-button a {
+  color: #292929;
+}
+
 /* preview section */
 /* About section */
 #about-section {
@@ -130,7 +134,11 @@
 }
 
 .pets-block-button {
+  width: 17.25%;
+}
+.pets-block-button a {
   width: 100%;
+  color: #292929;
 }
 
 /* Pets section */

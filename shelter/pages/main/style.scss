@@ -45,6 +45,13 @@ $defaultTransition: all 0.3s ease 0s;
 		color: $normalLinksColor;
 	}
 }
+
+.preview-button {
+	a {
+		color: #292929;
+	}
+}
+
 /* preview section */
 
 /* About section */
@@ -138,7 +145,11 @@ $defaultTransition: all 0.3s ease 0s;
 }
 
 .pets-block-button {
-	width: 100%;
+	width: 17.25%;
+	a {
+		width: 100%; 
+		color: #292929 ;
+	}
 }
 /* Pets section */
 
