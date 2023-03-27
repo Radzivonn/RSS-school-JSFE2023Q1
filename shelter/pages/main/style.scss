@@ -54,7 +54,8 @@ $defaultTransition: all 0.3s ease 0s;
 
 .about-block {
 	display: flex;
-	justify-content: space-around;
+	justify-content: center;
+	gap: 10%;
 	align-items: center;
 }
 
@@ -86,14 +87,15 @@ $defaultTransition: all 0.3s ease 0s;
 #section-pets {
 	height: 877px;
 	background: #F6F6F6;
-	padding: 6.2% 0 7.8%;
+	padding: 6.25% 0 7.8%;
 }
 
 .pets-block {
 	height: 697px;
 	display: flex;
 	flex-direction: column;
-	justify-content: space-between;
+	justify-content: center;
+	gap: 60px;
 	align-items: center;
 }
 
@@ -101,7 +103,8 @@ $defaultTransition: all 0.3s ease 0s;
 	width: 100%;
 	height: 435px;
 	display: flex;
-	justify-content: space-between;
+	//justify-content: space-between;
+	gap: 4.42%;
 	align-items: center;
 	button {
 		background-color: rgba($color: #000000, $alpha: 0);
@@ -117,10 +120,10 @@ $defaultTransition: all 0.3s ease 0s;
 }
 
 .pets-row {
-	width: 83.3%;
+	width: 82.5%;
 	height: inherit;
 	display: flex;
-	gap: 9%;
+	gap: 9.09%;
 }
 
 .arrowButton {
@@ -141,17 +144,16 @@ $defaultTransition: all 0.3s ease 0s;
 
 /* Help section */
 #help-section {
-	margin: 6.3% 0 7.9%;
+	margin: 6.25% 0 7.8%;
 }
 
 .help-block {
 	width: 85.42%;
-	height: 280px;
+	height: 430px;
 	display: flex;
 	flex-direction: column;
-	justify-content: space-between;
 	align-items: center;
-	height: 430px;
+	gap: 60px;
 	margin: 0 auto;
 }
 
@@ -180,7 +182,7 @@ $defaultTransition: all 0.3s ease 0s;
 /* Donation section */
 #donation-section {
 	height: 462px;
-	padding: 6.2% 0 7.8%;
+	padding: 6.25% 0 7.8%;
 	background: #F6F6F6;
 }
 
@@ -195,7 +197,6 @@ $defaultTransition: all 0.3s ease 0s;
 
 #donation-image {
 	width: 55.19%
-	// height:
 }
 
 .donation-info {
@@ -207,6 +208,9 @@ $defaultTransition: all 0.3s ease 0s;
 	align-items: start;
 	h3 {
 		text-align: left;
+	}
+	h5 {
+		letter-spacing: 0.06em;
 	}
 	p {
 		font-family: Arial sans-serif;

@@ -12,7 +12,6 @@ body {
 h2 {
 	font-size: 3.14em;
 	line-height: 130%;
-	letter-spacing: 0.06em;
 	white-space: nowrap;
 }
 
@@ -31,7 +30,6 @@ h4 {
 
 h5 {
 	font-size: 1.07em;
-	letter-spacing: 0.1em;
 	line-height: 110%;
 }
 
@@ -85,14 +83,17 @@ button:hover {
 }
 .header-logo-text h5 {
   font-family: Arial sans-serif;
+	font-size: 13px;
   line-height: 15px;
   color: white;
+	text-align: center;
+	letter-spacing: 0.1em;
 }
 
 .header-navigation {
   display: flex;
   align-items: center;
-  width: 35.72%;
+	width: 36.92%;
 }
 
 .header-menu {
@@ -131,8 +132,9 @@ button:hover {
 .pet-card {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
+	gap: 30px;
   width: 27%;
   height: inherit;
   background: #FAFAFA;
@@ -159,24 +161,23 @@ button:hover {
   background: center/cover url("../../assets/images/previewBG-gradient.jpg");
   -o-object-fit: cover;
      object-fit: cover;
-  padding: 5.08% 3.13% 4.69%;
+  padding: 65px 0 0;
 }
 
 .footer-block {
   height: 225px;
   display: flex;
-  justify-content: space-between;
+	gap: 13.33%;
   align-items: center;
+	margin-bottom: 4.69%;
 }
 
 .footer-info-block {
 	position: relative;
-  width: 60.83%;
-  display: grid;
-  grid-auto-flow: column;
-  grid-template-columns: repeat(2, 1fr);
-  grid-template-rows: 90px 45px 32px;
-  grid-gap: 30px 21.92%;
+  width: auto;
+  display: flex;
+	flex-direction: column;
+	gap: 40px;
   justify-content: space-between;
   align-content: center;
 }
@@ -198,7 +199,8 @@ button:hover {
 
 #footer-image {
 	position: relative;
-	bottom: 0;
+	bottom: -14px;
+	right: -6px;
 }
 
 /* Footer */

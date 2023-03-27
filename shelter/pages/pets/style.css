@@ -48,7 +48,7 @@
 /* Our friends section */
 #our-friends-section {
   background: #F6F6F6;
-  padding: 6.2% 0 7.8%;
+  padding: 6.25% 0 7.8%;
 }
 
 .pets-block {
@@ -85,8 +85,7 @@
   display: grid;
   grid-template-columns: repeat(4, 22.5%);
   grid-template-rows: repeat(2, 46.77%);
-  justify-content: space-between;
-  align-content: space-between;
+  grid-gap: 43px 40px;
 }
 
 .pet-card {
