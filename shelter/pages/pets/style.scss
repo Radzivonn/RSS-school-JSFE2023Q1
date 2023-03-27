@@ -14,6 +14,7 @@ $headerHeight: 120px;
 	padding-top: $headerHeight;
 }
 
+/* Header */
 .header {
 	position: fixed;
 	top: 0;
@@ -52,3 +53,69 @@ $headerHeight: 120px;
 		color: #292929;
 	}
 }
+/* Header */
+
+/* Our friends section */
+#our-friends-section {
+	background: #F6F6F6;
+	padding: 6.2% 0 7.8%;
+}
+
+.pets-block {
+	width: 100%;
+	height: 1162px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	button {
+		background-color: rgba($color: #000000, $alpha: 0);
+		border: 2px solid $normalColor;
+		transition: $defaultTransition;	
+		&:enabled {
+			&:hover {
+				background: $hoverColor;
+				border-color: #FDDCC4;
+			}
+			&:active {
+				background: $normalColor;
+			}
+		}
+		&:disabled {
+			border-color: $normalLinksColor;
+			color: $normalLinksColor;
+			cursor: default;
+		}
+		&.active-button {
+			background: $normalColor;
+		}
+	}
+}
+
+.pets-list {
+	width: 100%;
+	height: 885px;
+	display: grid;
+	grid-template-columns: repeat(4, 22.5%);
+	grid-template-rows: repeat(2, 46.77%);
+	justify-content: space-between;
+	align-content: space-between;
+}
+
+.pet-card {
+	width: auto;
+	height: auto;
+}
+
+.pagination-bar {
+	width: 28.33%;
+	height: 52px;
+	display: flex;
+	justify-content: space-between;
+	margin: 0 auto;
+}
+
+.pagination-button {
+	width: 15.29%;
+	height: inherit;
+}
+/* Our friends section */
