@@ -1,0 +1,54 @@
+@import '../../assets/main-styles/nullstyle.css';
+@import '../../assets/main-styles/fonts.css';
+@import '../../assets/main-styles/my-default-styles.css';
+
+$normalColor: #F1CDB3;
+$hoverColor: #FDDCC4;
+$TextColor: white;
+$normalLinksColor: #CDCDCD;
+$hoverLinksColor: #FAFAFA;
+$defaultTransition: all 0.3s ease 0s;
+$headerHeight: 120px;
+
+.wrapper {
+	padding-top: $headerHeight;
+}
+
+.header {
+	position: fixed;
+	top: 0;
+	left: 0;
+	height: $headerHeight;
+	background: white;
+	color: #545454;
+}
+
+.header-content {
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin: 30px 0;
+}
+
+.header-navigation {
+	width: 36.92%;
+}
+
+.header-logo-text {
+	height: 60px;
+	h1 {
+		color: #545454;
+	}
+	h5 {
+		color: #292929;
+	}
+}
+
+.menu-item {
+  color: #545454;
+	&.active-tab,
+	&:hover {
+		color: #292929;
+	}
+}
