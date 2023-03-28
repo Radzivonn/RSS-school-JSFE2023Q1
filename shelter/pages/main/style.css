@@ -9,7 +9,7 @@
   background: center/cover url("../../assets/images/previewBG-gradient.jpg");
   -o-object-fit: cover;
      object-fit: cover;
-  padding: 60px 0 0;
+  padding: 59px 0 0;
 }
 
 #previewBGpuppyImg {
@@ -34,6 +34,7 @@
   color: white;
 }
 .preview-info p {
+  font-family: Arial sans-serif;
   font-size: 1.07em;
   line-height: 160%;
   color: #CDCDCD;
@@ -46,7 +47,7 @@
 /* preview section */
 /* About section */
 #about-section {
-  margin: 6.3% 0 7.9%;
+  margin: 6.25% 0 7.8%;
 }
 
 .about-block {
@@ -74,6 +75,7 @@
   text-align: left;
 }
 .about-text p {
+  font-family: Arial sans-serif;
   font-size: 15px;
   line-height: 160%;
   color: #4C4C4C;
@@ -215,6 +217,7 @@
 }
 .donation-info p {
   font-family: Arial sans-serif;
+  font-style: italic;
   font-size: 12px;
   line-height: 18px;
   color: #B2B2B2;
@@ -225,12 +228,22 @@
   height: 15.25%;
   display: flex;
   justify-content: space-between;
+  align-items: center;
   background: #F1CDB3;
   padding: 10px 15px;
   border-radius: 9px;
+  transition: all 0.3s ease 0s;
+  cursor: pointer;
 }
 .card-number-block a {
   color: #545454;
+  letter-spacing: 0.06em;
+}
+.card-number-block:hover {
+  background: #FDDCC4;
+}
+.card-number-block:active {
+  opacity: 0.8;
 }
 
 /* Donation section */

@@ -47,6 +47,9 @@ button {
 button:hover {
   background: #FDDCC4;
 }
+button:active {
+  opacity: 0.8;
+}
 
 .wrapper {
 	width: 100%;
@@ -74,13 +77,25 @@ button:hover {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+	transition: all 0.3s ease 0s;
 }
+
+.header-logo-text:active {
+	opacity: 0.8;
+}
+
 .header-logo-text h1 {
   font-size: 32px;
   line-height: 110%;
   letter-spacing: 0.06em;
   color: #F1CDB3;
+	transition: all 0.3s ease 0s;
 }
+
+.header-logo-text h1:hover {
+  color: #FDDCC4;
+}
+
 .header-logo-text h5 {
   font-family: Arial sans-serif;
 	font-size: 13px;
@@ -88,6 +103,12 @@ button:hover {
   color: white;
 	text-align: center;
 	letter-spacing: 0.1em;
+	transition: all 0.3s ease 0s;
+}
+
+.header-logo-text h5:hover {
+  line-height: 15px;
+  color: #FAFAFA;
 }
 
 .header-navigation {
@@ -118,8 +139,15 @@ button:hover {
   transition: all 50ms ease 0s;
   background-color: #F1CDB3;
 }
+.menu-item:active,
 .menu-item:hover {
   color: #FAFAFA;
+}
+
+.active-tab:hover,
+.active-tab:active {
+	color: #CDCDCD;
+	cursor: default;
 }
 
 .menu-item:active:after,
@@ -139,6 +167,7 @@ button:hover {
   height: inherit;
   background: #FAFAFA;
   transition: all 0.3s ease 0s;
+	border-radius: 9px;
   padding-bottom: 3%;
   cursor: pointer;
 }
@@ -189,17 +218,31 @@ button:hover {
 .footer-info-block h4 {
   white-space: nowrap;
   color: #F1CDB3;
+	transition: all 0.3s ease 0s;
+}
+
+.footer-info-block h4:hover {
+	color: #FDDCC4;
+}
+
+.footer-info-block h4:active {
+	color: #F1CDB3;
 }
 
 .info-block {
   display: flex;
   align-items: center;
   gap: 20px;
+	transition: all 0.3s ease 0s;
 }
+
+.info-block:active {
+	opacity: 0.8;
+} 
 
 #footer-image {
 	position: relative;
-	bottom: -14px;
+	bottom: -18px;
 	right: -6px;
 }
 

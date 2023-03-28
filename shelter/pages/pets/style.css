@@ -23,6 +23,11 @@
   margin: 30px 0;
 }
 
+.header-logo-text h1:hover,
+.header-logo-text h5:hover {
+  color: #292929;
+}
+
 .header-navigation {
   width: 36.92%;
 }
@@ -81,11 +86,12 @@
 
 .pets-list {
   width: 100%;
-  height: 885px;
+  height: 920px;
   display: grid;
   grid-template-columns: repeat(4, 22.5%);
-  grid-template-rows: repeat(2, 46.77%);
-  grid-gap: 43px 40px;
+  grid-template-rows: repeat(2, 435px);
+  justify-content: space-between;
+  row-gap: 30px;
 }
 
 .pet-card {
