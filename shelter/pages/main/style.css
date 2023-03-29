@@ -9,7 +9,7 @@
   background: center/cover url("../../assets/images/previewBG-gradient.jpg");
   -o-object-fit: cover;
      object-fit: cover;
-  padding: 59px 0 0;
+  padding: 30px 0 0;
 }
 
 #previewBGpuppyImg {
@@ -121,7 +121,7 @@
   width: 82.5%;
   height: inherit;
   display: flex;
-  gap: 9.09%;
+  justify-content: space-between;
 }
 
 .arrowButton {
@@ -136,7 +136,7 @@
 }
 
 .pets-block-button {
-  width: 17.25%;
+  width: 22.17%;
 }
 .pets-block-button button {
   width: 100%;
