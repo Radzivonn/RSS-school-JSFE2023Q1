@@ -16,7 +16,7 @@ $defaultTransition: all 0.3s ease 0s;
 	height: 908px;
 	background: center/cover url("../../assets/images/previewBG-gradient.jpg");
 	object-fit: cover;
-	padding: 59px 0 0;
+	padding: 30px 0 0;
 }
 
 #previewBGpuppyImg {
@@ -132,7 +132,8 @@ $defaultTransition: all 0.3s ease 0s;
 	width: 82.5%;
 	height: inherit;
 	display: flex;
-	gap: 9.09%;
+	justify-content: space-between;
+	// gap: 9.09%;
 }
 
 .arrowButton {
@@ -147,7 +148,7 @@ $defaultTransition: all 0.3s ease 0s;
 }
 
 .pets-block-button {
-	width: 17.25%;
+	width: 22.17%;
 	button {
 		width: 100%; 
 		color: #292929 ;

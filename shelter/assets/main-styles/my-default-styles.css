@@ -70,7 +70,7 @@ button:active {
   display: flex;
   justify-content: space-between;
   color: white;
-  margin-bottom: 18.58%;
+  margin-bottom: 21.1%;
 }
 
 .header-logo-text {
@@ -190,7 +190,7 @@ button:active {
   background: center/cover url("../../assets/images/previewBG-gradient.jpg");
   -o-object-fit: cover;
      object-fit: cover;
-  padding: 65px 0 0;
+  padding: 60px 0 0;
 }
 
 .footer-block {
@@ -198,7 +198,6 @@ button:active {
   display: flex;
 	gap: 13.33%;
   align-items: center;
-	margin-bottom: 4.69%;
 }
 
 .footer-info-block {
@@ -242,7 +241,7 @@ button:active {
 
 #footer-image {
 	position: relative;
-	bottom: -18px;
+	bottom: -23px;
 	right: -6px;
 }
 
