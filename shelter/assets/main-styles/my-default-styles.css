@@ -34,6 +34,7 @@ h5 {
 }
 
 button {
+	display: block;
   width: 45%;
   height: 52px;
   background: #F1CDB3;
@@ -112,6 +113,7 @@ button:active {
 }
 
 .header-navigation {
+	min-width: 443px;
   display: flex;
   align-items: center;
 	width: 36.92%;
@@ -130,6 +132,7 @@ button:active {
 .menu-item {
   font-family: Arial sans-serif;
   color: #CDCDCD;
+	white-space: nowrap;
   transition: all 0.3s ease 0s;
 }
 .menu-item:after {
@@ -162,13 +165,13 @@ button:active {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-	gap: 30px;
-  width: 27%;
+	justify-content: space-between;
+	width: 270px;
   height: inherit;
   background: #FAFAFA;
   transition: all 0.3s ease 0s;
 	border-radius: 9px;
-  padding-bottom: 3%;
+  padding-bottom: 30px;
   cursor: pointer;
 }
 .pet-card button {
