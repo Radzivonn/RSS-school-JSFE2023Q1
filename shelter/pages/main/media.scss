@@ -1,0 +1,97 @@
+@media (max-width: 1279px) {
+	.help-cards-block {
+		gap: 55px 10%;
+	}
+}
+
+@media (max-width: 1200px) {
+	#previewBGpuppyImg {
+		width: 569px;
+		height: 593px;
+	}
+	// #help-section {
+	// 	height: 779px;
+	// }
+	.help-block {
+		height: auto;
+	}
+	.help-cards-block {
+		min-width: 630px;
+		height: 449px;
+		display: grid;
+		grid-template-columns: repeat(3, 170px);
+		grid-template-rows: repeat(3, 113px);
+		justify-content: space-between;
+		align-content: space-between;
+		gap: 55px 60px;
+	}
+	.help-card {
+		height: auto;
+	}
+	.footer-block {
+		max-width: 1000px;
+		gap: 5%;
+		margin: 0 auto;
+	}
+}
+/* Landscape tablets and medium desktops */
+@media (min-width: 992px) and (max-width: 1199px) {
+
+}
+
+/* Portrait tablets and small desktops */
+@media (min-width: 768px) and (max-width: 991px) {
+	.main-container {
+		width: 92.19%;
+	}
+	.preview-block {
+		height: 1165px;
+	}
+	.header {
+		margin-bottom: 60px;
+	}
+	.preview-info,
+	.preview-button {
+		margin: 0 auto;
+	}
+	.pets-slider {
+		gap: 12px;
+	}
+	.pets-row {
+		grid-template-columns: repeat(2, 270px);
+	}
+	#donation-section {
+		height: auto;
+	}
+	.donation-block {
+		min-width: 505px;
+		height: auto;
+		flex-direction: column-reverse;
+		gap: 60px;
+	}
+	.donation-info {
+		gap: 20px;
+	}
+	.footer {
+		height: 639px;
+		padding: 30px 0 0;
+	}
+	.footer-block {
+		flex-wrap: wrap;
+    justify-content: center;
+    gap: 60px;
+		margin: -3px 0 0 -6px;
+	}
+	#footer-image {
+		bottom: -5px;
+		right: 0;
+	}
+}
+
+/* Landscape phones and portrait tablets */
+@media (max-width: 768px) {
+	.about-block {
+		flex-direction: column-reverse;
+		gap: 80px;
+	}
+}
