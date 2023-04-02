@@ -41,6 +41,9 @@
   color: #CDCDCD;
 }
 
+.preview-button {
+  width: 207px;
+}
 .preview-button a {
   color: #292929;
 }
@@ -286,11 +289,7 @@
   }
 }
 /* Landscape tablets and medium desktops */
-/* Portrait tablets and small desktops */
-@media (min-width: 768px) and (max-width: 991px) {
-  .main-container {
-    width: 92.19%;
-  }
+@media (max-width: 991px) {
   .preview-block {
     height: 1165px;
   }
@@ -299,13 +298,8 @@
   }
   .preview-info,
   .preview-button {
+    width: 207px;
     margin: 0 auto;
-  }
-  .pets-slider {
-    gap: 12px;
-  }
-  .pets-row {
-    grid-template-columns: repeat(2, 270px);
   }
   #donation-section {
     height: auto;
@@ -331,7 +325,19 @@
   }
   #footer-image {
     bottom: -5px;
-    right: 0;
+    right: -4px;
+  }
+}
+/* Portrait tablets and small desktops */
+@media (min-width: 768px) and (max-width: 991px) {
+  .main-container {
+    width: 92.19%;
+  }
+  .pets-slider {
+    gap: 12px;
+  }
+  .pets-row {
+    grid-template-columns: repeat(2, 270px);
   }
 }
 /* Landscape phones and portrait tablets */
@@ -339,5 +345,219 @@
   .about-block {
     flex-direction: column-reverse;
     gap: 80px;
+  }
+}
+@media (max-width: 767px) {
+  .header-navigation {
+    display: none;
+  }
+  .menu-icon {
+    display: block;
+    position: relative;
+    z-index: 5;
+    cursor: pointer;
+  }
+  .menu-icon span, .menu-icon:before, .menu-icon:after {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 10%;
+    transition: all 0.3s ease 0s;
+    background-color: #F1CDB3;
+  }
+  .menu-icon:before, .menu-icon:after {
+    content: "";
+  }
+  .menu-icon:before {
+    top: 0;
+  }
+  .menu-icon:after {
+    bottom: 0;
+  }
+  .menu-icon span {
+    top: 50%;
+    transform: translate(0, -50%);
+  }
+  .about-block {
+    gap: 42px;
+  }
+  #section-pets {
+    height: auto;
+    padding: 46px 0;
+  }
+  .pets-slider {
+    justify-content: space-between;
+  }
+  .pets-row {
+    width: auto;
+    grid-template-columns: 270px;
+  }
+  .footer {
+    height: auto;
+    max-height: 809px;
+  }
+  .footer-block {
+    height: auto;
+    gap: 40px;
+  }
+}
+@media (max-width: 667px) {
+  .main-container {
+    width: 87.5%;
+  }
+  #previewBGpuppyImg {
+    width: 260px;
+    height: 271px;
+    left: 50%;
+    transform: translate(-42%, 0);
+  }
+  .preview-block {
+    height: 823px;
+  }
+  .preview-info {
+    text-align: center;
+    align-items: center;
+  }
+  .help-cards-block {
+    height: auto;
+    min-width: auto;
+    gap: 7.5vw 7.25vw;
+    grid-template-columns: repeat(3, 1fr);
+    justify-content: center;
+    align-content: center;
+  }
+  .help-card h4 {
+    font-size: 1.25em;
+  }
+  .footer-info-block:first-child {
+    align-items: center;
+  }
+  .footer-info-block h3 {
+    align-self: center;
+    text-align: center;
+  }
+  #footer-image {
+    width: 260px;
+    height: 269px;
+    bottom: 0px;
+    right: -2px;
+  }
+}
+@media (max-width: 568px) {
+  .donation-block {
+    min-width: auto;
+  }
+  .donation-block > img {
+    width: 430px;
+    height: 220px;
+    -o-object-fit: cover;
+       object-fit: cover;
+  }
+}
+@media (max-width: 480px) {
+  h2, h3 {
+    font-size: 2.15em;
+    text-align: center;
+  }
+  .main-container {
+    width: 93.75%;
+  }
+  .header {
+    max-width: 93.33%;
+    margin: 0 auto 60px;
+  }
+  .preview-info {
+    min-width: 100%;
+    height: 296px;
+  }
+  .preview-info h2 {
+    letter-spacing: 0.06em;
+  }
+  #about-section {
+    margin: 42px 0;
+  }
+  .about-image {
+    width: 260px;
+    height: 354px;
+  }
+  .about-text {
+    width: 90%;
+    height: auto;
+    gap: 23px;
+  }
+  .about-text h3 {
+    text-align: center;
+  }
+  .about-text p {
+    text-align: justify;
+  }
+  .pets-block {
+    gap: 42px;
+  }
+  .pets-slider {
+    height: auto;
+    max-width: 270px;
+    flex-wrap: wrap;
+    gap: 20px 80px;
+    justify-content: center;
+  }
+  .pets-slider button {
+    order: 1;
+  }
+  #help-section {
+    margin: 42px 0;
+  }
+  .help-cards-block {
+    grid-template-columns: repeat(2, 130px);
+    grid-template-rows: repeat(5, 87px);
+    gap: 30px;
+  }
+  .help-block {
+    gap: 42px;
+  }
+  .help-card h4 {
+    font-size: 1.07em;
+  }
+  .help-card img {
+    width: 50px;
+    height: 50px;
+  }
+  #donation-section {
+    padding: 42px 0;
+  }
+  .donation-block {
+    gap: 42px;
+  }
+  .donation-block > img {
+    width: 260px;
+    height: 135px;
+  }
+  .donation-info {
+    width: 300px;
+    align-items: center;
+  }
+  .donation-info h3 {
+    text-align: center;
+  }
+  .donation-info h5 {
+    line-height: 160%;
+    letter-spacing: 0.003em;
+  }
+  .donation-info p {
+    width: 93.33%;
+    text-align: justify;
+  }
+  .card-number-block {
+    width: 93.67%;
+    height: 43px;
+  }
+  .card-number-block h4 {
+    font-size: 1.07em;
+  }
+}
+@media (max-width: 384px) {
+  h2, h3 {
+    font-size: 1.785em;
+    text-align: center;
   }
 }
