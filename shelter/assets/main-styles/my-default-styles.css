@@ -34,6 +34,7 @@ h5 {
 }
 
 button {
+	display: block;
   width: 45%;
   height: 52px;
   background: #F1CDB3;
@@ -69,11 +70,13 @@ button:active {
   height: 60px;
   display: flex;
   justify-content: space-between;
+	align-items: center;  /* ??? */
   color: white;
   margin-bottom: 21.1%;
 }
 
 .header-logo-text {
+	min-height: 60px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -112,9 +115,16 @@ button:active {
 }
 
 .header-navigation {
+	min-width: 443px;
   display: flex;
   align-items: center;
 	width: 36.92%;
+}
+
+.menu-icon {
+	display: none;
+	width: 30px;
+	height: 22px;
 }
 
 .header-menu {
@@ -130,6 +140,7 @@ button:active {
 .menu-item {
   font-family: Arial sans-serif;
   color: #CDCDCD;
+	white-space: nowrap;
   transition: all 0.3s ease 0s;
 }
 .menu-item:after {
@@ -162,13 +173,14 @@ button:active {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+	/* justify-content: space-between; */
 	gap: 30px;
-  width: 27%;
-  height: inherit;
+	width: 270px;
+  /* height: inherit; */
   background: #FAFAFA;
   transition: all 0.3s ease 0s;
 	border-radius: 9px;
-  padding-bottom: 3%;
+  padding-bottom: 30px;
   cursor: pointer;
 }
 .pet-card button {
@@ -189,7 +201,7 @@ button:active {
   height: 350px;
   background: center/cover url("../../assets/images/previewBG-gradient.jpg");
   -o-object-fit: cover;
-     object-fit: cover;
+  object-fit: cover;
   padding: 60px 0 0;
 }
 
@@ -199,8 +211,7 @@ button:active {
 	gap: 13.33%;
   align-items: center;
 }
-
-.footer-info-block {
+.footer-info-block{
 	position: relative;
   width: auto;
   display: flex;
@@ -209,10 +220,17 @@ button:active {
   justify-content: space-between;
   align-content: center;
 }
+@media (min-width: 667px) {
+	.footer-info-block:nth-child(2) {
+		gap: 33px;
+	}
+}
+
 .footer-info-block h3 {
   color: white;
   text-align: left;
-  white-space: nowrap;
+	display: inline-block;
+	width: 280px;
 }
 .footer-info-block h4 {
   white-space: nowrap;
