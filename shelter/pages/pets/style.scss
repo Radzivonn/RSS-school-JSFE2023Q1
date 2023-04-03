@@ -28,6 +28,7 @@ $headerHeight: 120px;
 	width: 100%;
 	display: flex;
 	justify-content: space-between;
+	gap: 60px;
 	align-items: center;
 	margin: 30px 0;
 }
@@ -68,11 +69,11 @@ $headerHeight: 120px;
 
 .pets-block {
 	width: 100%;
-	height: 1162px;
+	height: auto;
 	display: flex;
 	flex-direction: column;
-	justify-content: space-between;
-	margin-left: 12px;
+	justify-content: center;
+	gap: 60px;
 	button {
 		background-color: rgba($color: #000000, $alpha: 0);
 		border: 2px solid $normalColor;
@@ -99,20 +100,26 @@ $headerHeight: 120px;
 
 .pets-list {
 	width: 100%;
-	height: 920px;
+	height: auto;
 	display: grid;
-	grid-template-columns: repeat(4, 22.5%);
-	grid-template-rows: repeat(2, 435px);
-	justify-content: space-between;
-	row-gap: 30px;
+	grid-template-columns: repeat(auto-fill, 270px);
+	grid-template-rows: repeat(auto-fill, 435px);
+	justify-content: center;
+	overflow: hidden;
+	grid-gap: 30px 40px;
 }
 
 .pet-card {
 	width: auto;
 	height: auto;
+	img {
+		width: 100%;
+		object-fit: cover;
+	}
 }
 
 .pagination-bar {
+	min-width: 340px;
 	width: 28.33%;
 	height: 52px;
 	display: flex;
@@ -121,7 +128,17 @@ $headerHeight: 120px;
 }
 
 .pagination-button {
-	width: 15.29%;
+	width: 52px;
 	height: inherit;
 }
 /* Our friends section */
+
+@import '../../assets/main-styles/common-media.scss';
+@import './media.scss';
+.menu-icon {
+	& span,
+	&:before,
+	&:after {
+		background-color: black;
+	}
+}

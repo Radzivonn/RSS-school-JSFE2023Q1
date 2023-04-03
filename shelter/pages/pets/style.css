@@ -19,6 +19,7 @@
   width: 100%;
   display: flex;
   justify-content: space-between;
+  gap: 60px;
   align-items: center;
   margin: 30px 0;
 }
@@ -58,11 +59,11 @@
 
 .pets-block {
   width: 100%;
-  height: 1162px;
+  height: auto;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  margin-left: 12px;
+  justify-content: center;
+  gap: 60px;
 }
 .pets-block button {
   background-color: rgba(0, 0, 0, 0);
@@ -87,20 +88,27 @@
 
 .pets-list {
   width: 100%;
-  height: 920px;
+  height: auto;
   display: grid;
-  grid-template-columns: repeat(4, 22.5%);
-  grid-template-rows: repeat(2, 435px);
-  justify-content: space-between;
-  row-gap: 30px;
+  grid-template-columns: repeat(auto-fill, 270px);
+  grid-template-rows: repeat(auto-fill, 435px);
+  justify-content: center;
+  overflow: hidden;
+  grid-gap: 30px 40px;
 }
 
 .pet-card {
   width: auto;
   height: auto;
 }
+.pet-card img {
+  width: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
 
 .pagination-bar {
+  min-width: 340px;
   width: 28.33%;
   height: 52px;
   display: flex;
@@ -109,8 +117,155 @@
 }
 
 .pagination-button {
-  width: 15.29%;
+  width: 52px;
   height: inherit;
 }
 
 /* Our friends section */
+@media (max-width: 1200px) {
+  .footer-block {
+    max-width: 1000px;
+    gap: 5%;
+    margin: 0 auto;
+  }
+}
+@media (max-width: 991px) {
+  .header {
+    margin-bottom: 60px;
+  }
+  .footer {
+    height: 639px;
+    padding: 30px 0 0;
+  }
+  .footer-block {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 60px;
+    margin: -3px 0 0 -6px;
+  }
+  #footer-image {
+    bottom: -5px;
+    right: -4px;
+  }
+}
+@media (min-width: 768px) and (max-width: 991px) {
+  .main-container {
+    width: 92.19%;
+  }
+}
+@media (max-width: 767px) {
+  .header-navigation {
+    display: none;
+  }
+  .menu-icon {
+    display: block;
+    position: relative;
+    z-index: 5;
+    cursor: pointer;
+  }
+  .menu-icon span, .menu-icon:before, .menu-icon:after {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 10%;
+    transition: all 0.3s ease 0s;
+    background-color: #F1CDB3;
+  }
+  .menu-icon:before, .menu-icon:after {
+    content: "";
+  }
+  .menu-icon:before {
+    top: 0;
+  }
+  .menu-icon:after {
+    bottom: 0;
+  }
+  .menu-icon span {
+    top: 50%;
+    transform: translate(0, -50%);
+  }
+  .footer {
+    height: auto;
+    max-height: 809px;
+  }
+  .footer-block {
+    height: auto;
+    gap: 40px;
+  }
+}
+@media (max-width: 667px) {
+  .main-container {
+    width: 87.5%;
+  }
+  .footer-info-block:first-child {
+    align-items: center;
+  }
+  .footer-info-block h3 {
+    align-self: center;
+    text-align: center;
+  }
+  #footer-image {
+    width: 260px;
+    height: 269px;
+    bottom: 0px;
+    right: -2px;
+  }
+}
+@media (max-width: 480px) {
+  .main-container {
+    width: 93.75%;
+  }
+  .header {
+    max-width: 93.33%;
+    margin: 0 auto 60px;
+  }
+}
+@media (max-width: 1279px) {
+  .pets-block {
+    gap: 30px;
+  }
+}
+@media (max-width: 991px) {
+  .pets-list {
+    height: 1374px;
+  }
+}
+@media (max-width: 768px) {
+  #our-friends-section {
+    padding: 80px 0;
+  }
+}
+@media (max-width: 667px) {
+  .pets-list {
+    height: 1365px;
+  }
+}
+@media (max-width: 568px) {
+  h3 {
+    font-size: 1.78em;
+  }
+}
+@media (max-width: 480px) {
+  h3 {
+    font-size: 1.78em;
+  }
+  .header {
+    max-width: 100%;
+  }
+  .header-content {
+    justify-content: center;
+    gap: 60px;
+  }
+  #our-friends-section {
+    padding: 42px 0;
+  }
+  .pets-block {
+    gap: 42px;
+  }
+  .pagination-bar {
+    min-width: 300px;
+  }
+}
+.menu-icon span, .menu-icon:before, .menu-icon:after {
+  background-color: black;
+}
