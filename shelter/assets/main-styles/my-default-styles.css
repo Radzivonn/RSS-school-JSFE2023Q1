@@ -173,9 +173,10 @@ button:active {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-	justify-content: space-between;
+	/* justify-content: space-between; */
+	gap: 30px;
 	width: 270px;
-  height: inherit;
+  /* height: inherit; */
   background: #FAFAFA;
   transition: all 0.3s ease 0s;
 	border-radius: 9px;
