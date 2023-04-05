@@ -1,4 +1,7 @@
 @media (max-width: 1200px) {
+  .header {
+    margin-bottom: 60px;
+  }
   .footer-block {
     max-width: 1000px;
     gap: 5%;
@@ -6,9 +9,6 @@
   }
 }
 @media (max-width: 991px) {
-  .header {
-    margin-bottom: 60px;
-  }
   .footer {
     height: 639px;
     padding: 30px 0 0;
