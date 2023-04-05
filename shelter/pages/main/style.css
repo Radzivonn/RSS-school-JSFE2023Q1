@@ -257,6 +257,9 @@
 
 /* Donation section */
 @media (max-width: 1200px) {
+  .header {
+    margin-bottom: 60px;
+  }
   .footer-block {
     max-width: 1000px;
     gap: 5%;
@@ -264,9 +267,6 @@
   }
 }
 @media (max-width: 991px) {
-  .header {
-    margin-bottom: 60px;
-  }
   .footer {
     height: 639px;
     padding: 30px 0 0;
@@ -364,6 +364,14 @@
     width: 569px;
     height: 593px;
   }
+  .preview-block {
+    height: 1165px;
+  }
+  .preview-info,
+  .preview-button {
+    width: 207px;
+    margin: 0 auto;
+  }
   .help-block {
     height: auto;
   }
@@ -381,16 +389,7 @@
     height: auto;
   }
 }
-/* Landscape tablets and medium desktops */
 @media (max-width: 991px) {
-  .preview-block {
-    height: 1165px;
-  }
-  .preview-info,
-  .preview-button {
-    width: 207px;
-    margin: 0 auto;
-  }
   #donation-section {
     height: auto;
   }
