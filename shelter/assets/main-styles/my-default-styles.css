@@ -7,6 +7,11 @@ body {
 	height: 100%;
 	font-family: Georgia sans-serif;
 	color: #545454;
+	overflow-x: hidden;
+}
+
+body._lock {
+	overflow: hidden;
 }
 
 h2 {
@@ -114,6 +119,11 @@ button:active {
   color: #FAFAFA;
 }
 
+.menuBG,
+.menu {
+	display: contents;
+}
+
 .header-navigation {
 	min-width: 443px;
   display: flex;
@@ -125,6 +135,7 @@ button:active {
 	display: none;
 	width: 30px;
 	height: 22px;
+	transition: all 0.3s ease 0s;
 }
 
 .header-menu {
