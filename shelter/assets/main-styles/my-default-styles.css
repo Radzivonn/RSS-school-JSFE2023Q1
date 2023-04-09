@@ -180,6 +180,8 @@ button:active {
 /* Header */
 
 .pet-card {
+  position: relative;
+	right: 0px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -190,6 +192,8 @@ button:active {
 	border-radius: 9px;
   padding-bottom: 30px;
   cursor: pointer;
+	transition: all 0.5s ease 0s;
+	scroll-behavior: smooth;
 }
 .pet-card button {
   width: 69.26%;
