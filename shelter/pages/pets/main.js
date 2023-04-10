@@ -1,11 +1,15 @@
 import { menuListenerToggle, headerMenuToggle, headerMenuInit } from '../../assets/js-modules/header-menu.js';
 import { tabletBreakpoint } from '../../assets/js-modules/common-variables.js';
+import { openModalWindow } from '../../assets/js-modules/common-functions.js';
 import { componentsState } from '../../assets/js-modules/components-state.js';
 import { pageSwitcher } from  '../../assets/js-modules/pagination.js';
+
+const petsBlock = document.querySelector('.pets-list');
 
 document.addEventListener("DOMContentLoaded", () => {
 	if (window.screen.width < tabletBreakpoint) headerMenuInit();
 	pageSwitcher();
+	petsBlock.addEventListener('click', openModalWindow);
 	
 	window.matchMedia("(max-width: 767px)").addEventListener('change', (e) => {
 		/* header menu */
