@@ -28,10 +28,7 @@ const getRandomCards = (cardsAmount) => {
 	let randCardsNode = '';
 	let cardNumbers = getRandomNumbers(cardsAmount, lastSliderState);
 	lastSliderState = cardNumbers;
-	cardNumbers.forEach(number => {
-		const randCard = petsDeck[number];
-		randCardsNode += getCard(randCard);
-	});
+	cardNumbers.forEach(number => randCardsNode += getCard(petsDeck[number], number));
 	return randCardsNode;
 }
 

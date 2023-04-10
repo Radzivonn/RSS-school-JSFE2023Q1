@@ -38,7 +38,7 @@ const getPaginationDeck = (deckLength, cardsAmountOnPage = getPagesAmount()) => 
 
 const getPageCards = (pageNumber) => {
 	let cardsNode = '';
-	paginationDeck[pageNumber - 1].forEach(number => cardsNode = cardsNode.concat(getCard(petsDeck[number])));
+	paginationDeck[pageNumber - 1].forEach(number => cardsNode = cardsNode.concat(getCard(petsDeck[number], number)));
 	return cardsNode;
 }
 
