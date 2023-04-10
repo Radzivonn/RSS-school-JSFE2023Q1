@@ -1,13 +1,8 @@
 @import '../../assets/main-styles/nullstyle.css';
 @import '../../assets/main-styles/fonts.css';
 @import '../../assets/main-styles/my-default-styles.css';
+@import '../../assets/main-styles/variables.scss';
 
-$normalColor: #F1CDB3;
-$hoverColor: #FDDCC4;
-$TextColor: white;
-$normalLinksColor: #CDCDCD;
-$hoverLinksColor: #FAFAFA;
-$defaultTransition: all 0.3s ease 0s;
 
 /* preview section */
 .preview-block {
@@ -114,7 +109,7 @@ $defaultTransition: all 0.3s ease 0s;
 	width: 100%;
 	height: 435px;
 	display: flex;
-	//justify-content: space-between;
+	justify-content: space-between;
 	gap: 4.42%;
 	align-items: center;
 	button {
@@ -131,7 +126,11 @@ $defaultTransition: all 0.3s ease 0s;
 }
 
 .pets-row {
-	width: 82.5%;
+	// width: 82.5%;
+	position: relative;
+	// right: 0;
+	min-width: $sliderItemWidth;
+	width: auto;
 	height: inherit;
 	display: grid;
 	grid-template-columns: repeat(3, 270px);
@@ -139,13 +138,55 @@ $defaultTransition: all 0.3s ease 0s;
 	grid-auto-rows: 0;
 	justify-content: space-between;
 	overflow: hidden;
+	scroll-behavior: smooth;
+	gap: 90px;
+	transition: all 0.5s ease 0s;
 	// gap: 9.09%;
 }
+
+.slider-container {
+	overflow: hidden;
+	width: 1080px;
+	height: 435px;
+		// width: 82.5%;
+}
+
+.slides {
+	display: flex;
+	position: relative;
+	transition: all 1s ease 0s;
+	//gap: 90px;
+	height: inherit;
+}
+
+
+
+@keyframes move-right {
+  from {left: -990px;}
+  to {left: -1980px;}
+}
+
+.transition-right {
+  animation-name: move-right;
+  animation-duration: 2s;
+}
+
+@keyframes move-left {
+  from {left: -990px;}
+  to {left: 0px;}
+}
+
+.transition-left {
+  animation-name: move-left;
+  animation-duration: 2s;
+}
+
 
 .arrowButton {
 	display: flex;
 	justify-content: center;
   align-items: center;
+	min-width: 52px;
 	width: 52px;
 	height: 52px;
 	border-radius: 50%;

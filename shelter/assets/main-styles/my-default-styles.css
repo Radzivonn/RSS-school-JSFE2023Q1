@@ -7,6 +7,11 @@ body {
 	height: 100%;
 	font-family: Georgia sans-serif;
 	color: #545454;
+	overflow-x: hidden;
+}
+
+body._lock {
+	overflow: hidden;
 }
 
 h2 {
@@ -114,6 +119,11 @@ button:active {
   color: #FAFAFA;
 }
 
+.menuBG,
+.menu {
+	display: contents;
+}
+
 .header-navigation {
 	min-width: 443px;
   display: flex;
@@ -125,6 +135,7 @@ button:active {
 	display: none;
 	width: 30px;
 	height: 22px;
+	transition: all 0.3s ease 0s;
 }
 
 .header-menu {
@@ -169,6 +180,8 @@ button:active {
 /* Header */
 
 .pet-card {
+  position: relative;
+	right: 0px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -179,6 +192,8 @@ button:active {
 	border-radius: 9px;
   padding-bottom: 30px;
   cursor: pointer;
+	transition: all 0.5s ease 0s;
+	scroll-behavior: smooth;
 }
 .pet-card button {
   width: 69.26%;
