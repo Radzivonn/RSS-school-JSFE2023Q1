@@ -19,6 +19,7 @@ $headerHeight: 120px;
 	position: fixed;
 	top: 0;
 	left: 0;
+	z-index: 10;
 	height: $headerHeight;
 	background: white;
 	color: #545454;

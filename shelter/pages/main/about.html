@@ -17,14 +17,18 @@
 						<h1> Cozy House </h1>
 						<h5> Shelter for pets in Boston </h5>
 					</a>
-					<nav class="header-navigation">
-						<ul class="header-menu">
-							<li> <a href="#" class="menu-item active-tab"> About the shelter </a> </li>
-							<li> <a href="../pets/pets.html" class="menu-item"> Our pets </a> </li>
-							<li> <a href="#help-section" class="menu-item"> Help the shelter </a> </li>
-							<li> <a href="#contacts" class="menu-item"> Contacts </a> </li>
-						</ul>
-					</nav>
+					<div class="menuBG">
+						<div class="menu">
+							<nav class="header-navigation">
+								<ul class="header-menu">
+									<li> <a href="#" class="menu-item active-tab"> About the shelter </a> </li>
+									<li> <a href="../pets/pets.html" class="menu-item"> Our pets </a> </li>
+									<li> <a href="#help-section" class="menu-item"> Help the shelter </a> </li>
+									<li> <a href="#contacts" class="menu-item"> Contacts </a> </li>
+								</ul>
+							</nav>
+						</div>
+					</div>
 					<div class="menu-icon">
 						<span></span>
 					</div>
@@ -66,31 +70,21 @@
 				<div class="pets-block">
 					<h3> Our friends who <br> are looking for a house </h3>
 					<div class="pets-slider">
-						<button class="arrowButton"> 
+						<button class="arrowButton" id="button-left"> 
 							<img src="../../assets/icons/Arrow.svg" alt="arrow"> 
 						</button>
-						<div class="pets-row">
-							<div class="pet-card">
-								<img src="../../assets/images/pets-katrine.png" alt="pet card">
-								<h4> Katrine </h4>
-								<button class="card-button"> Learn more </button>
-							</div>
-							<div class="pet-card">
-								<img src="../../assets/images/pets-jennifer.png" alt="pet card">
-								<h4> Jennifer </h4>
-								<button class="card-button"> Learn more </button>
-							</div>
-							<div class="pet-card">
-								<img src="../../assets/images/pets-woody.png" alt="pet card">
-								<h4> Woody </h4>
-								<button class="card-button"> Learn more </button>
+						<div class="slider-container">
+							<div class="slides">
+								<!-- <div class="pets-row">
+	
+								</div> -->
 							</div>
 						</div>
-						<button class="arrowButton"> 
+						<button class="arrowButton" id="button-right"> 
 							<img src="../../assets/icons/Arrow.svg" alt="arrow" style="transform: rotate(180deg)"> 
 						</button>
 					</div>
-					<form action="../pets/pets.html" class="pets-block-button"> <button > Get to know the rest  </button> </form>
+					<form action="../pets/pets.html" class="pets-block-button"> <button> Get to know the rest  </button> </form>
 				</div>
 			</div>
 		</section>
@@ -192,5 +186,7 @@
 			</div>
 		</footer>
 	</div>
+
+	<script type="module" src="./main.js"></script>
 </body>
 </html>
