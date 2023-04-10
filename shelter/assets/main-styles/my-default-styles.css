@@ -274,6 +274,121 @@ button:active {
 	bottom: -23px;
 	right: -6px;
 }
-
 /* Footer */
+
+.arrowButton {
+	display: flex;
+	justify-content: center;
+  align-items: center;
+	min-width: 52px;
+	width: 52px;
+	height: 52px;
+	border-radius: 50%;
+	cursor: pointer;
+	transition: all 0.2s ease 0s;
+}
+
+
+/* Modal Window */
+.modal-window-BG.active {
+	position: fixed;
+	top: 0;
+	right: 0;
+	z-index: 15;
+	width: 100vw;
+	height: 100vh;
+	background-color: rgba(0, 0, 0, 0.7);
+	transition: all 0.4s ease 0s;
+}
+
+.modal-window-BG {
+	background-color: rgba(0, 0, 0, 0);
+}
+
+.modal-window-BG.active .modal {
+	transform: translate(-50%, -50%);
+	transition: all 1s ease 0s;
+}
+
+.modal {
+	display: flex;
+	width: 952px;
+	height: 552px;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -200%);
+	transition: all 1s ease 0s;
+}
+
+.modal-window {
+	width: 94.54%;
+	height: 500px;
+	background-color:#FAFAFA;
+	transition: all 0.4s ease 0s;
+	display: flex;
+	box-shadow: 0px 2px 35px 14px rgba(13, 13, 13, 0.04);
+	border-radius: 9px;
+	align-self: flex-end;
+}
+
+.modal-window img {
+	width: 500px;
+	height: 500px;
+}
+
+.modal-info-block {
+	position: relative;
+	max-width: 351px;
+	height: 362px;
+	display: flex;
+	flex-direction: column;
+	margin: 50px 20px 88px 29px;
+	color: black;
+}
+
+.modal-info-block h3 {
+	text-align: left;
+	margin-bottom: 10px;
+}
+
+.modal-info-block p {
+	margin: 40px 0;
+	font-size: 15px;
+	line-height: 110%;
+	letter-spacing: 0.06em;
+}
+
+.modal-info-block ul {
+	display: flex;
+	flex-direction: column;
+	gap: 10px
+}
+
+.modal-info-block ul li {
+	list-style: initial;
+}
+
+.modal-info-block ul li::marker {
+	color: #F1CDB3;
+}
+
+#modal-cross {
+	background-color: rgba(0, 0, 0, 0);
+	border: 2px solid #F1CDB3;
+	align-self: flex-start;
+}
+
+#modal-cross:hover {
+	background-color: #F1CDB3;
+}
+
+#modal-cross img {
+	width: 12px;
+	height: 12px;
+}
+
+/* Modal Window */
+
+
 /* My default styles */
