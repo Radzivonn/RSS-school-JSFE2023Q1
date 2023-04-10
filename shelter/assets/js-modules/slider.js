@@ -1,5 +1,6 @@
 import petsDeck from './pets-deck.js';
-import { getRandomNumbers } from './common-functions.js';
+import { getRandomNumbers, getCard } from './common-functions.js';
+import { tabletBreakpoint, PCBreakpoint } from '../../assets/js-modules/common-variables.js';
 
 const slider = document.querySelector('.slides');
 const BTN_LEFT = document.querySelector("#button-left");
@@ -8,34 +9,30 @@ let cardsList;
 let lastSliderState = []; // cards numbers
 
 /**
- * Function to create a random cards deck
- * @param {number} cardsAmount - number of cards
- * @return {string} A string that will be parsed as HTML and inserted into the document's DOM tree
- */
-const getRandomCards = (cardsAmount=window.screen.width > 1200 ? 3 : window.screen.width < 768 ? 1 : 2) => {
-	let randCardsNode = '';
-	let cardNumbers = getRandomNumbers(cardsAmount, lastSliderState);
-	lastSliderState = cardNumbers;
-	cardNumbers.forEach(number => {
-		const randCard = petsDeck[number];
-		randCardsNode = randCardsNode.concat(
-			`<div class="pet-card"><img src="${randCard.img}" alt="pet card">
-			<h4> ${randCard.name} </h4>
-			<button class="card-button"> Learn more </button>
-			</div>`);
-	});
-	return randCardsNode;
-}
-
-/**
  * Function to init a slider
  */
 export const sliderInit = () => {
 	document.querySelectorAll('.pets-row').forEach(node => node.remove()); 
 	let slides = '';
-	for (let i = 0; i < 3; i++) slides = slides.concat('<div class="pets-row">', getRandomCards(), '</div>');
+	for (let i = 0; i < 3; i++) slides = slides.concat('<div class="pets-row">', getRandomCards(window.screen.width > PCBreakpoint ? 3 : window.screen.width < tabletBreakpoint ? 1 : 2), '</div>');
 	slider.insertAdjacentHTML('afterbegin', slides);
 	slider.style.left = `-${document.querySelector('.pets-row').offsetWidth}px`;
+}
+
+/**
+ * Function to create a random cards deck
+ * @param {number} cardsAmount - number of cards
+ * @return {string} A string that will be parsed as HTML and inserted into the document's DOM tree
+ */
+const getRandomCards = (cardsAmount) => {
+	let randCardsNode = '';
+	let cardNumbers = getRandomNumbers(cardsAmount, lastSliderState);
+	lastSliderState = cardNumbers;
+	cardNumbers.forEach(number => {
+		const randCard = petsDeck[number];
+		randCardsNode += getCard(randCard);
+	});
+	return randCardsNode;
 }
 
 const moveLeft = () => {
@@ -70,7 +67,7 @@ slider.addEventListener("animationend", (animationEvent) => {
 		ACTIVE_ITEM.innerHTML = ITEM_RIGHT.innerHTML;
 	}
 	changedItem.innerHTML = "";
-  changedItem.insertAdjacentHTML('beforeend', getRandomCards());
+  changedItem.insertAdjacentHTML('beforeend', getRandomCards(window.screen.width > PCBreakpoint ? 3 : window.screen.width < tabletBreakpoint ? 1 : 2));
 	BTN_LEFT.addEventListener("click", moveLeft);
 	BTN_RIGHT.addEventListener("click", moveRight);
 });

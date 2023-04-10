@@ -5,7 +5,7 @@ import { sliderInit } from '../../assets/js-modules/slider.js';
 
 document.addEventListener("DOMContentLoaded", () => {
 	if (window.screen.width < tabletBreakpoint) headerMenuInit();
-	sliderInit()
+	sliderInit();
 
 	window.matchMedia("(max-width: 767px)").addEventListener('change', (e) => {
 		/* header menu */

@@ -15,7 +15,12 @@ export const headerMenuInit = () => {
 	if (menuButton) {
 		menuButton.addEventListener('click', headerMenuToggle);
 		menuBG.addEventListener('click', (e) => {
-			if(!e.target.closest('.menu') || (componentsState.headerMenu === true && e.target.closest('.menu-item'))) headerMenuToggle(); // закрыть меню, если кликнули за его пределами
+			if (!e.target.closest('.menu') || (componentsState.headerMenu === true && e.target.closest('.menu-item'))) {
+				document.body.classList.remove('_lock');
+				menuBG.classList.remove('active');
+				menuButton.classList.remove('active');
+				componentsState.headerMenu = false;
+			} // закрыть меню, если кликнули за его пределами
 		});
 		menuListenerToggle = true;
 	}
