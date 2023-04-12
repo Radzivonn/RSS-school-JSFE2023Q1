@@ -8,13 +8,15 @@ const BTN_RIGHT = document.querySelector("#button-right");
 let cardsList;
 let lastSliderState = []; // cards numbers
 
+const getCardsAmount = () => window.screen.width > 1200 ? 3 : window.screen.width < tabletBreakpoint ? 1 : 2;
+
 /**
  * Function to init a slider
  */
 export const sliderInit = () => {
 	document.querySelectorAll('.pets-row').forEach(node => node.remove()); 
 	let slides = '';
-	for (let i = 0; i < 3; i++) slides = slides.concat('<div class="pets-row">', getRandomCards(window.screen.width > 1200 ? 3 : window.screen.width < tabletBreakpoint ? 1 : 2), '</div>');
+	for (let i = 0; i < 3; i++) slides = slides.concat('<div class="pets-row">', getRandomCards(getCardsAmount()), '</div>');
 	slider.insertAdjacentHTML('afterbegin', slides);
 	slider.style.left = `-${document.querySelector('.pets-row').offsetWidth}px`;
 }
@@ -64,7 +66,7 @@ slider.addEventListener("animationend", (animationEvent) => {
 		ACTIVE_ITEM.innerHTML = ITEM_RIGHT.innerHTML;
 	}
 	changedItem.innerHTML = "";
-  changedItem.insertAdjacentHTML('beforeend', getRandomCards(window.screen.width > PCBreakpoint ? 3 : window.screen.width < tabletBreakpoint ? 1 : 2));
+  changedItem.insertAdjacentHTML('beforeend', getRandomCards(getCardsAmount()));
 	BTN_LEFT.addEventListener("click", moveLeft);
 	BTN_RIGHT.addEventListener("click", moveRight);
 });
