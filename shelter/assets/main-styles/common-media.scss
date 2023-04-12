@@ -155,12 +155,11 @@
 
 	.modal {
 		width: 552px;
-		height: 467px;
-	}
-	.modal-window {
-		height: 415px;
+		height: 525px;
 	}
 	.modal-window  {
+		max-height: 470px;
+		height: -webkit-fill-available;
 		img {
 			align-self: center;
 			width: 300px;
@@ -200,13 +199,12 @@
 	}
 
 	.modal {
-		width: 271px;
-		height: 393px;
+		width: 270px;
+		height: 470px;
 	}
 	.modal-window {
-		height: 341px;
-	}
-	.modal-window {
+		max-height: 410px;
+		padding: 10px 0;
 		img {
 			display: none;
 		}
