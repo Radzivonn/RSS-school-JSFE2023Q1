@@ -262,10 +262,11 @@
   }
   .modal {
     width: 552px;
-    height: 467px;
+    height: 525px;
   }
   .modal-window {
-    height: 415px;
+    max-height: 470px;
+    height: -webkit-fill-available;
   }
   .modal-window img {
     align-self: center;
@@ -300,11 +301,12 @@
     right: -2px;
   }
   .modal {
-    width: 271px;
-    height: 393px;
+    width: 270px;
+    height: 470px;
   }
   .modal-window {
-    height: 341px;
+    max-height: 410px;
+    padding: 10px 0;
   }
   .modal-window img {
     display: none;
