@@ -14,7 +14,7 @@ let lastSliderState = []; // cards numbers
 export const sliderInit = () => {
 	document.querySelectorAll('.pets-row').forEach(node => node.remove()); 
 	let slides = '';
-	for (let i = 0; i < 3; i++) slides = slides.concat('<div class="pets-row">', getRandomCards(window.screen.width > PCBreakpoint ? 3 : window.screen.width < tabletBreakpoint ? 1 : 2), '</div>');
+	for (let i = 0; i < 3; i++) slides = slides.concat('<div class="pets-row">', getRandomCards(window.screen.width > 1200 ? 3 : window.screen.width < tabletBreakpoint ? 1 : 2), '</div>');
 	slider.insertAdjacentHTML('afterbegin', slides);
 	slider.style.left = `-${document.querySelector('.pets-row').offsetWidth}px`;
 }
