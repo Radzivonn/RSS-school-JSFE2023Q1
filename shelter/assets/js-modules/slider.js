@@ -1,6 +1,6 @@
 import petsDeck from './pets-deck.js';
 import { getRandomNumbers, getCard } from './common-functions.js';
-import { tabletBreakpoint, PCBreakpoint } from '../../assets/js-modules/common-variables.js';
+import { tabletBreakpoint } from '../../assets/js-modules/common-variables.js';
 
 const slider = document.querySelector('.slides');
 const BTN_LEFT = document.querySelector("#button-left");

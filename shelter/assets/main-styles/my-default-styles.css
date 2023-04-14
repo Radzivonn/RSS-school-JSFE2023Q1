@@ -353,7 +353,6 @@ button:active {
 }
 
 .modal-info-block p {
-	/* overflow: hidden; */
 	margin: 40px 0;
 	font-size: 15px;
 	line-height: 110%;
@@ -388,8 +387,6 @@ button:active {
 	width: 12px;
 	height: 12px;
 }
-
 /* Modal Window */
-
 
 /* My default styles */
