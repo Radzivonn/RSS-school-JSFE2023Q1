@@ -21,8 +21,3 @@ document.addEventListener("DOMContentLoaded", () => {
 		pageSwitcher(true);
 	});
 });
-
-	// const paginationDeck = getPaginationDeck(DECK_LENGTH);
-	// petsBlock.insertAdjacentHTML('afterbegin', getPageCards(currentPageNumber));
-	// pageValidation(currentPageNumber);
-	// console.log(paginationDeck);

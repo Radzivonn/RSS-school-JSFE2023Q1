@@ -1,6 +1,5 @@
 import petsDeck from './pets-deck.js';
 import { getRandomNumbers, disableNodes, ableNodes, getCard } from './common-functions.js';
-// import { tabletBreakpoint, PCBreakpoint } from '../../assets/js-modules/common-variables.js';
 
 const DECK_LENGTH = 48;
 let currentPageNumber = 1;
@@ -14,6 +13,13 @@ const activePageButton = document.querySelector('#activePage');
 
 const getPagesAmount = () => window.screen.width > 965 ? 8 : window.screen.width < 663 ? 3 : 6;
 
+/**
+ *returns transformed deck depending on screen resolution
+ * @param {Array} deck current deck
+ * @param {number} deckLength deck length 
+ * @param {number} [cardsAmountOnPage=getPagesAmount()] number of cards per page
+ * @return {Array} transformed deck
+ */
 const transformDeck = (deck, deckLength, cardsAmountOnPage = getPagesAmount()) => {
 	let initialDeck = deck.flat();
 	let transformedDeck = [];
@@ -21,6 +27,12 @@ const transformDeck = (deck, deckLength, cardsAmountOnPage = getPagesAmount()) =
 	return transformedDeck;
 }
 
+/**
+ *returns start deck depending on screen resolution
+ * @param {number} deckLength deck length 
+ * @param {number} [cardsAmountOnPage=getPagesAmount()] number of cards per page
+ * @return {Array} deck
+ */
 const getPaginationDeck = (deckLength, cardsAmountOnPage = getPagesAmount()) => {
 	let deck = [];
 	let randArray = getRandomNumbers(8);
@@ -36,6 +48,11 @@ const getPaginationDeck = (deckLength, cardsAmountOnPage = getPagesAmount()) => 
 	return transformDeck(deck, deckLength, cardsAmountOnPage);
 }
 
+/**
+ *returns a string that will be parsed as HTML and inserted into the document's DOM tree
+ * @param {number} pageNumber page number
+ * @return {string} A string that contains cards HTML layout depending on page number
+ */
 const getPageCards = (pageNumber) => {
 	let cardsNode = '';
 	paginationDeck[pageNumber - 1].forEach(number => cardsNode = cardsNode.concat(getCard(petsDeck[number], number)));

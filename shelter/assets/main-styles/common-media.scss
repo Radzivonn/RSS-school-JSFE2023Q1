@@ -115,12 +115,11 @@
 	.menuBG {
 		background-color: rgba(0, 0, 0, 0);
 		transition: all 0.4s ease 0s;
-		// transform: translate(100%, 0px);
 		
 		.menu {
 			position: absolute;
 			top: 0;
-			right: -320px;
+			right: -400px;
 			display: flex;
 			flex-direction: column;
 			width: 320px;

@@ -1,4 +1,3 @@
-import { tabletBreakpoint, PCBreakpoint } from '../../assets/js-modules/common-variables.js';
 import petsDeck from '../../assets/js-modules/pets-deck.js';
 
 /**
@@ -19,7 +18,7 @@ export const getRandomNumbers = (randNumbersAmount, ignoreNumbers=[], range={min
 export function disableNodes () { for (let key in arguments) arguments[key].disabled = true }
 export function ableNodes () { for (let key in arguments) arguments[key].disabled = false }
 
-
+/* returns a string that contains pet card HTML layout */
 export const getCard = (card, cardNumber) => {
 	return `<div class="pet-card" id=${cardNumber + 1}><img src="${card.img}" alt="pet card">
 		<h4> ${card.name} </h4>
@@ -27,6 +26,7 @@ export const getCard = (card, cardNumber) => {
 		</div>`;
 }
 
+/* returns a string that contains modal window HTML layout */
 export const getModalWindow = (card) => {
 	return `<div class="modal-window-BG active">
 		<div class="modal">
@@ -77,5 +77,4 @@ const closeModalWindow = (e) => {
 		document.body.classList.remove('_lock');
 		modalWindow.remove();
 	}
-
 }

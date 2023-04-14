@@ -106,7 +106,7 @@
   .menuBG .menu {
     position: absolute;
     top: 0;
-    right: -320px;
+    right: -400px;
     display: flex;
     flex-direction: column;
     width: 320px;

@@ -126,9 +126,7 @@
 }
 
 .pets-row {
-	// width: 82.5%;
 	position: relative;
-	// right: 0;
 	min-width: $sliderItemWidth;
 	width: auto;
 	height: inherit;
@@ -141,21 +139,18 @@
 	scroll-behavior: smooth;
 	gap: 90px;
 	transition: all 0.5s ease 0s;
-	// gap: 9.09%;
 }
 
 .slider-container {
 	overflow: hidden;
 	width: 1080px;
 	height: 435px;
-		// width: 82.5%;
 }
 
 .slides {
 	display: flex;
 	position: relative;
 	transition: all 1s ease 0s;
-	//gap: 90px;
 	height: inherit;
 }
 
