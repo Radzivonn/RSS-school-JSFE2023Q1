@@ -2,14 +2,28 @@ import getRandomInt from '../helpers/getRandomNumber';
 import createNode from '../helpers/createNode';
 
 export default class MinefieldController {
-	constructor(fieldSize, minesAmount) {
-		this.fieldSize = fieldSize;
-		this.minesAmount = minesAmount;
-		this.minefieldState = this.getMinefield(this.fieldSize); // array of field state
-		this.placeMines();
+	constructor(gameSettings) {
+		this.gameSettings = gameSettings;
+		this.fieldSizes = {
+			easy: {
+				sizeX: 10,
+				sizeY: 10,
+			},
+			medium: {
+				sizeX: 15,
+				sizeY: 15,
+			},
+			hard: {
+				sizeX: 25,
+				sizeY: 25,
+			},
+		};
+		this.fieldSize = this.fieldSizes[this.gameSettings.difficulty];
+		this.minefieldState = this.getEmptyMinefield(); // array of field state
+		this.minefieldState = this.placeMines(this.minefieldState);
 	}
 
-	getMinefield() {
+	getEmptyMinefield() {
 		const minefield = [];
 		for (let y = 0; y < this.fieldSize.sizeY; y += 1) {
 			const minefieldRow = [];
@@ -21,16 +35,18 @@ export default class MinefieldController {
 		return minefield;
 	}
 
-	placeMines() {
-		const mines = this.minesAmount;
+	placeMines(field) {
+		const resultField = field;
+		const mines = this.gameSettings.minesAmount;
 		for (let i = mines; i > 0;) {
 			const randY = getRandomInt(0, this.fieldSize.sizeY);
 			const randX = getRandomInt(0, this.fieldSize.sizeX);
-			if (this.minefieldState[randY][randX] === '') {
-				this.minefieldState[randY][randX] = 'bomb';
+			if (resultField[randY][randX] === '') {
+				resultField[randY][randX] = 'bomb';
 				i -= 1;
 			}
 		}
+		return resultField;
 	}
 
 	getMinefieldNode() {
