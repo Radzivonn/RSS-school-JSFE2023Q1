@@ -1,3 +1,5 @@
+import createNode from './createNode';
+
 const lightThemeIconPath = require('../../assets/svg/light-theme-icon.svg');
 const darkThemeIconPath = require('../../assets/svg/dark-theme-icon.svg');
 
@@ -11,7 +13,7 @@ export const getSettingsWidgetLayout = (gameSettings, colorTheme) => `
 	<div class="change-mines-amount">
 		<p> Mines amount </p>
 		<input class="change-mines-amount__bar" type="range" min="10" max="99" step="1" value="${gameSettings.minesAmount}">
-		<output class="range-value"> ${gameSettings.minesAmount} </output>
+		<output class="mines-amount"> ${gameSettings.minesAmount} </output>
 	</div>
 	<select class="game-difficulty">
 		<option class="game-difficulty__option" value="easy"> easy </option>
@@ -22,8 +24,25 @@ export const getSettingsWidgetLayout = (gameSettings, colorTheme) => `
 
 export const getInterfaceLayout = (gameSettings) => `
 <section class="info-section">
-	<output class="mines-amount"> ${gameSettings.minesAmount} </output>
+	<output class="clicks-amount"> ${gameSettings.clicksAmount} </output>
 	<button class="reset-button"> new game </button>
 	<time class="game-time"> ${gameSettings.gameTime} </time>
 	<div class="settings-button"></div>
 </section>`;
+
+export const getMinesCounterLayout = (gameSettings) => `
+	<output class="mines-counter"> Mines ${gameSettings.minesAmount} </output>`;
+
+export const getMinefieldNode = (minefield) => {
+	const minefieldSection = createNode('section', 'mine-field');
+	minefield.forEach((row) => {
+		const rowNode = createNode('div', 'mine-field__row');
+		row.forEach((cell) => {
+			const cellNode = createNode('div', 'mine-field__cell');
+			if (cell === 'bomb') cellNode.classList.add('bomb');
+			rowNode.append(cellNode);
+		});
+		minefieldSection.append(rowNode);
+	});
+	return minefieldSection;
+};
