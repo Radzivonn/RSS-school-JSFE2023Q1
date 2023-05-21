@@ -5,7 +5,6 @@
 .wrapper {
 	&.light {
 		@import './light-mode-vars.scss';
-		// @include light-theme-vars;
 		@include wrapper;
 		color: $themeColor;
 		background-color: $themeBGColor;
@@ -13,7 +12,6 @@
 	}
 	&.dark {
 		@import './dark-mode-vars.scss';
-		// @include dark-theme-vars;
 		@include wrapper;
 		color: $themeColor;
 		background-color: $themeBGColor;
