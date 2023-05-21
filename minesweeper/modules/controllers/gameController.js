@@ -35,14 +35,18 @@ export default class GameController {
 	init() {
 		this.setPageLayout();
 		this.setEventListeners();
+		this.startGameTimer();
 	}
 
 	reloadGame() {
 		this.gameSettings = structuredClone(this.tempSettings);
 		this.minefield = getMinefieldState(this.gameSettings);
+		this.gameSettings.clicksAmount = 0;
 		this.setGameSettings();
 		document.querySelector('.wrapper').remove();
 		this.init();
+		this.displayClicks();
+		this.resetGameTimer();
 	}
 
 	/* get game settings from local storage and writes it to this.gameSettings */
@@ -77,5 +81,87 @@ export default class GameController {
 		gameField.insertAdjacentHTML('beforeend', getMinesCounterLayout(settings));
 		wrapper.append(pageHeader, gameField);
 		document.body.prepend(wrapper);
+	}
+
+	setEventListeners() {
+		const difficultyOptions = document.querySelectorAll('.game-difficulty option');
+		const selectedDifficulty = document.querySelector(`option[value=${this.gameSettings.difficulty}]`);
+		difficultyOptions.forEach((elem) => elem.removeAttribute('selected'));
+		selectedDifficulty.setAttribute('selected', '');
+
+		document.querySelector('.reset-button').addEventListener('click', () => this.reloadGame());
+
+		const settingsButton = document.querySelector('.settings-button');
+		const settingsWidget = document.querySelector('.settings-modal');
+		settingsButton.addEventListener('click', () => settingsWidget.classList.toggle('active'));
+		settingsWidget.addEventListener('click', this.settingsHandler.bind(this));
+
+		const minesAmountBar = document.querySelector('.change-mines-amount__bar');
+		minesAmountBar.addEventListener('input', this.minesAmountHandler.bind(this));
+
+		const difficultyList = document.querySelector('.game-difficulty');
+		difficultyList.addEventListener('change', this.difficultyHandler.bind(this));
+
+		const minefield = document.querySelector('.mine-field');
+		minefield.addEventListener('click', this.fieldClicksHandler.bind(this));
+	}
+
+	startGameTimer() {
+		this.timer = setInterval(this.updateGameTimer.bind(this), 1000);
+	}
+
+	updateGameTimer() {
+		this.gameSettings.gameTime += 1;
+		this.displayGameTime();
+	}
+
+	resetGameTimer() {
+		this.gameSettings.gameTime = 0;
+		this.displayGameTime();
+		clearInterval(this.timer);
+	}
+
+	displayGameTime() {
+		const gameTimeWidget = document.querySelector('.game-time');
+		gameTimeWidget.textContent = +this.gameSettings.gameTime;
+	}
+
+	fieldClicksHandler() {
+		this.gameSettings.clicksAmount += 1;
+		this.displayClicks();
+	}
+
+	displayClicks() {
+		const clicksAmountWidget = document.querySelector('.clicks-amount');
+		clicksAmountWidget.textContent = this.gameSettings.clicksAmount;
+	}
+
+	settingsHandler(e) {
+		const clickElem = e.target;
+		if (clickElem.closest('.theme-toggle')) {
+			const themeIcons = document.querySelectorAll('.theme-icon');
+			themeIcons.forEach((elem) => elem.classList.remove('active'));
+			document.querySelector('.wrapper').classList.remove(`${this.colorTheme}`);
+
+			this.colorTheme = this.colorTheme === 'light' ? 'dark' : 'light';
+			document.getElementById(`${this.colorTheme}-theme`).classList.add('active');
+			document.querySelector('.wrapper').classList.add(`${this.colorTheme}`);
+		}
+	}
+
+	minesAmountHandler(e) {
+		this.setMinesAmount(e.target.value);
+	}
+
+	setMinesAmount(amount) {
+		const minesAmountDisplay = document.querySelector('.mines-amount');
+		minesAmountDisplay.textContent = amount;
+		this.tempSettings.minesAmount = Number(amount);
+	}
+
+	difficultyHandler(e) {
+		this.tempSettings.difficulty = e.target.value;
+		this.tempSettings.fieldSize = fieldSizes[this.tempSettings.difficulty];
+		this.setMinesAmount(this.tempSettings.fieldSize.minesAmount);
 	}
 }
