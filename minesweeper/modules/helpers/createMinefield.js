@@ -26,5 +26,9 @@ const placeMines = (field, gameSettings) => {
 	return resultField;
 };
 
-const getMinefieldState = gameSettings => placeMines(getEmptyMinefield(gameSettings), gameSettings);
+const getMinefieldState = (gameSettings) => placeMines(
+	getEmptyMinefield(gameSettings),
+	gameSettings,
+);
+
 export default getMinefieldState;
