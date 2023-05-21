@@ -1,0 +1,9 @@
+@mixin wrapper {
+	width: 100vw;
+	height: 100vh;
+	overflow-x: hidden;
+	margin: 0 auto;
+	padding-top: 40px;
+	font-family: 'Digital Numbers Regular';
+	font-weight: 700;
+}

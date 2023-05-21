@@ -1,0 +1,23 @@
+@import './nullstyle.css';
+@import './fonts.scss';
+@import './mixins.scss';
+
+.wrapper {
+	&.light {
+		@import './light-mode-vars.scss';
+		// @include light-theme-vars;
+		@include wrapper;
+		color: $themeColor;
+		background-color: $themeBGColor;
+		@import './style.scss';
+	}
+	&.dark {
+		@import './dark-mode-vars.scss';
+		// @include dark-theme-vars;
+		@include wrapper;
+		color: $themeColor;
+		background-color: $themeBGColor;
+		text-shadow: 1px 0 1px rgb(52 52 52), 0 1px 1px rgb(52 52 52), -1px 0 1px rgb(52 52 52), 0 -1px 1px rgb(52 52 52);
+		@import './style.scss';
+	}
+}
