@@ -126,14 +126,34 @@ export default class GameController {
 		gameTimeWidget.textContent = +this.gameSettings.gameTime;
 	}
 
-	fieldClicksHandler() {
-		this.gameSettings.clicksAmount += 1;
-		this.displayClicks();
+	fieldClicksHandler(e) {
+		if (
+			e.target.classList.contains('mine-field__cell')
+			&& !e.target.classList.contains('opened-cell')
+		) {
+			this.gameSettings.clicksAmount += 1;
+			this.displayClicks();
+			this.openCell(e.target);
+		}
 	}
 
 	displayClicks() {
 		const clicksAmountWidget = document.querySelector('.clicks-amount');
 		clicksAmountWidget.textContent = this.gameSettings.clicksAmount;
+	}
+
+	openCell(clickedCell) {
+		const cellID = clickedCell.id;
+		const cordY = cellID.slice(0, cellID.indexOf('.'));
+		const cordX = cellID.slice(cellID.indexOf('.') + 1);
+		if (this.minefield[cordY][cordX].isMined === true) {
+			this.gameSettings.gameState = 'lost';
+			this.finishGame();
+		} else {
+			this.minefield[cordY][cordX].isOpened = true;
+			const clickedCellNode = document.getElementById(`${cellID}`);
+			clickedCellNode.classList.add('opened-cell');
+		}
 	}
 
 	settingsHandler(e) {
