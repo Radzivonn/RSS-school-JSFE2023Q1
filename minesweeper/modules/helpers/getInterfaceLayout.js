@@ -52,3 +52,9 @@ export const getMinefieldNode = (minefield) => {
 
 	return minefieldSection;
 };
+
+export const getFinishModalLayout = () => `
+<div class="finish-modal">
+	<h2 class="finish-message"></h2>
+	<button class="reset-button"> new game </button>
+</div>`;
