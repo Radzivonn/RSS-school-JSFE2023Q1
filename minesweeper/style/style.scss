@@ -211,9 +211,9 @@
 	&:active {
 		background-color: $activeColor;
 	}
-	&.opened {
+	&.opened-cell {
 		background-color: $openedCellColor;
-		&.bomb {
+		&.mined-cell {
 			background: center/cover url('../assets/images/mine.png') black;
 		}
 	}
