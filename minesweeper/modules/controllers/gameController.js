@@ -7,7 +7,7 @@ import {
 	getFinishModalLayout,
 } from '../helpers/getInterfaceLayout';
 import { defaultGameSettings, defaultColorTheme } from '../helpers/defaultGameSettings';
-import getMinefieldState from '../helpers/createMinefield';
+import { getEmptyMinefield, placeMines, countAllMinedNeighbors } from '../helpers/createMinefield';
 
 const fieldSizes = {
 	easy: {
@@ -33,7 +33,7 @@ export default class GameController {
 			this.getGameSettings();
 			this.init();
 		});
-		window.addEventListener('unload', () => this.setGameSettings()); // TODO
+		// window.addEventListener('unload', () => this.setGameSettings()); // TODO
 		setInterval(this.updateGameTimer.bind(this), 1000); // start timer
 	}
 
@@ -58,9 +58,10 @@ export default class GameController {
 
 	resetSettings() {
 		this.gameSettings = structuredClone(this.tempSettings);
-		this.minefield = getMinefieldState(this.gameSettings);
+		this.minefield = getEmptyMinefield(this.gameSettings);
 		this.gameSettings.clicksAmount = defaultGameSettings.clicksAmount;
 		this.gameSettings.gameState = defaultGameSettings.gameState;
+		this.gameSettings.isFirstMoveCompleted = false;
 	}
 
 	resetInterface() {
@@ -78,7 +79,9 @@ export default class GameController {
 		else this.colorTheme = JSON.parse(localStorage.getItem('colorTheme'));
 
 		if (localStorage.getItem('minefield')) this.minefield = JSON.parse(localStorage.getItem('minefield'));
-		else this.minefield = getMinefieldState(this.gameSettings);
+		else this.minefield = getEmptyMinefield(this.gameSettings);
+		console.log(this.minefield);
+		
 	}
 
 	/* write game settings to local storage */
@@ -124,6 +127,10 @@ export default class GameController {
 		const difficultyList = document.querySelector('.game-difficulty');
 		difficultyList.addEventListener('change', this.difficultyHandler.bind(this));
 
+		this.setFieldListener();
+	}
+
+	setFieldListener() {
 		const minefield = document.querySelector('.mine-field');
 		minefield.addEventListener('click', this.fieldClicksHandler.bind(this));
 	}
@@ -181,6 +188,28 @@ export default class GameController {
 			this.gameSettings.gameState = 'Lose';
 			this.toggleFinishModal();
 		}
+
+		if (!this.gameSettings.isFirstMoveCompleted) {
+			this.gameSettings.isFirstMoveCompleted = true;
+			this.minefield = placeMines(this.minefield, this.gameSettings);
+			document.querySelector('.mine-field').remove();
+			document.querySelector('.info-section').after(getMinefieldNode(this.minefield));
+			this.setFieldListener();
+			this.minefield = countAllMinedNeighbors(this.minefield);
+			this.writeNeighborsAmount();
+		}
+	}
+
+	writeNeighborsAmount() {
+		document.querySelectorAll('.mine-field__cell').forEach((cell) => {
+			cell.classList.add('opened-cell');
+			const cellID = cell.id;
+			const y = parseInt(cellID.slice(0, cellID.indexOf('.')), 10);
+			const x = parseInt(cellID.slice(cellID.indexOf('.') + 1), 10);
+			if (this.minefield[y][x].minedNeighbors > 0) {
+				cell.textContent = this.minefield[y][x].minedNeighbors;
+			}
+		});
 	}
 
 	toggleFinishModal() {
