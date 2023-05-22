@@ -219,6 +219,26 @@
 	}
 }
 
+.finish-modal {
+	display: none;
+	&.active {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 20px;
+		position: absolute;
+		top: 50%;
+		transform: translate(0, -50%);
+    width: auto;
+    height: 185px;
+		font-size: 48px;
+		color: $themeColor;
+		background-color: $defaultColor;
+		padding: 15px;
+		border: 5px solid $borderColor;
+	}
+}
+
 @media(max-width: 510px) {
 	.mine-field__cell {
 		width: 18px;
