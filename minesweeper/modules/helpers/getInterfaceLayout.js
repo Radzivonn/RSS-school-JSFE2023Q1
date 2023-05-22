@@ -33,23 +33,21 @@ export const getInterfaceLayout = (gameSettings) => `
 export const getMinesCounterLayout = (gameSettings) => `
 	<output class="mines-counter"> Mines ${gameSettings.minesAmount} </output>`;
 
-export const getMinefieldNode = (minefield) => {
+export const getMinefieldNode = (field) => {
 	const minefieldSection = createNode('section', 'mine-field');
-
-	Object.entries(minefield).forEach(([rowID, rowObject]) => {
+	for (let cordY = 1; cordY < field.length - 1; cordY += 1) {
+		const fieldRow = field[cordY];
 		const rowNode = createNode('div', 'mine-field__row');
-
-		Object.entries(rowObject).forEach(([cellID, cellObject]) => {
+		for (let cordX = 1; cordX < fieldRow.length - 1; cordX += 1) {
 			const cellNode = createNode('div', 'mine-field__cell');
-			cellNode.id = ''.concat(rowID, '.', cellID);
-			if (cellObject.isMined === true) cellNode.classList.add('mined-cell');
-			else if (cellObject.isOpened === true) cellNode.classList.add('opened-cell');
+			const cell = fieldRow[cordX];
+			cellNode.id = ''.concat(cordY, '.', cordX);
+			if (cell.isMined === true) cellNode.classList.add('mined-cell');
+			if (cell.isOpened === true) cellNode.classList.add('opened-cell');
 			rowNode.append(cellNode);
-		});
-
+		}
 		minefieldSection.append(rowNode);
-	});
-
+	}
 	return minefieldSection;
 };
 
