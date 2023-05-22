@@ -1,28 +1,31 @@
 import getRandomInt from './getRandomNumber';
 
-const getEmptyMinefield = (gameSettings) => {
-	const minefield = {};
-	for (let y = 0; y < gameSettings.fieldSize.sizeY; y += 1) {
-		const minefieldRow = {};
-		for (let x = 0; x < gameSettings.fieldSize.sizeX; x += 1) {
-			minefieldRow[`${x}`] = {
+export const getEmptyMinefield = (gameSettings) => {
+	const field = [];
+	for (let y = 0; y < gameSettings.fieldSize.sizeY + 2; y += 1) {
+		const fieldRow = [];
+		for (let x = 0; x < gameSettings.fieldSize.sizeX + 2; x += 1) {
+			fieldRow.push({
 				isMined: false,
 				isOpened: false,
-				minesAmountNearby: 0,
-			};
+				minedNeighbors: 0,
+			});
 		}
-		minefield[`${y}`] = minefieldRow;
+		field.push(fieldRow);
 	}
-	return minefield;
+	return field;
 };
 
-const placeMines = (field, gameSettings) => {
+export const placeMines = (field, gameSettings) => {
 	const resultField = field;
 	const mines = gameSettings.minesAmount;
 	for (let i = mines; i > 0;) {
-		const randY = getRandomInt(0, gameSettings.fieldSize.sizeY);
-		const randX = getRandomInt(0, gameSettings.fieldSize.sizeX);
-		if (resultField[randY][randX].isMined === false) {
+		const randY = getRandomInt(1, gameSettings.fieldSize.sizeY + 1);
+		const randX = getRandomInt(1, gameSettings.fieldSize.sizeX + 1);
+		if (
+			resultField[randY][randX].isMined === false
+			&& resultField[randY][randX].isOpened === false
+		) {
 			resultField[randY][randX].isMined = true;
 			i -= 1;
 		}
@@ -30,9 +33,25 @@ const placeMines = (field, gameSettings) => {
 	return resultField;
 };
 
-const getMinefieldState = (gameSettings) => placeMines(
-	getEmptyMinefield(gameSettings),
-	gameSettings,
-);
+const countMinedNeighbors = (field, cordY, cordX) => {
+	let neighbors = field[cordY][cordX].isMined ? -1 : 0;
+	for (let i = -1; i < 2; i += 1) {
+		for (let j = -1; j < 2; j += 1) {
+			if (field[cordY + i][cordX + j].isMined) neighbors += 1;
+		}
+	}
+	return neighbors;
+};
 
-export default getMinefieldState;
+export const countAllMinedNeighbors = (field) => {
+	const resultField = field;
+	for (let cordY = 1; cordY < resultField.length - 1; cordY += 1) {
+		const fieldRow = resultField[cordY];
+		for (let cordX = 1; cordX < fieldRow.length - 1; cordX += 1) {
+			if (!resultField[cordY][cordX].isMined) {
+				resultField[cordY][cordX].minedNeighbors = countMinedNeighbors(resultField, cordY, cordX);
+			}
+		}
+	}
+	return resultField;
+};
