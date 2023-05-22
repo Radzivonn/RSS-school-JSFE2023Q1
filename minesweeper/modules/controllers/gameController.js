@@ -180,13 +180,14 @@ export default class GameController {
 		const cellID = clickedCell.id;
 		const cordY = cellID.slice(0, cellID.indexOf('.'));
 		const cordX = cellID.slice(cellID.indexOf('.') + 1);
-		this.minefield[cordY][cordX].isOpened = true;
-		const clickedCellNode = document.getElementById(`${cellID}`);
-		clickedCellNode.classList.add('opened-cell');
-
+		
 		if (this.minefield[cordY][cordX].isMined === true) {
 			this.gameSettings.gameState = 'Lose';
 			this.toggleFinishModal();
+		} else {
+			this.minefield[cordY][cordX].isOpened = true;
+			const clickedCellNode = document.getElementById(`${cellID}`);
+			clickedCellNode.classList.add('opened-cell');
 		}
 
 		if (!this.gameSettings.isFirstMoveCompleted) {
