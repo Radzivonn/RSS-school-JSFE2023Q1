@@ -1,6 +1,10 @@
 import createNode from '../helpers/createNode';
 import {
- getSettingsWidgetLayout, getInterfaceLayout, getMinesCounterLayout, getMinefieldNode,
+	getSettingsWidgetLayout,
+	getInterfaceLayout,
+	getMinesCounterLayout,
+	getMinefieldNode,
+	getFinishModalLayout,
 } from '../helpers/getInterfaceLayout';
 import { defaultGameSettings, defaultColorTheme } from '../helpers/defaultGameSettings';
 import getMinefieldState from '../helpers/createMinefield';
@@ -30,23 +34,38 @@ export default class GameController {
 			this.init();
 		});
 		window.addEventListener('unload', () => this.setGameSettings()); // TODO
+		setInterval(this.updateGameTimer.bind(this), 1000); // start timer
 	}
 
 	init() {
 		this.setPageLayout();
 		this.setEventListeners();
-		this.startGameTimer();
+		if (this.gameSettings.gameState !== 'In progress') {
+			this.toggleFinishModal();
+		} else {
+			this.startGameTimer();
+		}
 	}
 
 	reloadGame() {
-		this.gameSettings = structuredClone(this.tempSettings);
-		this.minefield = getMinefieldState(this.gameSettings);
-		this.gameSettings.clicksAmount = 0;
+		this.resetSettings();
+		this.resetGameTimer();
 		this.setGameSettings();
 		document.querySelector('.wrapper').remove();
 		this.init();
+		this.resetInterface();
+	}
+
+	resetSettings() {
+		this.gameSettings = structuredClone(this.tempSettings);
+		this.minefield = getMinefieldState(this.gameSettings);
+		this.gameSettings.clicksAmount = defaultGameSettings.clicksAmount;
+		this.gameSettings.gameState = defaultGameSettings.gameState;
+	}
+
+	resetInterface() {
 		this.displayClicks();
-		this.resetGameTimer();
+		this.displayGameTime();
 	}
 
 	/* get game settings from local storage and writes it to this.gameSettings */
@@ -75,6 +94,7 @@ export default class GameController {
 		const gameField = createNode('article', 'game-field');
 		const pageHeader = createNode('h1', 'game-name');
 		pageHeader.textContent = 'Minesweeper';
+		gameField.insertAdjacentHTML('afterbegin', getFinishModalLayout());
 		gameField.insertAdjacentHTML('afterbegin', getSettingsWidgetLayout(settings, this.colorTheme));
 		gameField.insertAdjacentHTML('beforeend', getInterfaceLayout(settings));
 		gameField.append(getMinefieldNode(this.minefield));
@@ -89,7 +109,9 @@ export default class GameController {
 		difficultyOptions.forEach((elem) => elem.removeAttribute('selected'));
 		selectedDifficulty.setAttribute('selected', '');
 
-		document.querySelector('.reset-button').addEventListener('click', () => this.reloadGame());
+		document.querySelectorAll('.reset-button').forEach((button) => {
+			button.addEventListener('click', () => this.reloadGame());
+		});
 
 		const settingsButton = document.querySelector('.settings-button');
 		const settingsWidget = document.querySelector('.settings-modal');
@@ -107,18 +129,22 @@ export default class GameController {
 	}
 
 	startGameTimer() {
-		this.timer = setInterval(this.updateGameTimer.bind(this), 1000);
+		this.isTimerActive = true;
 	}
 
 	updateGameTimer() {
-		this.gameSettings.gameTime += 1;
-		this.displayGameTime();
+		if (this.isTimerActive) {
+			this.gameSettings.gameTime += 1;
+			this.displayGameTime();
+		}
 	}
 
 	resetGameTimer() {
 		this.gameSettings.gameTime = 0;
-		this.displayGameTime();
-		clearInterval(this.timer);
+	}
+
+	stopGameTimer() {
+		this.isTimerActive = false;
 	}
 
 	displayGameTime() {
@@ -128,8 +154,9 @@ export default class GameController {
 
 	fieldClicksHandler(e) {
 		if (
-			e.target.classList.contains('mine-field__cell')
-			&& !e.target.classList.contains('opened-cell')
+		this.gameSettings.gameState === 'In progress'
+		&& e.target.classList.contains('mine-field__cell')
+		&& !e.target.classList.contains('opened-cell')
 		) {
 			this.gameSettings.clicksAmount += 1;
 			this.displayClicks();
@@ -146,14 +173,22 @@ export default class GameController {
 		const cellID = clickedCell.id;
 		const cordY = cellID.slice(0, cellID.indexOf('.'));
 		const cordX = cellID.slice(cellID.indexOf('.') + 1);
+		this.minefield[cordY][cordX].isOpened = true;
+		const clickedCellNode = document.getElementById(`${cellID}`);
+		clickedCellNode.classList.add('opened-cell');
+
 		if (this.minefield[cordY][cordX].isMined === true) {
-			this.gameSettings.gameState = 'lost';
-			this.finishGame();
-		} else {
-			this.minefield[cordY][cordX].isOpened = true;
-			const clickedCellNode = document.getElementById(`${cellID}`);
-			clickedCellNode.classList.add('opened-cell');
+			this.gameSettings.gameState = 'Lose';
+			this.toggleFinishModal();
 		}
+	}
+
+	toggleFinishModal() {
+		const finishGameModal = document.querySelector('.finish-modal');
+		const finishMessage = document.querySelector('.finish-message');
+		finishMessage.textContent = `You ${this.gameSettings.gameState}!!!`;
+		finishGameModal.classList.add('active');
+		this.stopGameTimer();
 	}
 
 	settingsHandler(e) {
