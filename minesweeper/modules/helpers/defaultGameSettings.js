@@ -2,7 +2,8 @@ export const defaultGameSettings = {
 	difficulty: 'easy',
 	minesAmount: 10,
 	gameTime: 0,
-	gameState: 'in progress',
+	gameState: 'In progress',
+	isFirstMoveCompleted: false,
 	clicksAmount: 0,
 	fieldSize: {
 		sizeX: 10,
