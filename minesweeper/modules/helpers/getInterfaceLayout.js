@@ -35,14 +35,20 @@ export const getMinesCounterLayout = (gameSettings) => `
 
 export const getMinefieldNode = (minefield) => {
 	const minefieldSection = createNode('section', 'mine-field');
-	minefield.forEach((row) => {
+
+	Object.entries(minefield).forEach(([rowID, rowObject]) => {
 		const rowNode = createNode('div', 'mine-field__row');
-		row.forEach((cell) => {
+
+		Object.entries(rowObject).forEach(([cellID, cellObject]) => {
 			const cellNode = createNode('div', 'mine-field__cell');
-			if (cell === 'bomb') cellNode.classList.add('bomb');
+			cellNode.id = ''.concat(rowID, '.', cellID);
+			if (cellObject.isMined === true) cellNode.classList.add('mined-cell');
+			else if (cellObject.isOpened === true) cellNode.classList.add('opened-cell');
 			rowNode.append(cellNode);
 		});
+
 		minefieldSection.append(rowNode);
 	});
+
 	return minefieldSection;
 };
