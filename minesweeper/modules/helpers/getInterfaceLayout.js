@@ -35,6 +35,7 @@ export const getMinesCounterLayout = (gameSettings) => `
 
 export const getMinefieldNode = (field) => {
 	const minefieldSection = createNode('section', 'mine-field');
+	minefieldSection.setAttribute('oncontextmenu', 'return false');
 	for (let cordY = 1; cordY < field.length - 1; cordY += 1) {
 		const fieldRow = field[cordY];
 		const rowNode = createNode('div', 'mine-field__row');
