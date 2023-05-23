@@ -217,6 +217,9 @@
 			background: center/cover url('../assets/images/mine.png') black;
 		}
 	}
+	&.marked {
+		background: center/cover url('../assets/images/flag.png') $defaultColor;
+	}
 }
 
 .finish-modal {
