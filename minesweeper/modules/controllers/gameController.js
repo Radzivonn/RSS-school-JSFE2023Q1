@@ -33,7 +33,7 @@ export default class GameController {
 			this.getGameSettings();
 			this.init();
 		});
-		// window.addEventListener('unload', () => this.setGameSettings()); // TODO
+		window.addEventListener('unload', () => this.setGameSettings()); // TODO
 		setInterval(this.updateGameTimer.bind(this), 1000); // start timer
 	}
 
@@ -45,6 +45,7 @@ export default class GameController {
 		} else {
 			this.startGameTimer();
 		}
+		this.displayNeighborsAmount();
 	}
 
 	reloadGame() {
@@ -80,8 +81,6 @@ export default class GameController {
 
 		if (localStorage.getItem('minefield')) this.minefield = JSON.parse(localStorage.getItem('minefield'));
 		else this.minefield = getEmptyMinefield(this.gameSettings);
-		console.log(this.minefield);
-		
 	}
 
 	/* write game settings to local storage */
@@ -178,17 +177,10 @@ export default class GameController {
 
 	openCell(clickedCell) {
 		const cellID = clickedCell.id;
-		const cordY = cellID.slice(0, cellID.indexOf('.'));
-		const cordX = cellID.slice(cellID.indexOf('.') + 1);
-		
-		if (this.minefield[cordY][cordX].isMined === true) {
-			this.gameSettings.gameState = 'Lose';
-			this.toggleFinishModal();
-		} else {
-			this.minefield[cordY][cordX].isOpened = true;
-			const clickedCellNode = document.getElementById(`${cellID}`);
-			clickedCellNode.classList.add('opened-cell');
-		}
+		const cordY = parseInt(cellID.slice(0, cellID.indexOf('.')), 10);
+		const cordX = parseInt(cellID.slice(cellID.indexOf('.') + 1), 10);
+		const clickedCellNode = document.getElementById(`${cellID}`);
+		clickedCellNode.classList.add('opened-cell');
 
 		if (!this.gameSettings.isFirstMoveCompleted) {
 			this.gameSettings.isFirstMoveCompleted = true;
@@ -197,18 +189,50 @@ export default class GameController {
 			document.querySelector('.info-section').after(getMinefieldNode(this.minefield));
 			this.setFieldListener();
 			this.minefield = countAllMinedNeighbors(this.minefield);
-			this.writeNeighborsAmount();
+		}
+
+		if (this.minefield[cordY][cordX].isMined === true) {
+			this.minefield[cordY][cordX].isOpened = true;
+			this.gameSettings.gameState = 'Lose';
+			this.toggleFinishModal();
+		} else {
+			this.checkCell(cordY, cordX);
+		}
+
+		this.displayNeighborsAmount();
+	}
+
+	checkCell(y, x) {
+		const cell = this.minefield[y][x];
+		if (this.isCellRelated(cell, y, x)) return;
+		cell.isOpened = true;
+		const cellNode = document.getElementById(`${y}.${x}`);
+		cellNode.classList.add('opened-cell');
+		for (let dy = -1; dy < 2; dy += 1) {
+			for (let dx = -1; dx < 2; dx += 1) {
+				if (Math.abs(dy - dx) === 1) {
+					if (cell.minedNeighbors === 0) this.checkCell(y + dy, x + dx);
+				}
+			}
 		}
 	}
 
-	writeNeighborsAmount() {
-		document.querySelectorAll('.mine-field__cell').forEach((cell) => {
-			cell.classList.add('opened-cell');
+	isCellRelated(cell, y, x) {
+		return cell.isOpened
+			|| cell.isMined
+			|| y < 1 || x < 1
+			|| y > this.minefield.length - 2
+			|| x > this.minefield[y].length - 2;
+	}
+
+	displayNeighborsAmount() {
+		document.querySelectorAll('.mine-field__cell.opened-cell').forEach((cell) => {
+			// cell.classList.add('opened-cell');
 			const cellID = cell.id;
 			const y = parseInt(cellID.slice(0, cellID.indexOf('.')), 10);
 			const x = parseInt(cellID.slice(cellID.indexOf('.') + 1), 10);
 			if (this.minefield[y][x].minedNeighbors > 0) {
-				cell.textContent = this.minefield[y][x].minedNeighbors;
+				document.getElementById(cellID).textContent = this.minefield[y][x].minedNeighbors;
 			}
 		});
 	}
