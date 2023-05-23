@@ -146,7 +146,7 @@ export default class GameController {
 	}
 
 	updateGameTimer() {
-		if (this.isTimerActive) {
+		if (this.isTimerActive && this.gameSettings.isFirstMoveCompleted) {
 			this.gameSettings.gameTime += 1;
 			this.displayGameTime();
 		}
