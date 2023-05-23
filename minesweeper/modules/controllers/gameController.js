@@ -7,7 +7,13 @@ import {
 	getFinishModalLayout,
 } from '../helpers/getInterfaceLayout';
 import { defaultGameSettings, defaultColorTheme } from '../helpers/defaultGameSettings';
-import { getEmptyMinefield, placeMines, countAllMinedNeighbors } from '../helpers/createMinefield';
+import {
+	getEmptyMinefield,
+	placeMines,
+	countAllMinedNeighbors,
+	allMinesFound,
+	checkCell,
+} from '../helpers/createMinefield';
 
 const fieldSizes = {
 	easy: {
@@ -196,33 +202,13 @@ export default class GameController {
 			this.gameSettings.gameState = 'Lose';
 			this.toggleFinishModal();
 		} else {
-			this.checkCell(cordY, cordX);
-		}
-
-		this.displayNeighborsAmount();
-	}
-
-	checkCell(y, x) {
-		const cell = this.minefield[y][x];
-		if (this.isCellRelated(cell, y, x)) return;
-		cell.isOpened = true;
-		const cellNode = document.getElementById(`${y}.${x}`);
-		cellNode.classList.add('opened-cell');
-		for (let dy = -1; dy < 2; dy += 1) {
-			for (let dx = -1; dx < 2; dx += 1) {
-				if (Math.abs(dy - dx) === 1) {
-					if (cell.minedNeighbors === 0) this.checkCell(y + dy, x + dx);
-				}
+			checkCell(this.minefield, cordY, cordX);
+			if (allMinesFound(this.minefield, this.gameSettings.minesAmount)) {
+				this.gameSettings.gameState = 'Won';
+				this.toggleFinishModal();
 			}
 		}
-	}
-
-	isCellRelated(cell, y, x) {
-		return cell.isOpened
-			|| cell.isMined
-			|| y < 1 || x < 1
-			|| y > this.minefield.length - 2
-			|| x > this.minefield[y].length - 2;
+		this.displayNeighborsAmount();
 	}
 
 	displayNeighborsAmount() {

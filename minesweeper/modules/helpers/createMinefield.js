@@ -57,3 +57,40 @@ export const countAllMinedNeighbors = (field) => {
 	}
 	return resultField;
 };
+
+const getOpenedCellsAmount = (field) => {
+	let counter = 0;
+	for (let i = 1; i < field.length - 1; i += 1) {
+		for (let j = 1; j < field[0].length - 1; j += 1) {
+			if (field[i][j].isOpened) counter += 1;
+		}
+	}
+	return counter;
+};
+
+export const allMinesFound = (field, minesAmount) => {
+	const cellsAmount = (field.length - 2) * (field[0].length - 2);
+	const openedCellsAmount = getOpenedCellsAmount(field);
+	return cellsAmount - openedCellsAmount === minesAmount;
+};
+
+const isCellRelated = (field, cell, y, x) => cell.isOpened
+	|| cell.isMined
+	|| y < 1 || x < 1
+	|| y > field.length - 2
+	|| x > field[y].length - 2;
+
+export const checkCell = (field, y, x) => {
+	const cell = field[y][x];
+	if (isCellRelated(field, cell, y, x)) return;
+	cell.isOpened = true;
+	const cellNode = document.getElementById(`${y}.${x}`);
+	cellNode.classList.add('opened-cell');
+	for (let dy = -1; dy < 2; dy += 1) {
+		for (let dx = -1; dx < 2; dx += 1) {
+			if (Math.abs(dy - dx) === 1) {
+				if (cell.minedNeighbors === 0) checkCell(field, y + dy, x + dx);
+			}
+		}
+	}
+};
