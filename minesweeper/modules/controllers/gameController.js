@@ -14,6 +14,7 @@ import {
 	allMinesFound,
 	checkCell,
 } from '../helpers/createMinefield';
+import getCordinatesByID from '../helpers/getCordinatesByID';
 
 const fieldSizes = {
 	easy: {
@@ -183,8 +184,7 @@ export default class GameController {
 
 	openCell(clickedCell) {
 		const cellID = clickedCell.id;
-		const cordY = parseInt(cellID.slice(0, cellID.indexOf('.')), 10);
-		const cordX = parseInt(cellID.slice(cellID.indexOf('.') + 1), 10);
+		const [cordX, cordY] = getCordinatesByID(cellID);
 		const clickedCellNode = document.getElementById(`${cellID}`);
 		clickedCellNode.classList.add('opened-cell');
 
@@ -211,12 +211,22 @@ export default class GameController {
 		this.displayNeighborsAmount();
 	}
 
+	openAllCells() {
+		document.querySelectorAll('.mine-field__cell').forEach((cell) => {
+			if (!cell.classList.contains('opened-cell')) {
+				const cellID = cell.id;
+				const [x, y] = getCordinatesByID(cellID);
+				cell.classList.add('opened-cell');
+				this.minefield[y][x].isOpened = true;
+			}
+		});
+	}
+
 	displayNeighborsAmount() {
 		document.querySelectorAll('.mine-field__cell.opened-cell').forEach((cell) => {
 			// cell.classList.add('opened-cell');
 			const cellID = cell.id;
-			const y = parseInt(cellID.slice(0, cellID.indexOf('.')), 10);
-			const x = parseInt(cellID.slice(cellID.indexOf('.') + 1), 10);
+			const [x, y] = getCordinatesByID(cellID);
 			if (this.minefield[y][x].minedNeighbors > 0) {
 				document.getElementById(cellID).textContent = this.minefield[y][x].minedNeighbors;
 			}
@@ -224,6 +234,7 @@ export default class GameController {
 	}
 
 	toggleFinishModal() {
+		this.openAllCells();
 		const finishGameModal = document.querySelector('.finish-modal');
 		const finishMessage = document.querySelector('.finish-message');
 		finishMessage.textContent = `You ${this.gameSettings.gameState}!!!`;
