@@ -6,6 +6,8 @@ export const getEmptyMinefield = (gameSettings) => {
 		const fieldRow = [];
 		for (let x = 0; x < gameSettings.fieldSize.sizeX + 2; x += 1) {
 			fieldRow.push({
+				y: y,
+				x: x,
 				isMined: false,
 				isOpened: false,
 				minedNeighbors: 0,
