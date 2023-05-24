@@ -220,6 +220,30 @@
 	&.marked-cell {
 		background: center/cover url('../assets/images/flag.png') $defaultColor;
 	}
+	&.neighbors-1 {
+		color: blue;
+	}
+	&.neighbors-2 {
+		color: green;
+	}
+	&.neighbors-3 {
+		color: red;
+	}
+	&.neighbors-4 {
+		color: darkblue;
+	}
+	&.neighbors-5 {
+		color: brown;
+	}
+	&.neighbors-6 {
+		color: aquamarine;
+	}
+	&.neighbors-7 {
+		color: black;
+	}
+	&.neighbors-8 {
+		color: whitesmoke;
+	}
 }
 
 .finish-modal {

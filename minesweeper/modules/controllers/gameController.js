@@ -283,8 +283,10 @@ export default class GameController {
 		document.querySelectorAll('.mine-field__cell.opened-cell').forEach((cell) => {
 			const cellID = cell.id;
 			const [x, y] = getCordinatesByID(cellID);
-			if (this.minefield[y][x].minedNeighbors > 0) {
-				document.getElementById(cellID).textContent = this.minefield[y][x].minedNeighbors;
+			const { minedNeighbors } = this.minefield[y][x];
+			if (minedNeighbors > 0) {
+				cell.textContent = minedNeighbors;
+				cell.classList.add(`neighbors-${minedNeighbors}`);
 			}
 		});
 	}
