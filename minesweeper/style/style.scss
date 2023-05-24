@@ -217,7 +217,7 @@
 			background: center/cover url('../assets/images/mine.png') black;
 		}
 	}
-	&.marked {
+	&.marked-cell {
 		background: center/cover url('../assets/images/flag.png') $defaultColor;
 	}
 }
