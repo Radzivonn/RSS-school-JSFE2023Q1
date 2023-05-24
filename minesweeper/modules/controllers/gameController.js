@@ -188,14 +188,7 @@ export default class GameController {
 		const clickedCellNode = document.getElementById(`${cellID}`);
 		clickedCellNode.classList.add('opened-cell');
 
-		if (!this.gameSettings.isFirstMoveCompleted) {
-			this.gameSettings.isFirstMoveCompleted = true;
-			this.minefield = placeMines(this.minefield, this.gameSettings);
-			document.querySelector('.mine-field').remove();
-			document.querySelector('.info-section').after(getMinefieldNode(this.minefield));
-			this.setFieldListener();
-			this.minefield = countAllMinedNeighbors(this.minefield);
-		}
+		if (!this.gameSettings.isFirstMoveCompleted) this.firstMove(cellID);
 
 		if (this.minefield[cordY][cordX].isMined === true) {
 			this.minefield[cordY][cordX].isOpened = true;
@@ -209,6 +202,15 @@ export default class GameController {
 			}
 		}
 		this.displayNeighborsAmount();
+	}
+
+	firstMove(cellID) {
+		this.gameSettings.isFirstMoveCompleted = true;
+		this.minefield = placeMines(this.minefield, this.gameSettings, cellID);
+		document.querySelector('.mine-field').remove();
+		document.querySelector('.info-section').after(getMinefieldNode(this.minefield));
+		this.setFieldListener();
+		this.minefield = countAllMinedNeighbors(this.minefield);
 	}
 
 	openAllCells() {

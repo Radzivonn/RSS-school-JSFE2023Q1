@@ -6,8 +6,8 @@ export const getEmptyMinefield = (gameSettings) => {
 		const fieldRow = [];
 		for (let x = 0; x < gameSettings.fieldSize.sizeX + 2; x += 1) {
 			fieldRow.push({
-				y: y,
-				x: x,
+				y,
+				x,
 				isMined: false,
 				isOpened: false,
 				minedNeighbors: 0,
@@ -18,14 +18,15 @@ export const getEmptyMinefield = (gameSettings) => {
 	return field;
 };
 
-export const placeMines = (field, gameSettings) => {
+export const placeMines = (field, gameSettings, ignoredCellID) => {
 	const resultField = field;
 	const mines = gameSettings.minesAmount;
 	for (let i = mines; i > 0;) {
 		const randY = getRandomInt(1, gameSettings.fieldSize.sizeY + 1);
 		const randX = getRandomInt(1, gameSettings.fieldSize.sizeX + 1);
 		if (
-			resultField[randY][randX].isMined === false
+			ignoredCellID !== `${randY}.${randX}`
+			&& resultField[randY][randX].isMined === false
 			&& resultField[randY][randX].isOpened === false
 		) {
 			resultField[randY][randX].isMined = true;
