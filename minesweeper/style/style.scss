@@ -242,6 +242,32 @@
 	}
 }
 
+.score-modal {
+	display: flex;
+	flex-direction: column-reverse;
+	align-items: center;
+	gap: 10px;
+	min-width: 380px;
+	width: auto;
+	height: auto;
+	padding: 15px;
+	border: 5px solid $borderColor;
+	background-color: $defaultColor;
+	color: $themeColor;
+	h2 {
+		margin-bottom: 10px;
+		font-size: 24px;
+	}
+}
+
+.score-item {
+	display: flex;
+	gap: 15px;
+	border: 4px solid $borderColor;
+	padding: 5px;
+}
+
+
 @media(max-width: 510px) {
 	.mine-field__cell {
 		width: 18px;
