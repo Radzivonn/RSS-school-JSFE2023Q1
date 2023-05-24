@@ -58,3 +58,18 @@ export const getFinishModalLayout = () => `
 	<h2 class="finish-message"></h2>
 	<button class="reset-button"> new game </button>
 </div>`;
+
+export const getScoreLayout = (score) => {
+	let layout = "<div class='score-modal'>";
+	score.forEach((gameState) => {
+		layout += `
+		<div class="score-item">
+			<div class="score-outcome"> ${gameState.gameState} </div>
+			<div class="score-time"> ${gameState.gameTime} seconds </div>
+			<div class="score-difficulty"> ${gameState.difficulty} </div>
+			<div class="score-mines-amount"> ${gameState.minesAmount} mines </div>
+		 </div>`;
+	});
+	layout += '<h2> Score </h2></div>';
+	return layout;
+};

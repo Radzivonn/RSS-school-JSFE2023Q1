@@ -5,6 +5,7 @@ import {
 	getMinesCounterLayout,
 	getMinefieldNode,
 	getFinishModalLayout,
+	getScoreLayout,
 } from '../helpers/getInterfaceLayout';
 import { defaultGameSettings, defaultColorTheme } from '../helpers/defaultGameSettings';
 import {
@@ -45,6 +46,7 @@ export default class GameController {
 	}
 
 	init() {
+		this.getScore();
 		this.setPageLayout();
 		this.setEventListeners();
 		if (this.gameSettings.gameState !== 'In progress') {
@@ -56,6 +58,8 @@ export default class GameController {
 	}
 
 	reloadGame() {
+		this.addToScore();
+		this.setScore();
 		this.resetSettings();
 		this.resetGameTimer();
 		this.setGameSettings();
@@ -98,6 +102,20 @@ export default class GameController {
 		if (this.colorTheme) localStorage.setItem('colorTheme', JSON.stringify(this.colorTheme));
 	}
 
+	getScore() {
+		if (!localStorage.getItem('score')) this.score = [];
+		else this.score = JSON.parse(localStorage.getItem('score'));
+	}
+
+	setScore() {
+		if (this.score) localStorage.setItem('score', JSON.stringify(this.score));
+	}
+
+	addToScore() {
+		if (this.score.length > 9) this.score.shift();
+		if (this.gameSettings.gameState !== 'In progress') this.score.push(this.gameSettings);
+	}
+
 	setPageLayout() {
 		const settings = this.gameSettings;
 		const wrapper = createNode('div', `wrapper ${this.colorTheme}`);
@@ -109,6 +127,7 @@ export default class GameController {
 		gameField.insertAdjacentHTML('beforeend', getInterfaceLayout(settings));
 		gameField.append(getMinefieldNode(this.minefield));
 		gameField.insertAdjacentHTML('beforeend', getMinesCounterLayout(settings));
+		gameField.insertAdjacentHTML('beforeend', getScoreLayout(this.score));
 		wrapper.append(pageHeader, gameField);
 		document.body.prepend(wrapper);
 	}
