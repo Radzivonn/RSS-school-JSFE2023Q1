@@ -68,6 +68,7 @@ export default class GameController {
 		this.gameSettings = structuredClone(this.tempSettings);
 		this.minefield = getEmptyMinefield(this.gameSettings);
 		this.gameSettings.clicksAmount = defaultGameSettings.clicksAmount;
+		this.gameSettings.flagsCounter = 0;
 		this.gameSettings.gameState = defaultGameSettings.gameState;
 		this.gameSettings.isFirstMoveCompleted = false;
 	}
@@ -138,7 +139,7 @@ export default class GameController {
 
 	setFieldListener() {
 		const minefield = document.querySelector('.mine-field');
-		minefield.addEventListener('click', this.fieldClicksHandler.bind(this));
+		minefield.addEventListener('mousedown', this.fieldClicksHandler.bind(this));
 	}
 
 	startGameTimer() {
@@ -171,9 +172,11 @@ export default class GameController {
 		&& e.target.classList.contains('mine-field__cell')
 		&& !e.target.classList.contains('opened-cell')
 		) {
+			if (e.button === 0) this.openCell(e.target); // left button click
+			// right button click
+			else if (e.button === 2 && this.gameSettings.isFirstMoveCompleted) this.setFlag(e.target);
 			this.gameSettings.clicksAmount += 1;
 			this.displayClicks();
-			this.openCell(e.target);
 		}
 	}
 
@@ -182,26 +185,34 @@ export default class GameController {
 		clicksAmountWidget.textContent = this.gameSettings.clicksAmount;
 	}
 
+	displayMinesAmount() {
+		const minesAmountWidget = document.querySelector('.mines-counter');
+		minesAmountWidget.textContent = `Mines ${this.gameSettings.minesAmount - this.gameSettings.flagsCounter}`;
+	}
+
 	openCell(clickedCell) {
 		const cellID = clickedCell.id;
 		const [cordX, cordY] = getCordinatesByID(cellID);
-		const clickedCellNode = document.getElementById(`${cellID}`);
-		clickedCellNode.classList.add('opened-cell');
 
 		if (!this.gameSettings.isFirstMoveCompleted) this.firstMove(cellID);
 
-		if (this.minefield[cordY][cordX].isMined === true) {
-			this.minefield[cordY][cordX].isOpened = true;
-			this.gameSettings.gameState = 'Lose';
-			this.toggleFinishModal();
-		} else {
-			checkCell(this.minefield, cordY, cordX);
-			if (allMinesFound(this.minefield, this.gameSettings.minesAmount)) {
-				this.gameSettings.gameState = 'Won';
+		if (!this.minefield[cordY][cordX].isMarked) {
+			const clickedCellNode = document.getElementById(`${cellID}`);
+			clickedCellNode.classList.add('opened-cell');
+
+			if (this.minefield[cordY][cordX].isMined === true) {
+				this.minefield[cordY][cordX].isOpened = true;
+				this.gameSettings.gameState = 'Lose';
 				this.toggleFinishModal();
+			} else {
+				checkCell(this.minefield, cordY, cordX);
+				if (allMinesFound(this.minefield, this.gameSettings.minesAmount)) {
+					this.gameSettings.gameState = 'Won';
+					this.toggleFinishModal();
+				}
 			}
+			this.displayNeighborsAmount();
 		}
-		this.displayNeighborsAmount();
 	}
 
 	firstMove(cellID) {
@@ -224,9 +235,33 @@ export default class GameController {
 		});
 	}
 
+	setFlag(clickedCell) {
+		const [x, y] = getCordinatesByID(clickedCell.id);
+		if (this.gameSettings.minesAmount - this.gameSettings.flagsCounter > 0) {
+			this.gameSettings.flagsCounter += this.minefield[y][x].isMarked ? -1 : 1;
+			this.minefield[y][x].isMarked = !this.minefield[y][x].isMarked;
+			clickedCell.classList.toggle('marked-cell');
+		} else {
+			if (this.minefield[y][x].isMarked) this.gameSettings.flagsCounter -= 1;
+			this.minefield[y][x].isMarked = false;
+			clickedCell.classList.remove('marked-cell');
+		}
+		this.displayMinesAmount();
+	}
+
+	displayAllFlags() {
+		for (let i = 1; i < this.minefield.length - 1; i += 1) {
+			for (let j = 1; j < this.minefield[0].length - 1; j += 1) {
+				if (this.minefield[i][j].isMarked) {
+					const cell = document.getElementById(`${i}.${j}`);
+					cell.classList.add('marked-cell');
+				}
+			}
+		}
+	}
+
 	displayNeighborsAmount() {
 		document.querySelectorAll('.mine-field__cell.opened-cell').forEach((cell) => {
-			// cell.classList.add('opened-cell');
 			const cellID = cell.id;
 			const [x, y] = getCordinatesByID(cellID);
 			if (this.minefield[y][x].minedNeighbors > 0) {

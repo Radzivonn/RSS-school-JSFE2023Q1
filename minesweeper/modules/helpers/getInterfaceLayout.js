@@ -31,7 +31,7 @@ export const getInterfaceLayout = (gameSettings) => `
 </section>`;
 
 export const getMinesCounterLayout = (gameSettings) => `
-	<output class="mines-counter"> Mines ${gameSettings.minesAmount} </output>`;
+	<output class="mines-counter"> Mines ${gameSettings.minesAmount - gameSettings.flagsCounter} </output>`;
 
 export const getMinefieldNode = (field) => {
 	const minefieldSection = createNode('section', 'mine-field');
@@ -43,8 +43,9 @@ export const getMinefieldNode = (field) => {
 			const cellNode = createNode('div', 'mine-field__cell');
 			const cell = fieldRow[cordX];
 			cellNode.id = ''.concat(cordY, '.', cordX);
-			if (cell.isMined === true) cellNode.classList.add('mined-cell');
-			if (cell.isOpened === true) cellNode.classList.add('opened-cell');
+			if (cell.isMined) cellNode.classList.add('mined-cell');
+			if (cell.isOpened) cellNode.classList.add('opened-cell');
+			if (cell.isMarked) cellNode.classList.add('marked-cell');
 			rowNode.append(cellNode);
 		}
 		minefieldSection.append(rowNode);

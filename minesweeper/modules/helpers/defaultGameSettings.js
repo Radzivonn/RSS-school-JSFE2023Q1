@@ -5,6 +5,7 @@ export const defaultGameSettings = {
 	gameState: 'In progress',
 	isFirstMoveCompleted: false,
 	clicksAmount: 0,
+	flagsCounter: 0,
 	fieldSize: {
 		sizeX: 10,
 		sizeY: 10,

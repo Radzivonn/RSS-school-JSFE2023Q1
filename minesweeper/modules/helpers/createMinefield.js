@@ -10,6 +10,7 @@ export const getEmptyMinefield = (gameSettings) => {
 				x,
 				isMined: false,
 				isOpened: false,
+				isMarked: false,
 				minedNeighbors: 0,
 			});
 		}
@@ -77,6 +78,7 @@ export const allMinesFound = (field, minesAmount) => {
 
 const isCellRelated = (field, cell, y, x) => cell.isOpened
 	|| cell.isMined
+	|| cell.isMarked
 	|| y < 1 || x < 1
 	|| y > field.length - 2
 	|| x > field[y].length - 2;
