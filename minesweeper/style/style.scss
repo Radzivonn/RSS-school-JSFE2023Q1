@@ -30,7 +30,14 @@
 	align-items: center;
 }
 
+.counters {
+	display: flex;
+	width: auto;
+	gap: 25px;
+}
+
 .mines-counter,
+.flags-counter,
 .clicks-amount,
 .reset-button,
 .game-time {
@@ -53,7 +60,8 @@
 	}
 }
 
-.mines-counter {
+.mines-counter,
+.flags-counter {
 	width: 130px;
 	text-align: center;
 	font-size: 24px;
