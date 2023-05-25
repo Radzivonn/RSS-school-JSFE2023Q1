@@ -16,6 +16,8 @@ import {
 	checkCell,
 } from '../helpers/createMinefield';
 import getCordinatesByID from '../helpers/getCordinatesByID';
+// import clickSoundURL from '../../assets/audio/zvuk-chpok.mp3';
+// console.log(clickSoundURL);
 
 const fieldSizes = {
 	easy: {
@@ -34,6 +36,10 @@ const fieldSizes = {
 		minesAmount: 99,
 	},
 };
+
+const clickSoundURL = 'https://bigsoundbank.com/UPLOAD/mp3/1742.mp3';
+const winSoundURL = 'https://bigsoundbank.com/UPLOAD/mp3/0237.mp3';
+const loseSoundURL = 'https://bigsoundbank.com/UPLOAD/mp3/1023.mp3';
 
 export default class GameController {
 	constructor() {
@@ -201,6 +207,7 @@ export default class GameController {
 			} else if (e.button === 2 && this.gameSettings.isFirstMoveCompleted) {
 				this.setFlag(e.target); // right button click
 			}
+			GameController.playSound(clickSoundURL);
 		}
 	}
 
@@ -233,11 +240,13 @@ export default class GameController {
 				this.minefield[cordY][cordX].isOpened = true;
 				this.gameSettings.gameState = 'Lose';
 				this.toggleFinishModal();
+				GameController.playSound(loseSoundURL);
 			} else {
 				checkCell(this.minefield, cordY, cordX);
 				if (allMinesFound(this.minefield, this.gameSettings.minesAmount)) {
 					this.gameSettings.gameState = 'Won';
 					this.toggleFinishModal();
+					GameController.playSound(winSoundURL);
 				}
 			}
 			this.displayNeighborsAmount();
@@ -337,5 +346,13 @@ export default class GameController {
 		this.tempSettings.difficulty = e.target.value;
 		this.tempSettings.fieldSize = fieldSizes[this.tempSettings.difficulty];
 		this.setMinesAmount(this.tempSettings.fieldSize.minesAmount);
+	}
+
+	static async playSound(url) {
+		// if (this.gameSettings.sound) {
+		const audio = new Audio(url);
+		audio.volume = 0.5;
+		audio.play();
+		// }
 	}
 }
