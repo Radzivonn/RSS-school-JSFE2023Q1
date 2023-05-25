@@ -193,11 +193,14 @@ export default class GameController {
 		&& e.target.classList.contains('mine-field__cell')
 		&& !e.target.classList.contains('opened-cell')
 		) {
-			if (e.button === 0) this.openCell(e.target); // left button click
-			// right button click
-			else if (e.button === 2 && this.gameSettings.isFirstMoveCompleted) this.setFlag(e.target);
-			this.gameSettings.clicksAmount += 1;
-			this.displayClicks();
+			// left button click
+			if (e.button === 0) {
+				this.openCell(e.target);
+				this.gameSettings.clicksAmount += 1;
+				this.displayClicks();
+			} else if (e.button === 2 && this.gameSettings.isFirstMoveCompleted) {
+				this.setFlag(e.target); // right button click
+			}
 		}
 	}
 
