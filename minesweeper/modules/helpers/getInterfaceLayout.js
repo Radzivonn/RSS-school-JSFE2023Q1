@@ -31,7 +31,10 @@ export const getInterfaceLayout = (gameSettings) => `
 </section>`;
 
 export const getMinesCounterLayout = (gameSettings) => `
-	<output class="mines-counter"> Mines ${gameSettings.minesAmount - gameSettings.flagsCounter} </output>`;
+	<section class="counters"> 
+		<output class="mines-counter"> Mines ${gameSettings.minesAmount} </output>
+		<output class="flags-counter"> Flags ${gameSettings.flagsCounter} </output>
+	</section>`;
 
 export const getMinefieldNode = (field) => {
 	const minefieldSection = createNode('section', 'mine-field');

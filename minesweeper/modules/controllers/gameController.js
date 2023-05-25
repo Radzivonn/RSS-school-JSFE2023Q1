@@ -58,7 +58,7 @@ export default class GameController {
 	}
 
 	reloadGame() {
-		this.addToScore();
+		this.updateScore();
 		this.setScore();
 		this.resetSettings();
 		this.resetGameTimer();
@@ -111,9 +111,11 @@ export default class GameController {
 		if (this.score) localStorage.setItem('score', JSON.stringify(this.score));
 	}
 
-	addToScore() {
-		if (this.score.length > 9) this.score.shift();
-		if (this.gameSettings.gameState !== 'In progress') this.score.push(this.gameSettings);
+	updateScore() {
+		if (this.gameSettings.gameState !== 'In progress' && this.gameSettings.gameState === 'Won') {
+			if (this.score.length > 9) this.score.shift();
+			this.score.push(this.gameSettings);
+		}
 	}
 
 	setPageLayout() {
@@ -206,7 +208,12 @@ export default class GameController {
 
 	displayMinesAmount() {
 		const minesAmountWidget = document.querySelector('.mines-counter');
-		minesAmountWidget.textContent = `Mines ${this.gameSettings.minesAmount - this.gameSettings.flagsCounter}`;
+		minesAmountWidget.textContent = `Mines ${this.gameSettings.minesAmount}`;
+	}
+
+	displayFlagsAmount() {
+		const minesAmountWidget = document.querySelector('.flags-counter');
+		minesAmountWidget.textContent = `Mines ${this.gameSettings.flagsCounter}`;
 	}
 
 	openCell(clickedCell) {
@@ -256,7 +263,7 @@ export default class GameController {
 
 	setFlag(clickedCell) {
 		const [x, y] = getCordinatesByID(clickedCell.id);
-		if (this.gameSettings.minesAmount - this.gameSettings.flagsCounter > 0) {
+		if (this.gameSettings.flagsCounter < this.gameSettings.minesAmount) {
 			this.gameSettings.flagsCounter += this.minefield[y][x].isMarked ? -1 : 1;
 			this.minefield[y][x].isMarked = !this.minefield[y][x].isMarked;
 			clickedCell.classList.toggle('marked-cell');
@@ -265,7 +272,7 @@ export default class GameController {
 			this.minefield[y][x].isMarked = false;
 			clickedCell.classList.remove('marked-cell');
 		}
-		this.displayMinesAmount();
+		this.displayFlagsAmount();
 	}
 
 	displayAllFlags() {
