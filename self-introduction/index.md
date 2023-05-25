@@ -1,3 +1,5 @@
+[Link to the video](https://youtu.be/rmCmsU8TekM)
+
 Hello everyone, my name is Rodion. I'm seventeen years old. 
 And I am a student of the Minsk Radio Engineering College and currently studying front-end development at RS School. 
 I have a strong interest in web development and aspire to become a professional web developer in the near future.
