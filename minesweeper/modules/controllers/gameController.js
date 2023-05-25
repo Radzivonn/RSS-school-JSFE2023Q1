@@ -16,8 +16,6 @@ import {
 	checkCell,
 } from '../helpers/createMinefield';
 import getCordinatesByID from '../helpers/getCordinatesByID';
-// import clickSoundURL from '../../assets/audio/zvuk-chpok.mp3';
-// console.log(clickSoundURL);
 
 const fieldSizes = {
 	easy: {
@@ -222,8 +220,8 @@ export default class GameController {
 	}
 
 	displayFlagsAmount() {
-		const minesAmountWidget = document.querySelector('.flags-counter');
-		minesAmountWidget.textContent = `Mines ${this.gameSettings.flagsCounter}`;
+		const flagsAmountWidget = document.querySelector('.flags-counter');
+		flagsAmountWidget.textContent = `Flags ${this.gameSettings.flagsCounter}`;
 	}
 
 	openCell(clickedCell) {
@@ -304,6 +302,7 @@ export default class GameController {
 			const [x, y] = getCordinatesByID(cellID);
 			const { minedNeighbors } = this.minefield[y][x];
 			if (minedNeighbors > 0) {
+				// eslint-disable-next-line no-param-reassign
 				cell.textContent = minedNeighbors;
 				cell.classList.add(`neighbors-${minedNeighbors}`);
 			}
