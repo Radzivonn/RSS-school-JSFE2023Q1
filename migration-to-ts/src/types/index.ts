@@ -18,20 +18,42 @@ export type articlesData = Array<articleItem>;
 
 export type sources = Array<sourceItem>;
 
-export interface resData {
+interface respData {
     status: string;
 }
 
-export interface newsData extends resData {
+export interface newsData extends respData {
     articles: articlesData;
     totalResults: number;
 }
 
-export interface sourceData extends resData {
+export interface sourceData extends respData {
     sources: sources;
 }
 
 export interface IView {
     news: object;
     sources: object;
+}
+
+export type loaderOptions = {
+    apiKey: string;
+};
+
+export type respOptions = {
+    sources?: string;
+};
+
+export type requestOptions = {
+    endpoint: string;
+    options: respOptions;
+};
+
+export interface urlOptions extends loaderOptions, respOptions {
+    [key: string]: string | undefined;
+}
+
+export interface ILoader {
+    baseLink: string;
+    options: loaderOptions;
 }
