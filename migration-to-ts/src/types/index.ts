@@ -1,21 +1,37 @@
-type sourceType = {
+type sourceItem = {
     id: string;
     name: string;
 };
 
-type newsItem = {
+type articleItem = {
     author: string;
     content: string;
     description: string;
     publishedAt: string;
-    source: sourceType;
+    source: sourceItem;
     title: string;
     url: string;
     urlToImage: string;
 };
 
-export type newsData = Array<newsItem>;
+export type articlesData = Array<articleItem>;
 
-export interface INews {
-    draw(data: newsData): void;
+export type sources = Array<sourceItem>;
+
+export interface resData {
+    status: string;
+}
+
+export interface newsData extends resData {
+    articles: articlesData;
+    totalResults: number;
+}
+
+export interface sourceData extends resData {
+    sources: sources;
+}
+
+export interface IView {
+    news: object;
+    sources: object;
 }
