@@ -49,7 +49,7 @@ export interface IView {
 export interface ILoader {
     baseLink: string;
     options: loaderOptions;
-    getResp(reqOptions: requestOptions, callback: ICallback): void;
+    getResp(reqOptions: requestOptions, callback: CallbackType<newsData | sourceData>): void;
 }
 
 export type loaderOptions = {
@@ -69,13 +69,15 @@ export interface urlOptions extends loaderOptions, respOptions {
     [key: string]: string | undefined;
 }
 
-export interface ICallback {
-    (data: newsData & sourceData): void;
-}
+type CallbackType<T> = (data: T) => void;
+
+export type newsCallback = CallbackType<newsData>;
+export type sourcesCallback = CallbackType<sourceData>;
+export type respCallback = newsCallback | sourcesCallback;
 
 export interface IAppController {
-    getSources(callback: ICallback): void;
-    getNews(e: Event, callback: ICallback): void;
+    getSources(callback: sourcesCallback): void;
+    getNews(e: Event, callback: newsCallback): void;
 }
 
 export interface IApp {
