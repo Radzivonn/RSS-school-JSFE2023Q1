@@ -1,8 +1,8 @@
 import AppLoader from './appLoader';
-import { ICallback } from '../../types/index';
+import { ICallback, IAppController } from '../../types/index';
 
-class AppController extends AppLoader {
-    getSources(callback: ICallback) {
+class AppController extends AppLoader implements IAppController {
+    public getSources(callback: ICallback) {
         super.getResp(
             {
                 endpoint: 'sources',
@@ -11,7 +11,7 @@ class AppController extends AppLoader {
         );
     }
 
-    getNews(e: Event, callback: ICallback) {
+    public getNews(e: Event, callback: ICallback) {
         let target = e.target as Element;
         const newsContainer = e.currentTarget as Element;
 
