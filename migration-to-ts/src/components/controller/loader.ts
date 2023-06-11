@@ -8,7 +8,7 @@ class Loader implements ILoader {
         this.options = options;
     }
 
-    getResp(
+    public getResp(
         { endpoint, options = {} }: requestOptions,
         callback = () => {
             console.error('No callback for GET response');
@@ -37,7 +37,7 @@ class Loader implements ILoader {
         return url.slice(0, -1);
     }
 
-    load(method: string, endpoint: string, callback: (data?: sourceData) => void, options: respOptions = {}) {
+    private load(method: string, endpoint: string, callback: (data?: sourceData) => void, options: respOptions = {}) {
         fetch(this.makeUrl(options, endpoint), { method })
             .then(this.errorHandler)
             .then((res) => res.json())
