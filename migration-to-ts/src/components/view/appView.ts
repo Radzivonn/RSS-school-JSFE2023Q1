@@ -12,13 +12,11 @@ export class AppView implements IView {
     }
 
     public drawNews(data: newsData): void {
-        console.log(data);
         const values: articlesData = data?.articles ? data?.articles : [];
         this.news.draw(values);
     }
 
     public drawSources(data: sourceData) {
-        console.log(data);
         const values = data?.sources ? data?.sources : [];
         this.sources.draw(values);
     }
