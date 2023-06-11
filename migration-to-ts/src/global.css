@@ -11,6 +11,8 @@ header {
 header h1 {
     font-size: 40px;
     font-weight: 800;
+		color: #00ffa3;
+		text-align: center;
 }
 
 footer {
