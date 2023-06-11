@@ -1,3 +1,8 @@
+export enum StatusCodes {
+    UNAUTHORIZED = 401,
+    NOTFOUND = 404,
+}
+
 export interface INews {
     draw(data: articlesData): void;
 }
