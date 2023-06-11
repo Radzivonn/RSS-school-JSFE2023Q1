@@ -36,6 +36,11 @@ export interface IView {
     sources: object;
 }
 
+export interface ILoader {
+    baseLink: string;
+    options: loaderOptions;
+}
+
 export type loaderOptions = {
     apiKey: string;
 };
@@ -46,14 +51,13 @@ export type respOptions = {
 
 export type requestOptions = {
     endpoint: string;
-    options: respOptions;
+    options?: respOptions;
 };
 
 export interface urlOptions extends loaderOptions, respOptions {
     [key: string]: string | undefined;
 }
 
-export interface ILoader {
-    baseLink: string;
-    options: loaderOptions;
+export interface ICallback {
+    (data?: sourceData): void;
 }

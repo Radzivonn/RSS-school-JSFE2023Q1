@@ -1,4 +1,4 @@
-import { sourceData, ILoader, loaderOptions, respOptions, requestOptions, urlOptions } from '../../types/index';
+import { ILoader, loaderOptions, ICallback, requestOptions, respOptions, urlOptions } from '../../types/index';
 
 class Loader implements ILoader {
     baseLink: string;
@@ -10,7 +10,7 @@ class Loader implements ILoader {
 
     public getResp(
         { endpoint, options = {} }: requestOptions,
-        callback = () => {
+        callback: ICallback = () => {
             console.error('No callback for GET response');
         }
     ) {
@@ -37,7 +37,7 @@ class Loader implements ILoader {
         return url.slice(0, -1);
     }
 
-    private load(method: string, endpoint: string, callback: (data?: sourceData) => void, options: respOptions = {}) {
+    private load(method: string, endpoint: string, callback: ICallback, options: respOptions = {}) {
         fetch(this.makeUrl(options, endpoint), { method })
             .then(this.errorHandler)
             .then((res) => res.json())
