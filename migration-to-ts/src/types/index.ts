@@ -1,3 +1,11 @@
+export interface INews {
+    draw(data: articlesData): void;
+}
+
+export interface ISources {
+    draw(data: sources): void;
+}
+
 type sourceItem = {
     id: string;
     name: string;
@@ -34,11 +42,14 @@ export interface sourceData extends respData {
 export interface IView {
     news: object;
     sources: object;
+    drawNews(data: newsData): void;
+    drawSources(data: sourceData): void;
 }
 
 export interface ILoader {
     baseLink: string;
     options: loaderOptions;
+    getResp(reqOptions: requestOptions, callback: ICallback): void;
 }
 
 export type loaderOptions = {
@@ -59,5 +70,16 @@ export interface urlOptions extends loaderOptions, respOptions {
 }
 
 export interface ICallback {
-    (data?: sourceData): void;
+    (data: newsData & sourceData): void;
+}
+
+export interface IAppController {
+    getSources(callback: ICallback): void;
+    getNews(e: Event, callback: ICallback): void;
+}
+
+export interface IApp {
+    controller: IAppController;
+    view: object;
+    start(): void;
 }
