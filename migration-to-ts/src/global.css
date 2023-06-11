@@ -18,6 +18,7 @@ footer {
     display: flex;
     align-items: center;
     justify-content: center;
+		gap: 10px;
 }
 footer .copyright {
     font-size: 14px;
@@ -32,4 +33,15 @@ footer .copyright a:hover {
 }
 footer .copyright:before {
     content: '©';
+}
+
+.footer__icon {
+	width: 30px;
+	height: 30px;
+	border-radius: 5px;
+	object-fit: cover;
+}
+
+.footer__icon:hover {
+	opacity: 0.9;
 }
