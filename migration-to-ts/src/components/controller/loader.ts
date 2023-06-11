@@ -1,4 +1,12 @@
-import { ILoader, loaderOptions, respCallback, requestOptions, respOptions, urlOptions } from '../../types/index';
+import {
+    StatusCodes,
+    ILoader,
+    loaderOptions,
+    respCallback,
+    requestOptions,
+    respOptions,
+    urlOptions,
+} from '../../types/index';
 
 class Loader implements ILoader {
     baseLink: string;
@@ -19,7 +27,7 @@ class Loader implements ILoader {
 
     private errorHandler(res: Response) {
         if (!res.ok) {
-            if (res.status === 401 || res.status === 404)
+            if (res.status === StatusCodes.UNAUTHORIZED || res.status === StatusCodes.NOTFOUND)
                 console.log(`Sorry, but there is ${res.status} error: ${res.statusText}`);
             throw Error(res.statusText);
         }
