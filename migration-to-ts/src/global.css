@@ -47,3 +47,11 @@ footer .copyright:before {
 .footer__icon:hover {
 	opacity: 0.9;
 }
+
+#github-icon {
+	background: url('./assets/github.svg');
+}
+
+#RS-icon {
+	background: url('./assets/RS.jpg');
+}
