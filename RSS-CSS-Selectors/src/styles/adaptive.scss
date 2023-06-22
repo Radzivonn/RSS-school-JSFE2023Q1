@@ -1,0 +1,13 @@
+@media screen and (min-width: 1280px) {
+	
+}
+
+@media screen and (max-width: 1023px) {
+	.main-wrapper {
+		width: calc(100vw - 340px);
+	}
+
+	.help-wrapper {
+		width: 340px;
+	}
+}
