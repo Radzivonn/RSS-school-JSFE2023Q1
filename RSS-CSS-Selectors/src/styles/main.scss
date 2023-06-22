@@ -1,7 +1,250 @@
-@import url('./nullstyle.css');
+@import './nullstyle.css';
+@import './fonts.scss';
+
+$defaultBGColor: #2e2a23;
+$darkBGColor: #1e1c18;
+$defaultFontColor: rgba(255,255,255,.3);
+
+.page-wrapper {
+	width: 100vw;
+	height: 100vh;
+	display: flex;
+	overflow: hidden;
+}
+
+.main-wrapper {
+	width: calc(100vw - 375px);
+	height: 100vh;
+	background-color: $defaultBGColor;
+	overflow-y: scroll;
+	overflow-x: hidden;
+	touch-action: pinch-zoom;
+	&::-webkit-scrollbar {
+		width: 4px;
+		background-color: $defaultBGColor;
+	}
+	&::-webkit-scrollbar-track {
+		background-color: $defaultBGColor;
+	}
+	&::-webkit-scrollbar-thumb {
+		background-color: $defaultFontColor;;
+	}
+}
+
+.header {
+	width: 100%;
+	height: 50px;
+	padding: 10px;
+}
+
+.game-name {
+	font-family:  'Lato', sans-serif, 'Exo 2', sans-serif, "menlo, monospace";
+	font-size: 20px;
+	color: $defaultFontColor;
+}
 
 .main {
-	width: 100%;
-	height: 100vh;
-	background: aqua;
+	width: 80%;
+	height: auto;
+	font-family: 'Lato', 'Exo 2', sans-serif, "menlo, monospace";
+	margin: 0 auto;
 }
+
+.main__header {
+	font-size: 46px;
+	color: $defaultFontColor;;
+	text-align: center;
+}
+
+.table {
+	max-width: 450px;
+	min-width: 400px;
+	margin: calc(30px + (40 - 30) * ((100vw - 320px) / (1440 - 320))) auto;
+}
+
+.table-surface {
+	width: 100%;
+	height: 130px;
+	background-color: #dd992d;
+	margin: 0 auto;
+	transform: perspective(700px) rotateX(20deg);
+	transform-origin: bottom;
+	padding: 30px calc(5px + (20 - 5) * ((100vw - 500px) / (1440 - 500)));
+}
+
+.items-container {
+	width: 100%;
+	height: 70px;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 10px;
+	position: relative;
+	z-index: 5;
+}
+
+.table-edge {
+		width: 100%;
+    background: #ac741c;
+    height: 15px;
+    transform: rotateX(-40deg);
+    transform-origin: top;
+		margin: 0 auto 10px auto;
+}
+
+.table-leg {
+	width: 24px;
+	height: 10px;
+	background: #84570f;
+	position: absolute;
+	top: 15px;
+	&:first-child{
+		left: 10px;
+	}
+	&:last-child {
+		right: 10px;
+	}
+}
+
+.void-envelope {
+	position: relative;
+	z-index: 10;
+	width: 100px;
+	height: 71px;
+	background: center/cover no-repeat url('../assets/img/void-envelope.svg');
+}
+
+.opened-envelope {
+	position: relative;
+	z-index: 10;
+	width: 100px;
+	height: 112px;
+	background-image: url('../assets/img/opened-envelope.svg');
+}
+
+#stamp2 {
+	position: absolute;
+	top: 19px;
+	left: 26px;
+	width: 50px;
+	height: 31px;
+	background-image: url('../assets/img/stamp2.svg');
+}
+
+.seal {
+	width: 50px;
+	height: 50px;
+	background-image: url('../assets/img/seal.svg');
+	transform: translate(50%, 20%);
+}
+
+.editor-wrapper {
+	width: 100%;
+	max-width: 1000px;
+	height: auto;
+	display: flex;
+	padding: 10px;
+	margin: 0 auto;
+	background-color: $darkBGColor;
+}
+
+.code-viewer {
+	width: 50%;
+}
+
+.editor-header {
+	display: flex;
+	justify-content: space-between;
+	width: 100%;
+	height: 40px;
+	background-color: $defaultBGColor;
+	font-family: menlo, monospace;
+	font-size: 16px;
+	color: $defaultFontColor;
+	white-space: nowrap;
+	padding: 13px;
+	border: 1px solid rgb(80 78 74 / 80%);
+	& p:first-child {
+		font-weight: 600;
+	}
+}
+
+.code-area {
+	display: flex;
+	width: 100%;
+	height: 278px;
+	border: 1px solid rgb(80 78 74 / 80%);
+	line-height: initial;
+	& pre {
+		width: 90%;
+	}
+	& code {
+		display: block;
+    background-color: rgba(0, 0, 0, 0);
+		width: 100%;
+		overflow: hidden;
+    transform: translate(5px, -28px);
+		font-family: menlo, monospace;
+    font-size: 15px;
+		color: whitesmoke;
+		white-space: pre-wrap;
+	}
+}
+
+.column-numbers {
+	font-family: menlo, monospace;
+  font-size: 16px;
+	color: $defaultFontColor;;
+	background-color: $defaultBGColor;
+	padding: 6px;
+}
+
+.footer {
+	display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+	width: 270px;
+	height: auto;
+	margin: 30px auto 10px;
+	font-family: 'Lato', 'Exo 2', sans-serif, "menlo, monospace";
+	font-size: 17px;
+	font-weight: 600;
+	& a,
+	& p {
+		color: $defaultFontColor;;
+		transition: all 0.2s ease 0s;
+		&:hover {
+			cursor: pointer;
+			color: #bebebe;
+		}
+	}
+}
+
+#author {
+	& strong {
+		color: #bebebe;
+	}
+}
+
+#course-link {
+	display: flex;
+	align-items: center;
+	gap: 5px;
+	color: $defaultFontColor;;
+}
+
+#school-logo {
+	display: inline-block;
+	width: 35px;
+	height: 35px;
+	border-radius: 8px;
+	background-image: url('../assets/img/rss-logo.png');
+	transition: all 0.2s ease 0s;
+	opacity: 0.9;
+	&:hover {
+		opacity: 1;
+	}
+}
+
+@import './adaptive.scss';
