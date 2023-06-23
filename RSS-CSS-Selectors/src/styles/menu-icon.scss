@@ -1,0 +1,58 @@
+.menu-icon {
+	width: 30px;
+	height: 22px;
+	display: block;
+	position: relative;
+	z-index: 5;
+	transition: all 0.2s ease 0s;
+	cursor: pointer;
+
+	& span,
+	&:before,
+	&:after {
+		position: absolute;
+		left: 0;
+		width: 100%;
+		height: 10%;
+		transition: all 0.3s ease 0s;
+		background-color: rgba(255,255,255,.3);
+	}
+	
+	&:before,
+	&:after {
+		content: '';
+	}
+	&:before {
+		top: 0;
+	}
+	&:after {
+		bottom:0;
+	}
+	& span {
+		top: 50%;
+		transform: scale(1) translate(0, -50%);
+	}
+	&:hover {
+		& span,
+		&:before,
+		&:after {
+			background-color: #777777;
+		}
+	}
+
+	&.active {
+		& span {
+			transform: scale(0) translate(0, -50%);
+		}
+
+		&:before {
+			top: 50%;
+			transform: rotate(-45deg) translate(0, -50%);
+		}
+
+		&:after {
+			bottom: 50%;
+			transform: rotate(45deg) translate(0, 50%);
+		}
+	}
+}
