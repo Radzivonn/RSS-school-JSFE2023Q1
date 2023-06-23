@@ -1,0 +1,55 @@
+/* styles taken from https://atuin.ru/blog/strelki-na-css/ */
+
+.arrows {
+	width: 70px;
+	display: flex;
+	gap: 10px;
+	margin: 0 15px 0 30px;
+}
+.arrows svg {
+	width: 30px;
+	height: auto;
+	cursor: pointer;
+	overflow: visible;
+}
+.arrows svg polygon, 
+.arrows svg path {
+	transition: all 0.5s cubic-bezier(0.2, 1, 0.3, 1);
+	fill: rgba(255,255,255,.3);
+}
+.arrows svg:hover polygon, 
+.arrows svg:hover path {
+	transition: all 1s cubic-bezier(0.2, 1, 0.3, 1);
+	fill: rgba(255,255,255,.3);
+}
+.arrows svg:hover .arrows-pl {
+	animation: arrows-anim 1s cubic-bezier(0.2, 1, 0.3, 1) infinite;
+}
+.arrows svg:hover .arrows-pl-fixed {
+	animation: arrows-fixed-anim 1s cubic-bezier(0.2, 1, 0.3, 1) infinite;
+}
+
+@keyframes arrows-anim {
+	0% {
+			opacity: 1;
+			transform: translateX(0);
+	}
+	5% {
+			transform: translateX(-0.1rem);
+	}
+	100% {
+			transform: translateX(1rem);
+			opacity: 0;
+	}
+}
+@keyframes arrows-fixed-anim {
+	5% {
+			opacity: 0;
+	}
+	20% {
+			opacity: 0.4;
+	}
+	100% {
+			opacity: 1;
+	}
+}
