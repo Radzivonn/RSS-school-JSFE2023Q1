@@ -1,13 +1,160 @@
-@media screen and (min-width: 1280px) {
-	
-}
-
 @media screen and (max-width: 1023px) {
+	.main {
+		width: 95%;
+	}
+
 	.main-wrapper {
 		width: calc(100vw - 340px);
 	}
 
+	.main__header {
+    font-size: 42px;
+	}
+
 	.help-wrapper {
 		width: 340px;
+	}
+
+	.level-counter {
+		font-size: 23px;
+	}
+
+	.arrows {
+		margin: 0 15px 0 20px;
+	}
+}
+
+@media screen and (max-width: 850px) {
+	.main-wrapper {
+		width: calc(100vw - 300px);
+	}
+
+	.main__header {
+    font-size: 40px;
+	}
+
+	.table,
+	.editor-wrapper {
+		zoom: 0.9;
+	}
+
+	.code-area {
+		line-height: 130%;
+		& code {
+			transform: translate(5px, -35px);
+			line-height: 150%;
+		}
+	}
+
+	.help-wrapper {
+		width: 300px;
+	}
+
+	.help-content {
+		zoom: 0.9;
+	}
+}
+
+
+@media only screen and (max-width: 768px) {
+
+	.table,
+	.editor-wrapper {
+		zoom: 0.8;
+	}
+
+	.void-envelope {
+		width: 80px;
+		height: 55px;
+	}
+	
+	.opened-envelope {
+		width: 90px;
+		height: 90px;
+	}
+
+	.seal {
+		width: 40px;
+		height: 40px;
+	}
+
+	.footer {
+		gap: 0;
+		font-size: 15px;
+	}
+
+	#school-logo {
+		width: 55px;
+    height: 20px;
+	}
+}
+
+@media only screen and (max-width: 667px) {
+
+	.main-wrapper {
+		width: calc(100vw - 250px);
+	}
+
+	.main__header {
+		font-size: 34px;
+	}
+
+	.table,
+	.editor-wrapper {
+		zoom: 0.7;
+	}
+
+	.help-wrapper {
+		width: 250px;
+		padding: 10px;
+	}
+
+	.help-content {
+		zoom: 0.8;
+	}
+
+	.level-counter {
+		font-size: 21px;
+	}
+
+	.arrows {
+		margin: 0 10px 0 15px;
+	}
+}
+
+@media only screen and (max-width: 599px) {
+
+	.main-wrapper {
+		width: calc(100vw - 220px);
+	}
+
+	.table,
+	.editor-wrapper {
+		zoom: 0.6;
+	}
+
+	.editor-header {
+		padding: 13px 7px;
+	}
+
+	.main__header {
+		font-size: 26px;
+	}
+
+	.footer {
+		font-size: 14px;
+	}
+
+	.help-wrapper {
+		width: 220px;
+		padding: 10px;
+	}
+
+	.menu-icon {
+		height: 18px;
+	}
+
+	.help-content {
+		zoom: 0.7;
 	}
 }
