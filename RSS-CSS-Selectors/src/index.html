@@ -19,16 +19,16 @@
 				<article class="table">
 					<section class="table-surface">
 						<div class="items-container">
-							<div class="void-envelope">
-								<div class="seal"></div>
-							</div>
-							<div class="opened-envelope">
-								<div class="stamp" id="stamp2"></div>
-							</div>
-							<div class="void-envelope">
-							</div>
-							<div class="opened-envelope">
-							</div>
+							<envelope>
+								<seal></seal>
+							</envelope>
+							<envelope class="opened">
+								<stamp></stamp>
+							</envelope>
+							<envelope>
+							</envelope>
+							<envelope class="opened">
+							</envelope>
 						</div>
 					</section>
 					<section class="table-edge">
@@ -93,11 +93,16 @@
 							</aside>
 							<pre>
 								<code class="html" href="javascript:history.back()">
-&lt;div class="table"&gt;
-  &lt;envelope&gt;
-    &lt;stamp&gt;&lt;/stamp&gt;
-  &lt;/envelope&gt;
-&lt;/div&gt;
+									<div>
+										<p>&lt;div class="table"&gt;</p>
+										<div> 
+											<p>  &lt;envelope&gt;</p>
+											<p>    &lt;stamp/&gt;</p>
+											<p>  &lt;/envelope&gt;</p>
+										</div>
+										<div><p>  &lt;/envelope/&gt;</p></div>
+										<p>&lt;/div&gt;</p>
+									</div>
 								</code>
 						</pre>
 						</div>
@@ -114,8 +119,8 @@
 			</footer>
 		</div>
 
-		<div class="help-wrapper">
-			<article class="help-content">
+		<div class="level-info-wrapper">
+			<article class="level-info-content">
 				<section class="level-switcher">
 					<div class="level-switch-UI">
 						<pre class="level-counter"> Level 
@@ -147,7 +152,7 @@
 						<div class="progress-line"></div>
 					</div>
 				</section>
-				<section class="help-info">
+				<section class="level-info">
 					<h3 class="level-title"> Type Selector </h3>
 					<h4 class="brief"> Select elements by their type </h2>
 					<div class="syntax"> A </div>
@@ -159,7 +164,7 @@
 				</section>
 			</article>
 		</div>
-		<div class="help-wrapper level-menu-wrapper">
+		<div class="level-info-wrapper level-menu-wrapper">
 			<section class="level-menu__header">
 				<h2> Choose a level </h2>
 			</section>
