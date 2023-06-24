@@ -106,34 +106,39 @@ $defaultFontColor: rgba(255,255,255,.3);
 	}
 }
 
-.void-envelope {
+envelope {
 	position: relative;
 	z-index: 10;
 	width: 100px;
 	height: 71px;
 	background: center/cover no-repeat url('../assets/img/void-envelope.svg');
+	&.opened {
+		position: relative;
+		z-index: 10;
+		width: 100px;
+		height: 112px;
+		background: center/cover no-repeat url('../assets/img/opened-envelope.svg');
+	}
 }
 
-.opened-envelope {
-	position: relative;
-	z-index: 10;
-	width: 100px;
-	height: 112px;
-	background: center/cover no-repeat url('../assets/img/opened-envelope.svg');
-}
-
-#stamp2 {
-	transform: translate(40%, 10px);
+stamp {
+	transform: translate(50%, 18px);
 	width: 50px;
 	height: 31px;
 	background-image: url('../assets/img/stamp2.svg');
 }
 
-.seal {
+seal {
 	width: 50px;
 	height: 50px;
 	background: center/cover no-repeat url('../assets/img/seal.svg');
 	transform: translate(50%, 20%);
+}
+
+envelope,
+stamp,
+seal {
+	display: block;
 }
 
 .editor-wrapper {
@@ -170,29 +175,44 @@ $defaultFontColor: rgba(255,255,255,.3);
 
 .code-area {
 	display: flex;
-	width: 100%;
 	height: 278px;
 	border: 1px solid rgb(80 78 74 / 80%);
 	line-height: initial;
 	& pre {
 		width: 90%;
+		display: flex;
+    flex-direction: column;
+    align-items: start;
 	}
 	& code {
-		display: block;
     background-color: rgba(0, 0, 0, 0);
 		width: 100%;
 		overflow: hidden;
-    transform: translate(5px, -28px);
 		font-family: menlo, monospace;
     font-size: 15px;
-		color: whitesmoke;
+		color: grey;
 		white-space: pre-wrap;
+		&.html {
+			display: flex;
+			flex-direction: column;
+			align-items: start;
+		}
+		div {
+			display: flex;
+			flex-direction: column;
+			align-items: start;
+			gap: 3px;
+			cursor: default;
+			&:hover:not(:first-child) {
+				color: whitesmoke;
+			}
+		}
 	}
 }
 
 .column-numbers {
 	font-family: menlo, monospace;
-  font-size: 16px;
+  font-size: 15px;
 	color: $defaultFontColor;;
 	background-color: $defaultBGColor;
 	padding: 6px;
@@ -245,5 +265,5 @@ $defaultFontColor: rgba(255,255,255,.3);
 	}
 }
 
-@import './help-block.scss';
+@import './level-info.scss';
 @import './adaptive.scss';
