@@ -11,7 +11,7 @@
     font-size: 42px;
 	}
 
-	.help-wrapper {
+	.level-info-wrapper {
 		width: 340px;
 	}
 
@@ -40,17 +40,13 @@
 
 	.code-area {
 		line-height: 130%;
-		& code {
-			transform: translate(5px, -35px);
-			line-height: 150%;
-		}
 	}
 
-	.help-wrapper {
+	.level-info-wrapper {
 		width: 300px;
 	}
 
-	.help-content {
+	.level-info-content {
 		zoom: 0.9;
 	}
 }
@@ -104,12 +100,12 @@
 		zoom: 0.7;
 	}
 
-	.help-wrapper {
+	.level-info-wrapper {
 		width: 250px;
 		padding: 10px;
 	}
 
-	.help-content {
+	.level-info-content {
 		zoom: 0.8;
 	}
 
@@ -145,7 +141,7 @@
 		font-size: 14px;
 	}
 
-	.help-wrapper {
+	.level-info-wrapper {
 		width: 220px;
 		padding: 10px;
 	}
@@ -154,7 +150,7 @@
 		height: 18px;
 	}
 
-	.help-content {
+	.level-info-content {
 		zoom: 0.7;
 	}
 }
