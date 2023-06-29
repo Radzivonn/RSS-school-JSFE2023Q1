@@ -1,5 +1,6 @@
 @import './nullstyle.css';
 @import './fonts.scss';
+@import './animations.scss';
 
 $defaultBGColor: #2e2a23;
 $darkBGColor: #1e1c18;
@@ -138,13 +139,18 @@ seal {
 	width: 50px;
 	height: 50px;
 	background: center/cover no-repeat url('../assets/img/seal.svg');
-	transform: translate(50%, 20%);
+	margin: 5px auto;
 }
 
+parcel,
 envelope,
 stamp,
 seal {
 	display: block;
+	&:hover,
+	&.hover {
+		border: 5px solid rgba(255,255,255,.6);
+	}
 }
 
 .editor-wrapper {
@@ -204,7 +210,7 @@ seal {
 			align-items: start;
 		}
 		&.css {
-			transform: translate(5px, -13px);
+			transform: translate(5px, -30px);
 		}
 		div {
 			display: flex;
@@ -216,6 +222,28 @@ seal {
 				color: whitesmoke;
 			}
 		}
+	}
+}
+
+.css-selector-textarea {
+	position: relative;
+	z-index: 5;
+	width: 95%;
+	background: rgb(241 141 35);
+	font-family: menlo, monospace;
+	font-size: 18px;
+	color: rgb(45, 45, 56);
+	border-radius: 4px;
+	padding: 4px;
+	caret-color: rgb(45, 45, 56);
+	animation: selectorInput 1.5s infinite;
+	-webkit-animation: selectorInput 1.5s infinite;
+	-moz-animation: selectorInput 1.5s infinite;
+	overflow: auto;
+	resize: none;
+	box-shadow: 3px 3px 10px 0px rgba(241, 141, 35, 0.6);
+	&::placeholder {
+    font-size: 16px;
 	}
 }
 
