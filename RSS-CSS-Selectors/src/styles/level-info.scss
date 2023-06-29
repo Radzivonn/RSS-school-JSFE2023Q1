@@ -37,7 +37,6 @@
 
 .progress-line {
   position: relative;
-	width: 40%;
 	height: inherit;
 	background: rgba(255,255,255,.2);
 	&:after {
@@ -83,6 +82,13 @@
 	padding: 5px 8px;
 	margin-bottom: 18px;
 	border-bottom: solid 2px rgba(255,255,255,.1);
+	border-radius: 5px;
+}
+
+p.syntax {
+	font-size: 14px;
+	border-bottom: 0;
+	padding: 2px 6px;
 }
 
 .task-description {
@@ -96,21 +102,22 @@
 	& h3 {
 		margin-bottom: 10px;
 		font-weight: 600;
+		font-size: 16px;
 	}
 }
 
 .example {
 	font-size: 15px;
-	line-height: 170%;
+	line-height: 100%;
 	color: #888888;
 }
 
 .level-menu-wrapper {
-	display: none;
+	position: fixed;
+	top: 0;
+	right: -375px;
+	transition: all 0.4s ease 0s;
 	&.active {
-		display: block;
-		position: fixed;
-		top: 0;
 		right: 0;
 		font-family: "Exo 2", "Lato", sans-serif;
 	}
@@ -151,6 +158,7 @@
 		background: rgba(255,255,255,.05);
 	}
 	&.active {
+		background: rgba(255,255,255,.05);
 		color: #AAAAAA;
 	}
 	&.completed {
