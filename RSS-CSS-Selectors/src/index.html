@@ -13,29 +13,16 @@
 			<header class="header">
 				<h2 class="game-name"> CSS Post</h2>
 			</header>
-	
 			<main class="main">
 				<h1 class="main__header level-requirement"> Select all the things! </h1>
 				<article class="table">
 					<section class="table-surface">
-						<div class="items-container">
-							<envelope>
-								<seal></seal>
-							</envelope>
-							<envelope class="opened">
-								<stamp></stamp>
-							</envelope>
-							<envelope>
-							</envelope>
-							<envelope class="opened">
-							</envelope>
-						</div>
+						<div class="items-container"></div>
 					</section>
 					<section class="table-edge">
 						<div class="table-leg"></div>
 						<div class="table-leg"></div>
-					</section>
-					
+					</section>	
 				</article>
 				<article class="editor-wrapper">
 					<section class="code-viewer css-editor">
@@ -62,11 +49,9 @@
 							</aside>
 							<pre>
 								<code class="css">
-.table {
-  background: black
-}
+									<textarea class="css-selector-textarea" rows="3" cols="15" placeholder="Type in a CSS Selector"></textarea>
 								</code>
-						</pre>
+							</pre>
 						</div>
 					</section>
 					<section class="code-viewer html-viewer">
@@ -95,12 +80,6 @@
 								<code class="html" href="javascript:history.back()">
 									<div>
 										<p>&lt;div class="table"&gt;</p>
-										<div> 
-											<p>  &lt;envelope&gt;</p>
-											<p>    &lt;stamp/&gt;</p>
-											<p>  &lt;/envelope&gt;</p>
-										</div>
-										<div><p>  &lt;/envelope/&gt;</p></div>
 										<p>&lt;/div&gt;</p>
 									</div>
 								</code>
@@ -109,7 +88,6 @@
 					</section>
 				</article>
 			</main>
-	
 			<footer class="footer">
 				<a href="https://github.com/Radzivonn" target="_blank" id="author"> Made by <strong> Radzivonn </strong> </a>
 				<a href="https://rs.school/js/" target="_blank" id="course-link">
@@ -118,84 +96,42 @@
 				</a>
 			</footer>
 		</div>
-
 		<div class="level-info-wrapper">
 			<article class="level-info-content">
 				<section class="level-switcher">
 					<div class="level-switch-UI">
-						<pre class="level-counter"> Level 
-							<output id="current-level"> 13 </output>
-							 of 
-							<output id="levels-amount"> 20 </output> 
+						<pre class="level-counter"> 
+							Level
+							<output id="current-level"> </output>
+							 of
+							<output id="levels-amount"> </output> 
 						</pre>
 						<div class="arrows">
-							<svg width="18px" height="17px" viewBox="0 0 18 17" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+							<div id="prev-button">
+								<svg width="18px" height="17px" viewBox="0 0 18 17" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 									<g transform="translate(8.500000, 8.500000) scale(-1, 1) translate(-8.500000, -8.500000)">
 											<polygon class="arrows-pl" points="16.3746667 8.33860465 7.76133333 15.3067621 6.904 14.3175671 14.2906667 8.34246869 6.908 2.42790698 7.76 1.43613596"></polygon>
 											<polygon class="arrows-pl-fixed" points="16.3746667 8.33860465 7.76133333 15.3067621 6.904 14.3175671 14.2906667 8.34246869 6.908 2.42790698 7.76 1.43613596"></polygon>
 											<path d="M-1.48029737e-15,0.56157424 L-1.48029737e-15,16.1929159 L9.708,8.33860465 L-2.66453526e-15,0.56157424 L-1.48029737e-15,0.56157424 Z M1.33333333,3.30246869 L7.62533333,8.34246869 L1.33333333,13.4327013 L1.33333333,3.30246869 L1.33333333,3.30246869 Z"></path>
 									</g>
-							</svg>
-							<svg width="18px" height="17px" viewBox="-1 0 18 17" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+								</svg>
+							</div>
+							<div id="next-button">
+								<svg  width="18px" height="17px" viewBox="-1 0 18 17" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 									<g>
 											<polygon class="arrows-pl" points="16.3746667 8.33860465 7.76133333 15.3067621 6.904 14.3175671 14.2906667 8.34246869 6.908 2.42790698 7.76 1.43613596"></polygon>
 											<polygon class="arrows-pl-fixed" points="16.3746667 8.33860465 7.76133333 15.3067621 6.904 14.3175671 14.2906667 8.34246869 6.908 2.42790698 7.76 1.43613596"></polygon>
 											<path d="M-4.58892184e-16,0.56157424 L-4.58892184e-16,16.1929159 L9.708,8.33860465 L-1.64313008e-15,0.56157424 L-4.58892184e-16,0.56157424 Z M1.33333333,3.30246869 L7.62533333,8.34246869 L1.33333333,13.4327013 L1.33333333,3.30246869 L1.33333333,3.30246869 Z"></path>
 									</g>
-							</svg>
+								</svg>
+							</div>
 						</div>
-						<div class="menu-icon">
+						<div class="menu-icon" id="menu-button">
 							<span></span>
 						</div>
 					</div>
-					<div class="level-progress">
-						<div class="progress-line"></div>
-					</div>
-				</section>
-				<section class="level-info">
-					<h3 class="level-title"> Type Selector </h3>
-					<h4 class="brief"> Select elements by their type </h2>
-					<div class="syntax"> A </div>
-					<p class="task-description"> Selects all elements of type A. Type refers to the type of tag, so div, p and ul are all different element types. </p>
-					<div class="examples">
-						<h3> Examples </h3>
-						<p class="example"> p * selects any element inside all p elements. </p>
-					</div>
 				</section>
 			</article>
-		</div>
-		<div class="level-info-wrapper level-menu-wrapper">
-			<section class="level-menu__header">
-				<h2> Choose a level </h2>
-			</section>
-			<div class="levels">
-				<div class="level">
-					<span class="checkmark"></span>
-					<output class="level-number"> 1 </output>
-					<output class="level-name">A</output>
-				</div>
-				<div class="level">
-					<span class="checkmark"></span>
-					<output class="level-number"> 2 </output>
-					<output class="level-name">class</output>
-				</div>
-				<div class="level">
-					<span class="checkmark"></span>
-					<output class="level-number"> 3 </output>
-					<output class="level-name">id</output>
-				</div>
-				<div class="level">
-					<span class="checkmark"></span>
-					<output class="level-number"> 4 </output>
-					<output class="level-name"></output>
-				</div>
-				<div class="level">
-					<span class="checkmark"></span>
-					<output class="level-number"> 5 </output>
-					<output class="level-name"></output>
-				</div>
-			</div>
-			<button class="reset-progress-button"> Reset progress </button>
 		</div>
 	</div>
 </body>
