@@ -11,6 +11,9 @@
 	height: auto;
 	cursor: pointer;
 	overflow: visible;
+	&:active {
+		opacity: 0.8;
+	}
 }
 .arrows svg polygon, 
 .arrows svg path {
