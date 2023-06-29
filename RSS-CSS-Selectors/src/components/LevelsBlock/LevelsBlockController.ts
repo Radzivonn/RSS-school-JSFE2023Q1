@@ -1,19 +1,26 @@
 import { IController } from "./types";
 import LevelsBlockModel from "./LevelsBlockModel";
 import LevelsBlockView from "./LevelsBlockView";
+import { LayoutExampleController } from '@/components/LayoutExample/LayoutExampleController';
 import { Level, LevelsList } from "@/utils/levelTypes";
 
 export default class LevelsBlockController implements IController {
 	public model: LevelsBlockModel;
 	public view: LevelsBlockView;
+	private layoutExample: LayoutExampleController;
 	constructor() {
 		this.model = new LevelsBlockModel();
 		this.view = new LevelsBlockView(this.model.levels, this.model.getCompletedLevels());
+		this.layoutExample = new LayoutExampleController(
+			<HTMLElement>document.querySelector('.items-container'),
+			this.model.currentLevel
+		);
 	}
 
 	public init() {
 		this.view.mount(this.model.levels, this.model.currentLevel);
 		this.bindListeners();
+		this.layoutExample.init();
 	}
 
 	private bindListeners() {
@@ -25,6 +32,7 @@ export default class LevelsBlockController implements IController {
 
 	private updateAppView(level: Level, levels: LevelsList): void {
 		this.view.updateView(levels, level);
+		this.layoutExample.view.updateView(level.markup);
 	}
 
 	private levelsBlockHandler(e: MouseEvent, levels: LevelsList): void {
