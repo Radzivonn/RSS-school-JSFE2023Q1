@@ -100,6 +100,12 @@
 		zoom: 0.7;
 	}
 
+	.css-selector-textarea {
+		&::placeholder {
+			font-size: 15px;
+		}
+	}
+
 	.level-info-wrapper {
 		width: 250px;
 		padding: 10px;
@@ -126,7 +132,7 @@
 
 	.table,
 	.editor-wrapper {
-		zoom: 0.6;
+		zoom: 0.56;
 	}
 
 	.editor-header {
