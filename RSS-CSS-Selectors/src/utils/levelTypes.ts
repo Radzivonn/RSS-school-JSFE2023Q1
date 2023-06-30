@@ -17,4 +17,4 @@ export type Level = Readonly<{
 
 export type completedLevels = Array<number>;
 
-export type LevelsList = Readonly<Array<Level>>;
+export type LevelsList = ReadonlyArray<Level>;
