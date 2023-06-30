@@ -1,21 +1,14 @@
 import { IModel } from "./types";
-import { Level, LevelsList } from "@/utils/levelTypes";
+import { Level } from "@/utils/levelTypes";
 import levels from '@/utils/levels';
+import LevelDataStore from "@/utils/store/levelsStore";
 
 export default class LevelsBlockModel implements IModel {
-	public currentLevelNumber: number = this.getCurrentLevelNumber();
-	public currentLevel: Level = levels[this.currentLevelNumber];
-	public levels: LevelsList = levels;
-	
-	private getCurrentLevelNumber(): number {
-		const savedLevel = localStorage.getItem("currentLevel");
-		return savedLevel ? JSON.parse(savedLevel) - 1 : 0;
-	}
-
-	public getCompletedLevels(): Array<number> {
-		const savedData = localStorage.getItem("completedLevels");
-		return savedData ? JSON.parse(savedData) : [];
-	}
+	public store = new LevelDataStore();
+	public currentLevelNumber = this.store.getCurrentLevelNumber();
+	public currentLevel = levels[this.currentLevelNumber];
+	public levels = levels;
+	public completedLevels = this.store.getCompletedLevels();
 
 	public prevLevel(): Level {
 		if(this.currentLevelNumber > 0) this.currentLevel = this.levels[--this.currentLevelNumber];
