@@ -32,7 +32,7 @@ const levels: LevelsList = [
 	{
 		levelNumber: 3,
 		markup: "<envelope></envelope><parcel></parcel><envelope><stamp class='animated-item'></stamp></envelope>",
-		html: "<div>  &lt;envelope/&gt;</div><div>  &lt;parcel/&gt;</div><div>  &lt;envelope&gt;</div><div>    &lt;seal/&gt;</div><div>  &lt;/envelope&gt;</div>",
+		html: "<div>  &lt;envelope/&gt;</div><div>  &lt;parcel/&gt;</div><div>  &lt;envelope&gt;\n    &lt;stamp/&gt;\n  &lt;/envelope&gt;</div>",
 		correctSelectors: ['envelope stamp', 'stamp', '* stamp'],
 		task: "Select the stamp on an envelope",
 		description: {
@@ -46,7 +46,7 @@ const levels: LevelsList = [
 	{
 		levelNumber: 4,
 		markup: "<parcel></parcel><parcel class='animated-item'><seal></seal></parcel><envelope></envelope>",
-		html: "<div>  &lt;envelope/&gt;</div><div>  &lt;parcel id='seal' /&gt;</div><div>  &lt;envelope/&gt;</div>",
+		html: "<div>  &lt;parcel/&gt;</div><div>  &lt;parcel id='seal'/&gt;</div><div>  &lt;envelope/&gt;</div>",
 		correctSelectors: ['#seal', 'parcel#seal', '*#seal'],
 		task: "Select the parcel with seal",
 		description: {
@@ -60,7 +60,7 @@ const levels: LevelsList = [
 	{
 		levelNumber: 5,
 		markup: "<envelope class='opened animated-item'></envelope><parcel></parcel><envelope></envelope><envelope class='opened animated-item'></envelope>",
-		html: "<div>  &lt;envelope class='opened' /&gt;</div><div>  &lt;parcel/&gt;</div><div>  &lt;envelope/&gt;</div><div>  &lt;envelope class='opened' /&gt;</div>",
+		html: "<div>  &lt;envelope class='opened'/&gt;</div><div>  &lt;parcel/&gt;</div><div>  &lt;envelope/&gt;</div><div>  &lt;envelope class='opened'/&gt;</div>",
 		correctSelectors: ['envelope.opened', '.opened', '*.opened'],
 		task: "Select opened envelope",
 		description: {
@@ -73,8 +73,8 @@ const levels: LevelsList = [
 	},
 	{
 		levelNumber: 6,
-		markup: "<stamp></stamp><envelope class='animated-item'><seal></seal></envelope><parcel><seal></seal></parcel><envelope></envelope>",
-		html: "<div>  &lt;stamp/&gt;</div><div>  &lt;envelope id='seal' /&gt;</div><div>  &lt;parcel id='seal' /&gt;</div><div>  &lt;envelope id='seal' /&gt;</div>",
+		markup: "<parcel></parcel><envelope class='animated-item'><seal></seal></envelope><parcel><seal></seal></parcel><envelope></envelope>",
+		html: "<div>  &lt;parcel/&gt;</div><div>  &lt;envelope id='seal'/&gt;</div><div>  &lt;parcel id='seal'/&gt;</div><div>  &lt;envelope/&gt;</div>",
 		correctSelectors: ['envelope#seal'],
 		task: "Select envelope with id seal",
 		description: {
@@ -88,7 +88,7 @@ const levels: LevelsList = [
 	{
 		levelNumber: 7,
 		markup: "<envelope class='opened'></envelope><envelope></envelope><envelope class='opened'><stamp class='animated-item'></stamp></envelope><parcel></parcel><envelope class='opened></envelope>",
-		html: "<div>&lt;envelope class='opened' /&gt;</div> <div>  &lt;envelope/&gt;</div><div>  &lt;envelope class='opened' &gt;</div><div>    &lt;stamp/&gt;</div><div>  &lt;envelope/&gt;</div><div>  &lt;parcel/&gt;</div><div>  &lt;envelope class='opened' /&gt;</div>",
+		html: "<div>  &lt;envelope class='opened'/&gt;</div> <div>  &lt;envelope/&gt;</div><div>  &lt;envelope class='opened'&gt;\n    &lt;stamp/&gt;\n  &lt;/envelope&gt;</div><div>  &lt;parcel/&gt;</div>",
 		correctSelectors: ['envelope.opened stamp', 'stamp'],
 		task: "Select stamp inside opened envelope",
 		description: {
@@ -102,7 +102,7 @@ const levels: LevelsList = [
 	{
 		levelNumber: 8,
 		markup: "<stamp class='animated-item'></stamp><envelope><stamp class='animated-item'></stamp></envelope><parcel><seal class='animated-item'></seal></parcel><envelope><seal class='animated-item'></seal></envelope>",
-		html: "<div>  &lt;stamp/&gt;</div><div>  &lt;envelope&gt;</div><div>  &lt;stamp/&gt;</div><div>  &lt;/envelope&gt;</div><div>  &lt;parcel&gt;</div><div>    &lt;seal/&gt;</div><div>  &lt;/parcel&gt;</div><div>  &lt;envelope&gt;</div><div>    &lt;seal/&gt;</div><div>  &lt;/envelope&gt;</div>",
+		html: "<div>  &lt;stamp/&gt;</div><div>  &lt;envelope&gt;\n    &lt;stamp/&gt;\n  &lt;/envelope&gt;</div><div>  &lt;parcel&gt;\n    &lt;seal/&gt;\n  &lt;/parcel&gt;</div><div>  &lt;envelope&gt;\n    &lt;seal/&gt;\n  &lt;/envelope&gt;</div>",
 		correctSelectors: ['stamp, seal', 'seal, stamp'],
 		task: "Select all the stamps and seals",
 		description: {
@@ -116,7 +116,7 @@ const levels: LevelsList = [
 	{
 		levelNumber: 9,
 		markup: "<stamp class='animated-item'></stamp><envelope class='animated-item'></envelope><parcel class='animated-item'></parcel><envelope class='opened animated-item'></envelope>",
-		html: "<div>  &lt;stamp/&gt;</div><div>  &lt;envelope/&gt;</div><div>  &lt;parcel/&gt;</div><div>  &lt;envelope class='opened' /&gt;</div>",
+		html: "<div>  &lt;stamp/&gt;</div><div>  &lt;envelope/&gt;</div><div>  &lt;parcel/&gt;</div><div>  &lt;envelope class='opened'/&gt;</div>",
 		correctSelectors: ['*'],
 		task: "Select all the things!",
 		description: {
@@ -129,8 +129,8 @@ const levels: LevelsList = [
 	},
 	{
 		levelNumber: 10,
-		markup: "<envelope><stamp class='animated-item'></stamp></envelope><parcel></parcel><envelope><seal class='animated-item'></seal class='animated-item'></envelope>",
-		html: "<div>  &lt;envelope&gt;</div><div>  &lt;stamp/&gt;</div><div>  &lt;/envelope&gt;</div><div>  &lt;parcel/&gt;</div><div>  &lt;envelope&gt;</div><div>  &lt;seal/&gt;</div><div>  &lt;/envelope&gt;</div>",
+		markup: "<envelope><stamp class='animated-item'></stamp></envelope><parcel></parcel><envelope><seal class='animated-item'></seal class='animated-item'></envelope><parcel><seal class='animated-item'></seal></parcel>",
+		html: "<div>  &lt;envelope&gt;\n    &lt;stamp/&gt;\n  &lt;/envelope&gt;</div><div>  &lt;parcel/&gt;</div><div>  &lt;envelope&gt;\n    &lt;seal/&gt;\n  &lt;/envelope&gt;</div><div>  &lt;parcel&gt;\n    &lt;seal/&gt;\n  &lt;/parcel&gt;</div>",
 		correctSelectors: ['envelope *'],
 		task: "Select everything on an envelope!",
 		description: {
