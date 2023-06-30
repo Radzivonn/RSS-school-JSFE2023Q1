@@ -10,10 +10,9 @@ export default class LevelsBlockController implements IController {
 	private layoutExample: LayoutExampleController;
 	constructor() {
 		this.model = new LevelsBlockModel();
-		this.view = new LevelsBlockView(this.model.levels, this.model.store.getCompletedLevels());
+		this.view = new LevelsBlockView(this.model.levels, this.model.completedLevels);
 		this.layoutExample = new LayoutExampleController(
 			<HTMLElement>document.querySelector('.items-container'),
-			this.model.currentLevel
 		);
 	}
 
