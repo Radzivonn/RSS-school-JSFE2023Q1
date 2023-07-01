@@ -1,4 +1,4 @@
-import { Level } from '@/utils/levelTypes';
+import { Level, ConfigElement } from '@/utils/levelTypes';
 
 export interface IModel {
 	currentLevel: Level;
@@ -6,7 +6,7 @@ export interface IModel {
 
 export interface IView {
 	root: HTMLElement;
-	updateView(markup: string, place: InsertPosition): void;
+	updateView(elements: Array<ConfigElement>): void;
 }
 
 export interface IController {
