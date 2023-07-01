@@ -1,10 +1,11 @@
 import { IModel } from './types';
-import { Level } from '@/utils/levelTypes';
+import LevelDataStore from "@/utils/store/levelsStore";
+import levels from '@/utils/levels';
 
 export class LayoutExampleModel implements IModel {
-	public currentLevel;
-
-	constructor(currentLevel: Level) {
-		this.currentLevel = currentLevel;
-	}
+	public store = new LevelDataStore();
+	public currentLevelNumber = this.store.getCurrentLevelNumber();
+	public currentLevel = levels[this.currentLevelNumber];
+	public levels = levels;
+	public completedLevels = this.store.getCompletedLevels();
 }
