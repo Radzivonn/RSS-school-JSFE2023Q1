@@ -1,18 +1,17 @@
 import { IController } from './types';
 import { LayoutExampleModel } from './LayoutExampleModel';
 import { LayoutExampleView } from './LayoutExampleView';
-import { Level } from '@/utils/levelTypes';
 
-export class LayoutExampleController implements IController {
+export default class LayoutExampleController implements IController {
 	public model: LayoutExampleModel;
 	public view: LayoutExampleView;
 
-	constructor(root: HTMLElement, currentLevel: Level) {
-		this.model = new LayoutExampleModel(currentLevel);
-		this.view = new LayoutExampleView(root);
+	constructor() {
+		this.model = new LayoutExampleModel();
+		this.view = new LayoutExampleView(document.querySelector('.items-container') as HTMLElement);
 	}
 
 	public init() {
-		this.view.updateView(this.model.currentLevel.markup);
+		this.view.updateView(this.model.currentLevel.elements);
 	}
 }
