@@ -6,10 +6,17 @@ type LevelDescription = {
 	example: string,
 }
 
+export type ConfigElement = {
+	tag: string,
+	className?: string,
+	id?: string,
+	child?: ConfigElement,
+	isCorrectAnswer?: boolean
+} 
+	
 export type Level = Readonly<{
 	levelNumber: number,
-	markup: string,
-	html: string,
+	elements: Array<ConfigElement>, 
 	correctSelectors: Array<string>,
 	task: string,
 	description: LevelDescription,
