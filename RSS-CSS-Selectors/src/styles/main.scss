@@ -4,7 +4,7 @@
 
 $defaultBGColor: #2e2a23;
 $darkBGColor: #1e1c18;
-$defaultFontColor: rgba(255,255,255,.3);
+$defaultFontColor: #11a182;
 
 .page-wrapper {
 	width: 100vw;
@@ -20,6 +20,7 @@ $defaultFontColor: rgba(255,255,255,.3);
 	overflow-y: scroll;
 	overflow-x: hidden;
 	touch-action: pinch-zoom;
+	color: $defaultFontColor;
 	&::-webkit-scrollbar {
 		width: 4px;
 		background-color: $defaultBGColor;
@@ -53,7 +54,7 @@ $defaultFontColor: rgba(255,255,255,.3);
 
 .main__header {
 	font-size: 46px;
-	color: $defaultFontColor;;
+	color: #1cc19e;
 	text-align: center;
 }
 
@@ -66,7 +67,7 @@ $defaultFontColor: rgba(255,255,255,.3);
 .table-surface {
 	width: 100%;
 	height: 130px;
-	background-color: #dd992d;
+	background-color: $defaultFontColor;
 	margin: 0 auto;
 	transform: perspective(500px) rotateX(20deg);
 	transform-origin: bottom;
@@ -86,7 +87,7 @@ $defaultFontColor: rgba(255,255,255,.3);
 
 .table-edge {
 		width: 100%;
-    background: #ac741c;
+    background: rgb(6, 122, 103);
     height: 15px;
     transform: rotateX(-40deg);
     transform-origin: top;
@@ -96,7 +97,7 @@ $defaultFontColor: rgba(255,255,255,.3);
 .table-leg {
 	width: 24px;
 	height: 10px;
-	background: #84570f;
+	background: #11a182;
 	position: absolute;
 	top: 15px;
 	&:first-child{
@@ -111,6 +112,11 @@ parcel {
 	width: 100px;
 	height: 116px;
 	background: center/cover no-repeat url('../assets/img/parcel.svg');
+	&.hovered {
+		&:after {
+			content: '<parcel></parcel>';
+		}
+	}
 }
 
 envelope {
@@ -126,12 +132,22 @@ envelope {
 		height: 112px;
 		background: center/cover no-repeat url('../assets/img/opened-envelope.svg');
 	}
+	&.hovered {
+		&:after {
+			content: '<envelope></envelope>';
+		}
+	}
 }
 
 stamp {
 	width: 50px;
 	height: 31px;
 	background-image: url('../assets/img/stamp2.svg');
+	&.hovered {
+		&:after {
+			content: '<stamp></stamp>';
+		}
+	}
 }
 
 seal {
@@ -139,16 +155,40 @@ seal {
 	height: 50px;
 	background: center/cover no-repeat url('../assets/img/seal.svg');
 	margin: 5px auto;
+	&.hovered {
+		&:after {
+			content: '<seal></seal>';
+		}
+	}
 }
 
 parcel,
 envelope,
 stamp,
 seal {
+	position: relative;
 	display: block;
-	&:hover,
-	&.hover {
-		border: 5px solid rgba(255,255,255,.6);
+	&.hovered {
+		border: 5px solid rgb(6, 122, 103);
+		&:after {
+			position: absolute;
+			top: -60px;
+			left: -50px;
+			z-index: 10;
+			width: auto;
+			height: 40px;
+			padding: 10px;
+			background-color: #cfcfcf;
+			border-radius: 5px;
+			font-size: 22px;
+			text-align: center;
+			white-space: nowrap;
+			opacity: 0;
+			pointer-events: none;
+		}
+		&:hover:after {
+			opacity: 1;
+		}
 	}
 }
 
@@ -222,7 +262,9 @@ seal {
 			}
 		}
 		&.css {
-			transform: translate(5px, -30px);
+			display: flex;
+			flex-direction: column;
+			gap: 10px;
 		}
 	}
 }
@@ -231,21 +273,18 @@ seal {
 	position: relative;
 	z-index: 5;
 	width: 95%;
-	background: rgb(241 141 35);
+	background: none;
 	font-family: menlo, monospace;
-	font-size: 18px;
+	font-size: 15px;
 	color: rgb(45, 45, 56);
 	border-radius: 4px;
 	padding: 4px;
 	margin: 5px;
 	caret-color: rgb(45, 45, 56);
-	animation: selectorInput 1.5s infinite;
-	-webkit-animation: selectorInput 1.5s infinite;
-	-moz-animation: selectorInput 1.5s infinite;
 	overflow: auto;
 	resize: none;
-	box-shadow: 3px 3px 10px 0px rgba(241, 141, 35, 0.6);
 	&::placeholder {
+		color:$defaultFontColor;
     font-size: 16px;
 	}
 }
@@ -253,9 +292,9 @@ seal {
 .column-numbers {
 	font-family: menlo, monospace;
   font-size: 15px;
-	color: $defaultFontColor;;
+	color: $defaultFontColor;
 	background-color: $defaultBGColor;
-	padding: 6px;
+	padding: 10px 6px;
 }
 
 .footer {
@@ -282,7 +321,7 @@ seal {
 
 #author {
 	& strong {
-		color: #bebebe;
+		color: #0ec29b;
 	}
 }
 
@@ -290,7 +329,7 @@ seal {
 	display: flex;
 	align-items: center;
 	gap: 5px;
-	color: $defaultFontColor;;
+	color: $defaultFontColor;
 }
 
 #school-logo {

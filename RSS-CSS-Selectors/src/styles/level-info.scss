@@ -5,6 +5,7 @@
 	overflow: hidden;
 	background-color: $darkBGColor;
 	padding: 15px;
+	color: #11a182
 }
 
 .level-switcher {
@@ -25,7 +26,6 @@
 	font-family: "Exo 2", "Lato", sans-serif;
 	font-size: 26px;
 	font-weight: 600;
-	color: #777777;
 	white-space: nowrap;
 }
 
@@ -39,7 +39,7 @@
 .progress-line {
   position: relative;
 	height: inherit;
-	background: rgba(255,255,255,.2);
+	background: #11a182;
 	&:after {
     content: "";
     position: absolute;
@@ -57,13 +57,13 @@
 	width: 100%;
 	font-family: "Exo 2", "Lato", sans-serif;
 	text-align: left;
-	color: rgba(255,255,255,.6);
 }
 
 .level-title {
 	font-weight: 600;
 	font-size: 18px;
 	margin-bottom: 8px;
+	color: #1cc19e;
 }
 
 .brief {
@@ -84,6 +84,7 @@
 	margin-bottom: 18px;
 	border-bottom: solid 2px rgba(255,255,255,.1);
 	border-radius: 5px;
+	color: #888888;
 }
 
 p.syntax {
@@ -93,7 +94,6 @@ p.syntax {
 }
 
 .task-description {
-	color: #888888;
 	font-size: 15px;
 	line-height: 150%;
 	margin-bottom: 30px;
@@ -104,13 +104,13 @@ p.syntax {
 		margin-bottom: 10px;
 		font-weight: 600;
 		font-size: 16px;
+		color: #1cc19e;
 	}
 }
 
 .example {
 	font-size: 15px;
 	line-height: 100%;
-	color: #888888;
 }
 
 .level-menu-wrapper {
@@ -128,7 +128,6 @@ p.syntax {
 	margin-bottom: 25px;
 	h2 {
 		font-size: 22px;
-		color: rgba(255,255,255,.4);
 	}
 }
 
@@ -152,7 +151,6 @@ p.syntax {
 
 .level {
 	width: 100%;
-	color: #777777;
 	padding: 6px;
 	cursor: pointer;
 	&:hover {
@@ -160,12 +158,11 @@ p.syntax {
 	}
 	&.active {
 		background: rgba(255,255,255,.05);
-		color: #AAAAAA;
 	}
 	&.completed {
 		.checkmark {
 			opacity: .55;
-			border: solid 3px #4cbb4a;
+			border: solid 3px #00ffc8;
 			border-width: 0 3px 3px 0;
 		}
 	}
@@ -185,8 +182,8 @@ p.syntax {
 	text-align: center;
 	text-decoration: none;
 	font-size: 16px;
-	color: rgba(255,255,255,.4);
-	border: solid 2px rgba(255,255,255,.2);
+	color: #11a182;
+	border: solid 2px #11a182;
 	&:hover {
 		background: rgba(255,255,255,.05);
 	}
