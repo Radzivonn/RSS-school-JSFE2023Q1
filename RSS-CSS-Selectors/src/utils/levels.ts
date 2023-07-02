@@ -63,16 +63,13 @@ const levels: LevelsList = [
 			{ tag: 'parcel' },
 			{
 				tag: 'parcel',
-				id: 'seal',
-				child: {
-					tag: 'seal'
-				},
+				className: 'seal',
 				isCorrectAnswer: true
 			},
 			{	tag: 'envelope' },
 		],
 		correctSelectors: ['#seal', 'parcel#seal', '*#seal'],
-		task: "Select the parcel with seal",
+		task: "Select the parcel with id seal",
 		description: {
 			levelTitle: "ID Selector",
 			brief: "Select elements with an ID",
@@ -105,17 +102,12 @@ const levels: LevelsList = [
 			{ tag: 'parcel' },
 			{
 				tag: 'envelope',
-				child: {
-					tag: 'seal'
-				},
+				className: 'seal',
 				isCorrectAnswer: true
 			},
 			{
 				tag: 'parcel',
 				id: 'seal',
-				child: {
-					tag: 'seal'
-				},
 			},
 			{ tag: 'envelope' },
 		],
