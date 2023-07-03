@@ -1,5 +1,5 @@
 import Store from "./store";
-import levels from "../levels";
+import levels from "../levels/levels";
 
 enum DATAKEYS {
 	CURRENTLEVELKEY = "currentLevel",

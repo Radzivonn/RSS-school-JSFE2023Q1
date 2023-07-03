@@ -1,5 +1,5 @@
 import { IView, ButtonsSet } from "./types";
-import { Level, LevelsList } from "@/utils/levelTypes";
+import { Level, LevelsList } from "@/utils/levels/levelTypes";
 import { createElement, removeClasses } from "@/utils/helperFuncs";
 
 export default class LevelsBlockView implements IView {

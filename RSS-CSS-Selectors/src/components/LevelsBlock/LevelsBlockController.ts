@@ -1,7 +1,7 @@
 import { IController } from "./types";
 import LevelsBlockModel from "./LevelsBlockModel";
 import LevelsBlockView from "./LevelsBlockView";
-import { Level } from "@/utils/levelTypes";
+import { Level } from "@/utils/levels/levelTypes";
 import { getEventElement } from "@/utils/helperFuncs";
 
 enum CustomEvents {

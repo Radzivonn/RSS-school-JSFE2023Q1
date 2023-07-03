@@ -1,5 +1,5 @@
 import { IModel } from "./types";
-import { Level } from "@/utils/levelTypes";
+import { Level } from "@/utils/levels/levelTypes";
 import LevelDataStore from "@/utils/store/levelsStore";
 
 export default class LevelsBlockModel implements IModel {

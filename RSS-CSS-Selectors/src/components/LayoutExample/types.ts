@@ -1,4 +1,4 @@
-import { ConfigElement } from '@/utils/levelTypes';
+import { ConfigElement } from '@/utils/levels/levelTypes';
 
 export interface IView {
 	root: HTMLElement;
