@@ -87,3 +87,7 @@
 .pressed {
 	animation: buttonPressed 0.15s 1;
 }
+
+.swap {
+	transform: translateY(-400px);
+}
