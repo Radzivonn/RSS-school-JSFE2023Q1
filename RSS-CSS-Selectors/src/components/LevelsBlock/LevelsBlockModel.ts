@@ -40,7 +40,6 @@ export default class LevelsBlockModel implements IModel {
 			this.store.completedLevels.push(this.store.currentLevelNumber);
 			if (this.store.completedLevels.length === this.store.levels.length) return 'You completed all levels!!!';
 		}
-		console.log(this.store.completedLevels);
 		return this.nextLevel();
 	}
 
