@@ -1,17 +1,24 @@
 import { IController } from './types';
-import { LayoutExampleModel } from './LayoutExampleModel';
 import { LayoutExampleView } from './LayoutExampleView';
+import { hoverHandler } from '@/utils/helperFuncs';
 
 export default class LayoutExampleController implements IController {
-	public model: LayoutExampleModel;
 	public view: LayoutExampleView;
 
 	constructor() {
-		this.model = new LayoutExampleModel();
 		this.view = new LayoutExampleView(document.querySelector('.items-container') as HTMLElement);
 	}
 
 	public init() {
-		this.view.updateView(this.model.currentLevel.elements);
+		this.bindListeners();
+	}
+
+	private bindListeners() {
+		this.view.root.addEventListener('mouseover', (e) => hoverHandler(e, 'exampleObject'));
+		this.view.root.addEventListener('mouseout', (e) => hoverHandler(e, 'exampleObject'));
+		document.addEventListener (
+			'changeLevel',
+			(e) => this.view.updateView((<CustomEvent>e).detail.currentLevel.elements)
+		);
 	}
 }

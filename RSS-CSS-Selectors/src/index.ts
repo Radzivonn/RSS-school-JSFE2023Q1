@@ -1,6 +1,6 @@
 import './styles/main.scss';
 
-import { default as App } from '@/components/LevelsBlock/LevelsBlockController';
+import App from '@/components/App';
 
 const app = new App();
 

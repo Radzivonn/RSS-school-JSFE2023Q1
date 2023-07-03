@@ -1,8 +1,9 @@
 import { Level, LevelsList } from '@/utils/levelTypes';
 
 export interface IModel {
-	currentLevel: Level;
-	levels: LevelsList;
+	prevLevel(): Level;
+	nextLevel(): Level;
+	changeLevel(levelNumber: number): Level;
 }
 
 export interface IView {
@@ -18,4 +19,8 @@ export interface IController {
 
 export type ButtonsSet = {
 	readonly [key: string]: HTMLElement
+}
+
+export type CustomEvents = {
+	[key: string]: CustomEvent
 }

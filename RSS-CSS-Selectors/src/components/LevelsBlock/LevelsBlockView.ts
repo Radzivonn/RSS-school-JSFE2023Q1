@@ -44,11 +44,6 @@ export default class LevelsBlockView implements IView {
 		this.levelMenu = this.createLevelMenu(levels, this.levelsBlock, completedLevels);
 	}
 
-	public mount(levels: LevelsList, currentLevel: Level): void {
-		this.createView();
-		this.updateView(levels, currentLevel);
-	}
-
 	public updateView(levels: LevelsList, currentLevel: Level): void {
 		const levelsAmount = levels.length;
 		this.levelRequirementHeader.textContent = currentLevel.task;

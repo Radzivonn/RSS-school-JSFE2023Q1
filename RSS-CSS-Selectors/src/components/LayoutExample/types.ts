@@ -1,16 +1,11 @@
-import { Level, ConfigElement } from '@/utils/levelTypes';
-
-export interface IModel {
-	currentLevel: Level;
-}
+import { ConfigElement } from '@/utils/levelTypes';
 
 export interface IView {
 	root: HTMLElement;
-	updateView(elements: Array<ConfigElement>): void;
+	updateView(elements: ConfigElement[]): void;
 }
 
 export interface IController {
-	model: IModel;
 	view: IView;
 	init(): void;
 }
