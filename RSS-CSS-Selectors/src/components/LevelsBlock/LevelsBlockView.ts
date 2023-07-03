@@ -20,10 +20,12 @@ export default class LevelsBlockView implements IView {
 	private prevButton = document.getElementById('prev-button') as HTMLElement;
 	private nextButton = document.getElementById('next-button') as HTMLElement;
 	private menuButton = document.getElementById('menu-button') as HTMLElement;
+	private resetButton = createElement({ tag: 'button', classNames: ['reset-progress-button'], text: 'Reset progress' });
 	public buttons: ButtonsSet = {
 		prev: this.prevButton,
 		next: this.nextButton,
-		menu: this.menuButton
+		menu: this.menuButton,
+		reset: this.resetButton
 	}
 
 	constructor(levels: LevelsList, completedLevels: Array<number>) {
@@ -98,7 +100,7 @@ export default class LevelsBlockView implements IView {
 		componentView.append(
 			header,
 			levelsListBlock,
-			createElement({ tag: 'button', classNames: ['reset-progress-button'], text: 'Reset progress' })
+			this.resetButton
 		);
 		return componentView;
 	}
@@ -123,5 +125,11 @@ export default class LevelsBlockView implements IView {
 
 	public gamePassed(message: string) {
 		this.levelRequirementHeader.textContent = message;
+	}
+
+	public resetView() {
+		this.levelsBlock.querySelectorAll('.level').forEach(element => {
+			element.classList.remove('completed');
+		});
 	}
 }

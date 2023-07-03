@@ -24,9 +24,18 @@ export default class LevelsBlockController implements IController {
 		this.view.buttons.menu.addEventListener('click', () => this.view.toggleLevelsMenu());
 		this.view.buttons.prev.addEventListener('click', () => this.changeLevel(this.model.prevLevel()));
 		this.view.buttons.next.addEventListener('click', () => this.changeLevel(this.model.nextLevel()));
+		this.view.buttons.reset.addEventListener('click', () => {
+			this.resetGame();
+			this.changeLevel(this.model.resetProgress());
+		});
 		this.view.levelsBlock.addEventListener('click', (e) => this.setLevel(e));
 		document.addEventListener(CustomEvents.LEVELCOMPLETED, () => this.levelCompleted(this.model.levelCompleted()));
 		window.addEventListener('beforeunload', () => this.model.saveLevelOptions());
+	}
+
+	private resetGame() {
+		this.view.toggleLevelsMenu();
+		this.view.resetView();
 	}
 
 	private levelCompleted(currentLevel: Level | string) {

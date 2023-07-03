@@ -1,19 +1,19 @@
 import { IModel } from "./types";
-import { Level } from "@/utils/levels/levelTypes";
+import { Level, LevelsList } from "@/utils/levels/levelTypes";
 import LevelDataStore from "@/utils/store/levelsStore";
 
 export default class LevelsBlockModel implements IModel {
 	public store = new LevelDataStore();
  
-	public getCurrentLevel() {
+	public getCurrentLevel(): Level {
 		return this.store.currentLevel;
 	}
 
-	public getLevels() {
+	public getLevels(): LevelsList {
 		return this.store.levels;
 	}
 
-	public getCompletedLevels() {
+	public getCompletedLevels(): number[] {
 		return this.store.completedLevels;
 	}
 
@@ -42,6 +42,11 @@ export default class LevelsBlockModel implements IModel {
 		}
 		console.log(this.store.completedLevels);
 		return this.nextLevel();
+	}
+
+	public resetProgress(): Level {
+		this.store.resetProgress()
+		return this.getCurrentLevel();
 	}
 
 	public saveLevelOptions(): void {

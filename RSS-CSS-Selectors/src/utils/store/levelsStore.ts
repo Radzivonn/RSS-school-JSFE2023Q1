@@ -13,6 +13,12 @@ export default class LevelDataStore extends Store {
 	public levels = levels;
 	public completedLevels = this.getCompletedLevels();
 
+	public resetProgress(): void {
+		this.currentLevelNumber = 0;
+		this.currentLevel = this.levels[this.currentLevelNumber];
+		this.completedLevels = [];
+	}
+
 	private getCurrentLevelNumber() {
 		const data = this.getData<number>(this.DATAKEYS.CURRENTLEVELKEY);
 		return data ? data : 0;
