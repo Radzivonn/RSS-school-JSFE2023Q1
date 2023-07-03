@@ -7,7 +7,6 @@ const levels: LevelsList = [
 			{ tag: 'envelope', isCorrectAnswer: true },
 			{ tag: 'envelope', isCorrectAnswer: true },
 		],
-		correctSelectors: ['envelope', '*'],
 		task: "Select the envelopes",
 		description: {
 			levelTitle: "Type Selector",
@@ -24,7 +23,6 @@ const levels: LevelsList = [
 			{ tag: 'parcel', isCorrectAnswer: true },
 			{ tag: 'envelope' },
 		],
-		correctSelectors: ['parcel'],
 		task: "Select the parcel",
 		description: {
 			levelTitle: "Type Selector",
@@ -47,7 +45,6 @@ const levels: LevelsList = [
 				}
 			},
 		],
-		correctSelectors: ['envelope stamp', 'stamp', '* stamp'],
 		task: "Select the stamp on an envelope",
 		description: {
 			levelTitle: "Descendant Selector",
@@ -63,12 +60,11 @@ const levels: LevelsList = [
 			{ tag: 'parcel' },
 			{
 				tag: 'parcel',
-				className: 'seal',
+				id: 'seal',
 				isCorrectAnswer: true
 			},
 			{	tag: 'envelope' },
 		],
-		correctSelectors: ['#seal', 'parcel#seal', '*#seal'],
 		task: "Select the parcel with id seal",
 		description: {
 			levelTitle: "ID Selector",
@@ -86,7 +82,6 @@ const levels: LevelsList = [
 			{	tag: 'envelope' },
 			{ tag: 'envelope', className: 'opened', isCorrectAnswer: true },
 		],
-		correctSelectors: ['envelope.opened', '.opened', '*.opened'],
 		task: "Select opened envelope",
 		description: {
 			levelTitle: "Select elements by their class",
@@ -102,7 +97,7 @@ const levels: LevelsList = [
 			{ tag: 'parcel' },
 			{
 				tag: 'envelope',
-				className: 'seal',
+				id: 'seal',
 				isCorrectAnswer: true
 			},
 			{
@@ -111,7 +106,6 @@ const levels: LevelsList = [
 			},
 			{ tag: 'envelope' },
 		],
-		correctSelectors: ['envelope#seal'],
 		task: "Select envelope with id seal",
 		description: {
 			levelTitle: "Combine the ID Selector",
@@ -136,7 +130,6 @@ const levels: LevelsList = [
 			{ tag: 'parcel' },
 			{ tag: 'envelope', className: 'opened' },
 		],
-		correctSelectors: ['envelope.opened stamp', 'stamp'],
 		task: "Select stamp inside opened envelope",
 		description: {
 			levelTitle: "Descendant Selector",
@@ -172,7 +165,6 @@ const levels: LevelsList = [
 				}
 			},
 		],
-		correctSelectors: ['stamp, seal', 'seal, stamp'],
 		task: "Select all the stamps and seals",
 		description: {
 			levelTitle: "Comma Combinator",
@@ -190,7 +182,6 @@ const levels: LevelsList = [
 			{ tag: 'parcel', isCorrectAnswer: true },
 			{ tag: 'envelope', className: 'opened', isCorrectAnswer: true },
 		],
-		correctSelectors: ['*'],
 		task: "Select all the things!",
 		description: {
 			levelTitle: "The Universal Selector",
@@ -225,7 +216,6 @@ const levels: LevelsList = [
 				}
 			},
 		],
-		correctSelectors: ['envelope *'],
 		task: "Select everything on an envelope!",
 		description: {
 			levelTitle: "Combine the Universal Selector",
