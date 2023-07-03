@@ -68,6 +68,13 @@
   }
 }
 
+@keyframes buttonPressed{
+	50% {
+    border-width: 1px 1px 2px 1px;
+    top: 12px;
+	}
+}
+
 .animated-item {
 	-webkit-animation: vibrate 0.4s linear infinite both;
 	animation: vibrate 0.4s linear infinite both;
@@ -75,4 +82,8 @@
 
 .shake {
   animation: shake 0.8s cubic-bezier(0.455, 0.030, 0.515, 0.955) both;
+}
+
+.pressed {
+	animation: buttonPressed 0.15s 1;
 }
