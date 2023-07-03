@@ -13,6 +13,15 @@ export const createElement = (params: Params): HTMLElement => {
 	return element;
 }
 
+export const animateElem = (element: Element, animationName: string, animationDuration = 1000) => {
+	element.classList.add(animationName);
+	setTimeout(() => element.classList.remove(animationName), animationDuration);
+}
+
+export const animateElements = (elements: Element[], animationName: string, animationDuration = 1000) => {
+	elements.forEach(element => animateElem(element, animationName, animationDuration));
+}
+
 export const removeClasses = (elements: HTMLCollection, className: string): void => {
 	for (const child of elements) child.classList.remove(className);
 }
