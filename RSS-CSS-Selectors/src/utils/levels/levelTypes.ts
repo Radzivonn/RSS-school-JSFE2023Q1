@@ -16,12 +16,11 @@ export type ConfigElement = {
 	
 export type Level = Readonly<{
 	levelNumber: number,
-	elements: Array<ConfigElement>, 
-	correctSelectors: Array<string>,
+	elements: ConfigElement[], 
 	task: string,
 	description: LevelDescription,
 }>
 
-export type completedLevels = Array<number>;
+export type completedLevels = number[];
 
 export type LevelsList = ReadonlyArray<Level>;

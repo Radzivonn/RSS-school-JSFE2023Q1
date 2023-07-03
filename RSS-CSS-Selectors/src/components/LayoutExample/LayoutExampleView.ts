@@ -32,5 +32,4 @@ export class LayoutExampleView implements IView {
 		if (element.child) node.append(this.createExampleElement(element.child, uniqueNumber + 10));
 		return node;
 	}
-	
 }
