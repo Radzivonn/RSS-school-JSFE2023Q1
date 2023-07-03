@@ -15,11 +15,16 @@ export default class LevelDataStore extends Store {
 
 	private getCurrentLevelNumber() {
 		const data = this.getData<number>(this.DATAKEYS.CURRENTLEVELKEY);
-		return data ? data - 1 : 0;
+		return data ? data : 0;
 	}
 
 	private getCompletedLevels() {
 		const data = this.getData<number[]>(this.DATAKEYS.COMPLETEDLEVELSKEY);
 		return data ? data : [];
+	}
+
+	public saveOptions(): void {
+		this.saveData(this.DATAKEYS.CURRENTLEVELKEY, this.currentLevelNumber);
+		this.saveData(this.DATAKEYS.COMPLETEDLEVELSKEY, this.completedLevels);
 	}
 }
