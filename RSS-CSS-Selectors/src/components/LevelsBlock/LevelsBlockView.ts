@@ -44,7 +44,7 @@ export default class LevelsBlockView implements IView {
 		this.levelMenu = this.createLevelMenu(levels, this.levelsBlock, completedLevels);
 	}
 
-	public updateView(levels: LevelsList, currentLevel: Level): void {
+	public updateView(levels: LevelsList, currentLevel: Level, completedLevels: number[]): void {
 		const levelsAmount = levels.length;
 		this.levelRequirementHeader.textContent = currentLevel.task;
 		this.numberNode.textContent = String(currentLevel.levelNumber);
@@ -57,7 +57,8 @@ export default class LevelsBlockView implements IView {
 		this.example.textContent = '';
 		this.example.insertAdjacentHTML('afterbegin', currentLevel.description.example);
 		removeClasses(this.levelsBlock.children, 'active');
-		(<HTMLElement>document.getElementById(`${currentLevel.levelNumber - 1}`)).classList.add('active');
+		(<HTMLElement>document.getElementById(`number${currentLevel.levelNumber - 1}`)).classList.add('active');
+		this.markCompletedLevels(completedLevels);
 	}
 
 	private createLevelsList(levels: LevelsList,  completedLevels: Array<number>): Array<Node> {
@@ -65,7 +66,7 @@ export default class LevelsBlockView implements IView {
 			const classes: Array<string> = ['level'];
 			if (completedLevels.includes(index)) classes.push('completed');
 			const levelElement = createElement(
-				{ tag: 'div', classNames: classes, id: `${index}` }
+				{ tag: 'div', classNames: classes, id: `number${index}` }
 			);
 			levelElement.append(
 				createElement({ tag: 'span', classNames: ['checkmark']}),
@@ -112,5 +113,15 @@ export default class LevelsBlockView implements IView {
 	public toggleLevelsMenu(): void {
 		this.levelMenu.classList.toggle('active');
 		this.menuButton.classList.toggle('active');
+	}
+
+	private markCompletedLevels(completedLevels: Array<number>) {
+		completedLevels.forEach(
+			levelNum => this.levelsBlock.querySelector(`#number${levelNum}`)?.classList.add('completed')
+		);
+	}
+
+	public gamePassed(message: string) {
+		this.levelRequirementHeader.textContent = message;
 	}
 }

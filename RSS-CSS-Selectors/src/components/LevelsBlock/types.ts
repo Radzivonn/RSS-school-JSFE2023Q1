@@ -8,7 +8,7 @@ export interface IModel {
 
 export interface IView {
 	createView(): void;
-	updateView(levels: LevelsList, currentLevel: Level): void;
+	updateView(levels: LevelsList, currentLevel: Level, completedLevels: number[]): void;
 }
 
 export interface IController {
