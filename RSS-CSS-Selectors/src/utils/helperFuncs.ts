@@ -38,3 +38,15 @@ export const hoverHandler = (e: Event, childClassName: string): void => {
 		});
 	}
 }
+
+/**
+ * Recursion function to display text in text area with text printing effect 
+ * @param string - string to display 
+ * @param textarea - text area to display string
+ * @param printSpeed - print speed per character in milliseconds
+ */
+export const printString = <T>(string: string, textarea: T, printSpeed = 200): void => {
+	(<HTMLTextAreaElement>textarea).value += string.slice(0, 1);
+	if (string.length > 1) setTimeout(() => printString(string.slice(1), textarea), printSpeed);
+	return;
+}
