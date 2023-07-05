@@ -303,7 +303,7 @@ seal {
 	color: #e6db74;
 	border-radius: 4px;
 	padding: 4px;
-	margin: 5px;
+	margin: 5px 0px 5px 5px;
 	caret-color: #f92672;
 	overflow: auto;
 	resize: none;
@@ -323,7 +323,7 @@ seal {
 	}
 }
 
-.enter-button {
+.input-button {
 	width: 40px;
 	height: 20px;
 	z-index: 10;

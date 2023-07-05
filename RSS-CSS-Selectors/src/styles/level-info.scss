@@ -149,6 +149,13 @@ p.syntax {
 	border-width: 0 3px 3px 0;
 }
 
+.help-checkmark {
+	font-weight: bold;
+	color: white;
+	opacity: 0.2;
+	margin-right: 15px;
+}
+
 .level {
 	width: 100%;
 	padding: 6px;
@@ -159,13 +166,20 @@ p.syntax {
 	&.active {
 		background: rgba(255,255,255,.05);
 	}
-	&.completed {
+	&.completed,
+	&.completedWithHelp {
 		.checkmark {
 			opacity: .55;
 			border: solid 3px #00ffc8;
 			border-width: 0 3px 3px 0;
 		}
 	}
+	&.completedWithHelp {
+		.help-checkmark {
+			opacity: 1;
+			color: #f92672;
+		}
+	}		
 }
 
 .level-number {
