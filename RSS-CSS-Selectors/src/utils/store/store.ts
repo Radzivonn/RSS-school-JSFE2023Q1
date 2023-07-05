@@ -1,4 +1,6 @@
-type ValidStoreData = number | Array<number>;
+import { CompletedLevelsData } from "../levels/levelTypes";
+
+type ValidStoreData = number | CompletedLevelsData;
 
 interface IStore {
 	getData<T>(key: string): T;

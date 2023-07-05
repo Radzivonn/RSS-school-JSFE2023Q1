@@ -1,5 +1,6 @@
 import Store from "./store";
 import levels from "../levels/levels";
+import { CompletedLevelsData } from "../levels/levelTypes";
 
 enum DATAKEYS {
 	CURRENTLEVELKEY = "currentLevel",
@@ -25,7 +26,7 @@ export default class LevelDataStore extends Store {
 	}
 
 	private getCompletedLevels() {
-		const data = this.getData<number[]>(this.DATAKEYS.COMPLETEDLEVELSKEY);
+		const data = this.getData<CompletedLevelsData>(this.DATAKEYS.COMPLETEDLEVELSKEY);
 		return data ? data : [];
 	}
 

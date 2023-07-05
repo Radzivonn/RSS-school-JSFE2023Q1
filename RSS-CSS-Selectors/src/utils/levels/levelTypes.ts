@@ -16,7 +16,8 @@ export type ConfigElement = {
 	
 export type Level = Readonly<{
 	levelNumber: number,
-	elements: ConfigElement[], 
+	elements: ConfigElement[],
+	correctSelector: string, // for help button
 	task: string,
 	description: LevelDescription,
 }>
@@ -24,3 +25,8 @@ export type Level = Readonly<{
 export type completedLevels = number[];
 
 export type LevelsList = ReadonlyArray<Level>;
+
+export type CompletedLevelsData = {
+	levelNumber: number,
+	isCompletedWithHelp: boolean
+}[];
