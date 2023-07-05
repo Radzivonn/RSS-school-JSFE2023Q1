@@ -1,4 +1,4 @@
-import { Level, LevelsList } from '@/utils/levels/levelTypes';
+import { Level, LevelsList, CompletedLevelsData } from '@/utils/levels/levelTypes';
 
 export interface IModel {
 	prevLevel(): Level;
@@ -8,7 +8,7 @@ export interface IModel {
 
 export interface IView {
 	createView(): void;
-	updateView(levels: LevelsList, currentLevel: Level, completedLevels: number[]): void;
+	updateView(levels: LevelsList, currentLevel: Level, completedLevels: CompletedLevelsData): void;
 }
 
 export interface IController {

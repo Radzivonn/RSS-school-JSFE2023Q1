@@ -24,27 +24,31 @@ export default class LayoutExampleController implements IController {
 		);
 		document.addEventListener(
 			CustomEvents.ENTERSELECTOR,
-			(e) => this.enterSelectorHandler(e)
+			(e) => this.enterSelectorHandler(e, (<CustomEvent>e).detail.isCompletedWithHelp)
 		);
 	}
 
-	private enterSelectorHandler(e: Event): void {
+	private enterSelectorHandler(e: Event, helpFlag: boolean): void {
 		const selector = (<CustomEvent>e).detail.selector;
 		const selectedElements = Array.from(this.view.root.querySelectorAll(selector));
 		if (selectedElements.length > 0) {
 			const isCorrect: boolean = selectedElements.every(element => Array.from(element.classList).includes('animated-item'));
 			if (!isCorrect) animateElements(selectedElements, 'shake');
 			else {
-				this.animateWin(selectedElements);
+				this.animateWin(selectedElements, helpFlag);
 			}
 		}	else animateElem(this.editorElement, 'shake');
 	}
 
-	private animateWin(elements: Element[], animationDuration = 1000) {
+	private animateWin(elements: Element[], helpFlag: boolean, animationDuration = 1000) {
 		elements.forEach(element => element.classList.remove('animated-item'));
 		setTimeout(() => {
 			animateElements(elements, 'swap', animationDuration);
-			setTimeout(() => document.dispatchEvent(new CustomEvent(CustomEvents.LEVELCOMPLETED)), 500);
+			setTimeout(() => document.dispatchEvent(new CustomEvent(CustomEvents.LEVELCOMPLETED, {
+				detail: {
+					isCompletedWithHelp: helpFlag
+				}
+			})), 500);
 		}, 10);
 	}
 }

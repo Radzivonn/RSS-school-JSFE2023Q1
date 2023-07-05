@@ -29,7 +29,9 @@ export default class LevelsBlockController implements IController {
 			this.changeLevel(this.model.resetProgress());
 		});
 		this.view.levelsBlock.addEventListener('click', (e) => this.setLevel(e));
-		document.addEventListener(CustomEvents.LEVELCOMPLETED, () => this.levelCompleted(this.model.levelCompleted()));
+		document.addEventListener(
+			CustomEvents.LEVELCOMPLETED,
+			(e) => this.levelCompleted(this.model.levelCompleted((<CustomEvent>e).detail.isCompletedWithHelp)));
 		window.addEventListener('beforeunload', () => this.model.saveLevelOptions());
 	}
 

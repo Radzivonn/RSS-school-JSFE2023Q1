@@ -1,5 +1,5 @@
 import { IModel } from "./types";
-import { Level, LevelsList } from "@/utils/levels/levelTypes";
+import { Level, LevelsList, CompletedLevelsData } from "@/utils/levels/levelTypes";
 import LevelDataStore from "@/utils/store/levelsStore";
 
 export default class LevelsBlockModel implements IModel {
@@ -13,7 +13,7 @@ export default class LevelsBlockModel implements IModel {
 		return this.store.levels;
 	}
 
-	public getCompletedLevels(): number[] {
+	public getCompletedLevels(): CompletedLevelsData {
 		return this.store.completedLevels;
 	}
 
@@ -35,9 +35,10 @@ export default class LevelsBlockModel implements IModel {
 		return this.store.currentLevel;
 	}
 
-	public levelCompleted(): Level | string {
-		if (!this.store.completedLevels.includes(this.store.currentLevelNumber)) {
-			this.store.completedLevels.push(this.store.currentLevelNumber);
+	public levelCompleted(isCompletedWithHelp: boolean): Level | string {
+		const completedLevelsNumbers = this.store.completedLevels.map(levelData => levelData.levelNumber);
+		if (!completedLevelsNumbers.includes(this.store.currentLevelNumber)) {
+			this.store.completedLevels.push({levelNumber: this.store.currentLevelNumber, isCompletedWithHelp: isCompletedWithHelp});
 			if (this.store.completedLevels.length === this.store.levels.length) return 'You completed all levels!!!';
 		}
 		return this.nextLevel();

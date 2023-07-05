@@ -1,5 +1,5 @@
 import { IView, ButtonsSet } from "./types";
-import { Level, LevelsList } from "@/utils/levels/levelTypes";
+import { Level, LevelsList, CompletedLevelsData } from "@/utils/levels/levelTypes";
 import { createElement, removeClasses } from "@/utils/helperFuncs";
 
 export default class LevelsBlockView implements IView {
@@ -28,7 +28,7 @@ export default class LevelsBlockView implements IView {
 		reset: this.resetButton
 	}
 
-	constructor(levels: LevelsList, completedLevels: Array<number>) {
+	constructor(levels: LevelsList, completedLevels: CompletedLevelsData) {
 		this.progressLine = createElement({ tag: 'div', classNames: ['level-progress'] });
 		this.progressLine.append(createElement({ tag: 'div', classNames: ['progress-line'] }));
 
@@ -46,7 +46,7 @@ export default class LevelsBlockView implements IView {
 		this.levelMenu = this.createLevelMenu(levels, this.levelsBlock, completedLevels);
 	}
 
-	public updateView(levels: LevelsList, currentLevel: Level, completedLevels: number[]): void {
+	public updateView(levels: LevelsList, currentLevel: Level, completedLevels: CompletedLevelsData): void {
 		const levelsAmount = levels.length;
 		this.levelRequirementHeader.textContent = currentLevel.task;
 		this.numberNode.textContent = String(currentLevel.levelNumber);
@@ -63,15 +63,17 @@ export default class LevelsBlockView implements IView {
 		this.markCompletedLevels(completedLevels);
 	}
 
-	private createLevelsList(levels: LevelsList,  completedLevels: Array<number>): Array<Node> {
+	private createLevelsList(levels: LevelsList,  completedLevels: CompletedLevelsData): Array<Node> {
 		return levels.map((levelData, index) => {
 			const classes: Array<string> = ['level'];
-			if (completedLevels.includes(index)) classes.push('completed');
+			const completedLevelsNumbers = completedLevels.map(level => level.levelNumber);
+			if (completedLevelsNumbers.includes(index)) classes.push('completed');
 			const levelElement = createElement(
 				{ tag: 'div', classNames: classes, id: `number${index}` }
 			);
 			levelElement.append(
 				createElement({ tag: 'span', classNames: ['checkmark']}),
+				createElement({ tag: 'span', classNames: ['help-checkmark'], text: 'H'}),
 				createElement({ tag: 'output', classNames: ['level-number'], text: `${levelData.levelNumber}`}),
 				createElement({ tag: 'output', classNames: ['level-name'], text: levelData.description.syntax})
 			);
@@ -92,7 +94,7 @@ export default class LevelsBlockView implements IView {
 		return componentView;
 	}
 
-	private createLevelMenu(levels: LevelsList, levelsListBlock: HTMLElement, completedLevels: Array<number>) {
+	private createLevelMenu(levels: LevelsList, levelsListBlock: HTMLElement, completedLevels: CompletedLevelsData) {
 		const componentView = createElement({ tag: 'div', classNames: ['level-info-wrapper', 'level-menu-wrapper'] });
 		const header = createElement({ tag: 'section', classNames: ['level-menu__header'] });
 		header.append(createElement({ tag: 'h2', text: 'Choose a level' }));
@@ -117,10 +119,14 @@ export default class LevelsBlockView implements IView {
 		this.menuButton.classList.toggle('active');
 	}
 
-	private markCompletedLevels(completedLevels: Array<number>) {
-		completedLevels.forEach(
-			levelNum => this.levelsBlock.querySelector(`#number${levelNum}`)?.classList.add('completed')
-		);
+	private markCompletedLevels(completedLevels: CompletedLevelsData) {
+		completedLevels.forEach(levelData => {
+			const levelNode = this.levelsBlock.querySelector(`#number${levelData.levelNumber}`);
+			if (levelNode) {
+				if(levelData.isCompletedWithHelp) levelNode.classList.add('completedWithHelp');
+				else levelNode.classList.add('completed');
+			}
+		});
 	}
 
 	public gamePassed(message: string) {
@@ -130,6 +136,7 @@ export default class LevelsBlockView implements IView {
 	public resetView() {
 		this.levelsBlock.querySelectorAll('.level').forEach(element => {
 			element.classList.remove('completed');
+			element.classList.remove('completedWithHelp');
 		});
 	}
 }
