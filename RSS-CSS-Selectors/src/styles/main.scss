@@ -244,6 +244,7 @@ seal {
 	height: 278px;
 	border: 1px solid rgb(80 78 74 / 80%);
 	line-height: initial;
+	background-color: #23241f;
 	& pre {
 		width: 90%;
 		display: flex;
@@ -251,7 +252,6 @@ seal {
     align-items: start;
 	}
 	& code {
-    background-color: rgba(0, 0, 0, 0);
 		width: 100%;
 		overflow: hidden;
 		font-family: menlo, monospace;
@@ -267,7 +267,11 @@ seal {
 				margin-left: 1rem;
 				cursor: default;
 				&.hovered {
-					color: whitesmoke;
+					.hljs-tag,
+					.hljs-tag *,
+					.hljs .hljs-tag * {
+						color: $defaultFontColor;
+					}
 				}
 			}
 			& > .html__markup-code {
@@ -296,11 +300,11 @@ seal {
 	background: none;
 	font-family: menlo, monospace;
 	font-size: 15px;
-	color: $defaultFontColor;
+	color: #e6db74;
 	border-radius: 4px;
 	padding: 4px;
 	margin: 5px;
-	caret-color: $defaultFontColor;
+	caret-color: #f92672;
 	overflow: auto;
 	resize: none;
 	&::placeholder {
