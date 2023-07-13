@@ -24,6 +24,13 @@
         "no-console": 0,
         "class-methods-use-this": "off",
 				"@typescript-eslint/no-explicit-any": 2,
-				"@typescript-eslint/no-var-requires": 0
+				"@typescript-eslint/no-var-requires": 0,
+				"import/extensions": ["error", "ignorePackages", {
+					"": "never",
+					"ts": "never",
+					"js": "never"
+				}],
+				"lines-between-class-members": "off",
+    		"@typescript-eslint/lines-between-class-members": "off"
     }
 }
