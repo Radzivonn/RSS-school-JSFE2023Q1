@@ -41,12 +41,12 @@ export const getRequestData = async <T>(URL: string, method = 'GET'): Promise<T>
 };
 
 export const getAllCarsData = async (): Promise<AllCarsData> => {
-	const data = await getRequestData<AllCarsData>(`${BASEREQUESTtURL}/${RequestDirs.ALLCARSPATH}`);
+	const data = await getRequestData<AllCarsData>(`${BASEREQUESTtURL}/${RequestDirs.CARSDATAPATH}`);
 	return data;
 };
 
 export const getAllWinnersData = async (): Promise<AllWinnersData> => {
-	const data = await getRequestData<AllWinnersData>(`${BASEREQUESTtURL}/${RequestDirs.ALLWINNERSPATH}`);
+	const data = await getRequestData<AllWinnersData>(`${BASEREQUESTtURL}/${RequestDirs.WINNERSDATAPATH}`);
 	return data;
 };
 
