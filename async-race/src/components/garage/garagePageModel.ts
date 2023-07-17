@@ -1,6 +1,6 @@
 import { Model } from './types';
-import { AllCarsData } from '@/utils/commonTypes';
-import { getAllCarsData } from '@/utils/helperFuncs';
+import { AllCarsData, ResponseCarData } from '@/utils/commonTypes';
+import { getAllCarsData, createCarOnServer } from '@/utils/helperFuncs';
 
 export default class GaragePageModel implements Model {
 	private _allCarsData: AllCarsData = [];
@@ -8,6 +8,13 @@ export default class GaragePageModel implements Model {
 
 	public async setRequestData(): Promise<void> {
 		this.allCarsData = await getAllCarsData();
+	}
+
+	public async createCar(carName: string, carColor: string): Promise<ResponseCarData> {
+		const carData = await createCarOnServer({ name: carName, color: carColor });
+		console.log(carData);
+		this.allCarsData.push(carData);
+		return carData;
 	}
 
 	public get pageNumber(): number {
