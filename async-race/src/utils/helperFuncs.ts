@@ -57,6 +57,16 @@ export const getAllWinnersData = async (): Promise<AllWinnersData> => {
 	return data;
 };
 
+export const createCarOnServer = async (carData: CreatedCarData): Promise<ResponseCarData> => {
+	const data = await getRequestData<ResponseCarData>(
+		`${BASEREQUESTtURL}/${RequestDirs.CARSDATAPATH}`,
+		'POST',
+		{ 'Content-Type': 'application/json' },
+		JSON.stringify(carData),
+	);
+	return data;
+};
+
 export const createCarImg = (color: string): HTMLElement => {
 	const car = createElement({ tag: 'div', classNames: ['car'] });
 	car.style.fill = color;
