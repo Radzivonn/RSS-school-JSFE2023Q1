@@ -9,7 +9,7 @@ export default class GaragePageModel implements Model {
 	readonly TRACKSPERPAGE = 7;
 
 	public async setRequestData(): Promise<void> {
-		this.allCarsData = await getAllCarsData();
+		this._allCarsData = await getAllCarsData();
 		this.updatePagesAmount();
 	}
 
@@ -28,38 +28,26 @@ export default class GaragePageModel implements Model {
 	}
 	
 	private updatePagesAmount() {
-		this.pagesAmount = this.allCarsData.length / this.TRACKSPERPAGE;
+		this._pagesAmount = this.allCarsData.length / this.TRACKSPERPAGE;
 	}
 
 	public switchToNextPage(): void {
-		if (this.pageNumber <= this.pagesAmount) this.pageNumber += 1;
+		if (this.pageNumber <= this.pagesAmount) this._pageNumber += 1;
 	}
 
 	public switchToPrevPage(): void {
-		if (this.pageNumber > 1) this.pageNumber -= 1;
+		if (this.pageNumber > 1) this._pageNumber -= 1;
 	}
 
 	public get pageNumber(): number {
 		return this._pageNumber;
 	}
 
-	public set pageNumber(value) {
-		this._pageNumber = value;
-	}
-
 	public get allCarsData(): AllCarsData {
 		return this._allCarsData;
 	}
 
-	public set allCarsData(data) {
-		this._allCarsData = data;
-	}
-
 	public get pagesAmount() {
 		return this._pagesAmount;
-	}
-
-	public set pagesAmount(value) {
-		this._pagesAmount = value;
 	}
 }
