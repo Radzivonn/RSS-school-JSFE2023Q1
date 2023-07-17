@@ -74,5 +74,15 @@ body {
 	color: $fontColor;
 }
 
+[disabled='true'] {
+	box-shadow: none;
+	&:hover {
+		cursor: default;
+		background: none;
+		box-shadow: none;
+		color: $buttonColor;
+	}
+}
+
 @import './garage';
 @import './winners-page';
