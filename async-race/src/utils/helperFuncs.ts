@@ -1,6 +1,6 @@
 import { BASEREQUESTtURL, RequestDirs } from './commonVars';
 import carSVGcode from './carSVGcode';
-import { AllCarsData, AllWinnersData } from './commonTypes';
+import { AllCarsData, AllWinnersData, ResponseCarData, CreatedCarData } from './commonTypes';
 
 type ElementParams = Readonly<{
 	tag: string,
@@ -32,9 +32,16 @@ export const createPaginationButtons = (): HTMLElement[] =>
 		createElement({ tag: 'button', classNames: ['button', 'next-button'], text: 'next' }),
 	];
 
-export const getRequestData = async <T>(URL: string, method = 'GET'): Promise<T> => {
+export const getRequestData = async <T>(
+	URL: string,
+	method = 'GET',
+	headers: HeadersInit = {},
+	body: BodyInit | null = null,
+): Promise<T> => {
 	const data = await fetch(URL, {
 		method: method,
+		headers: headers,
+		body: body,
 	});
 	if (data.ok) return data.json();
 	throw new Error(data.statusText);
