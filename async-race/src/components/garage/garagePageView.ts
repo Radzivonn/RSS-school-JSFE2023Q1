@@ -1,6 +1,6 @@
 import { View } from './types';
 import { createCarImg, createElement, createPaginationButtons } from '@/utils/helperFuncs';
-import { CarData, AllCarsData } from '@/utils/commonTypes';
+import { ResponseCarData, AllCarsData } from '@/utils/commonTypes';
 
 export default class GaragePageView implements View {
 	public carsAmount = createElement({ tag: 'output', classNames: ['cars-number'] });
@@ -12,7 +12,7 @@ export default class GaragePageView implements View {
 				tag: 'input',
 				classNames: ['text-input', 'create-block__input'],
 				attrs: [{ attrName: 'type', attrValue: 'text' }],
-			}),
+			}) as HTMLInputElement,
 			updateCarInput: createElement({
 				tag: 'input',
 				classNames: ['text-input', 'update-block__input'],
@@ -20,14 +20,14 @@ export default class GaragePageView implements View {
 					{ attrName: 'type', attrValue: 'text' },
 					{ attrName: 'disabled', attrValue: 'true' },
 				],
-			}),
+			}) as HTMLInputElement,
 		},
 		colorPalettes: {
 			createCarPalette: createElement({
 				tag: 'input',
 				classNames: ['color-palette', 'create-block__colorPalette'],
 				attrs: [{ attrName: 'type', attrValue: 'color' }],
-			}),
+			}) as HTMLInputElement,
 			updateCarPalette: createElement({
 				tag: 'input',
 				classNames: ['color-palette', 'update-block__colorPalette'],
@@ -35,7 +35,7 @@ export default class GaragePageView implements View {
 					{ attrName: 'type', attrValue: 'color' },
 					{ attrName: 'disabled', attrValue: 'true' },
 				],
-			}),
+			}) as HTMLInputElement,
 		},
 		buttons: {
 			createCarButton: createElement({ tag: 'button', classNames: ['button', 'create-block__button'], text: 'create' }),
@@ -52,7 +52,7 @@ export default class GaragePageView implements View {
 	};
 
 	public switchButtonsBlock = createElement({ tag: 'div', classNames: ['switch-buttons'] });
-	private TRACKSPERPAGE = 7;
+	public TRACKSPERPAGE = 7;
 
 	constructor() {
 		this.switchButtonsBlock.append(...createPaginationButtons());
@@ -115,7 +115,7 @@ export default class GaragePageView implements View {
 			.map(carData => this.createTrack(carData));
 	}
 
-	private createTrack(carData: CarData): HTMLElement {
+	private createTrack(carData: ResponseCarData): HTMLElement {
 		const track = createElement({ tag: 'div', classNames: ['track'] });
 		const carButtons = createElement({ tag: 'div', classNames: ['car-buttons'] });
 		const carControlButtons = createElement({ tag: 'div', classNames: ['car-control-buttons'] });
@@ -146,12 +146,12 @@ export default class GaragePageView implements View {
 		this.updateTracksBlock(pageNumber, carsData);
 	}
 
-	private updatePageHeaders(allCarsAmount: number, pageNumber: number) {
+	public updatePageHeaders(allCarsAmount: number, pageNumber: number) {
 		this.carsAmount.textContent = ` ${allCarsAmount}`;
 		this.pageNumber.textContent = `${pageNumber}`;
 	}
 
-	private updateTracksBlock(pageNumber: number, carsData: AllCarsData): void {
+	public updateTracksBlock(pageNumber: number, carsData: AllCarsData): void {
 		this.tracksBlock.replaceChildren(...this.createTracksForPage(pageNumber, carsData));
 	}
 }
