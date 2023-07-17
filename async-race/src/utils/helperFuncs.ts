@@ -1,5 +1,6 @@
-import { BASEREQUESTtURL } from './commonVars';
+import { BASEREQUESTtURL, RequestDirs } from './commonVars';
 import carSVGcode from './carSVGcode';
+import { AllCarsData, AllWinnersData } from './commonTypes';
 
 type ElementParams = Readonly<{
 	tag: string,
@@ -37,8 +38,13 @@ export const getRequestData = async <T>(URL: string): Promise<T> => {
 	throw new Error(data.statusText);
 };
 
-export const getCarsData = async <T>(requestDir: string): Promise<T> => {
-	const data = await getRequestData<T>(`${BASEREQUESTtURL}/${requestDir}`);
+export const getAllCarsData = async (): Promise<AllCarsData> => {
+	const data = await getRequestData<AllCarsData>(`${BASEREQUESTtURL}/${RequestDirs.ALLCARSPATH}`);
+	return data;
+};
+
+export const getAllWinnersData = async (): Promise<AllWinnersData> => {
+	const data = await getRequestData<AllWinnersData>(`${BASEREQUESTtURL}/${RequestDirs.ALLWINNERSPATH}`);
 	return data;
 };
 

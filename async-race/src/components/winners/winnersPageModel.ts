@@ -1,7 +1,6 @@
 import { Model } from './types';
 import { AllCarsData, AllWinnersData } from '@/utils/commonTypes';
-import { RequestDirs } from '@/utils/commonVars';
-import { getCarsData } from '@/utils/helperFuncs';
+import { getAllCarsData, getAllWinnersData } from '@/utils/helperFuncs';
 
 export default class WinnersPageModel implements Model {
 	private _allWinnersData: AllWinnersData = [];
@@ -9,8 +8,8 @@ export default class WinnersPageModel implements Model {
 	private _pageNumber = 1;
 
 	public async setRequestData(): Promise<void> {
-		this.allCarsData = await getCarsData<AllCarsData>(RequestDirs.ALLCARSDATA);
-		this.allWinnersData = await getCarsData<AllWinnersData>(RequestDirs.ALLWINNERSDATA);
+		this.allCarsData = await getAllCarsData();
+		this.allWinnersData = await getAllWinnersData();
 	}
 
 	public get pageNumber(): number {

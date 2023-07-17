@@ -1,14 +1,13 @@
 import { Model } from './types';
 import { AllCarsData } from '@/utils/commonTypes';
-import { RequestDirs } from '@/utils/commonVars';
-import { getCarsData } from '@/utils/helperFuncs';
+import { getAllCarsData } from '@/utils/helperFuncs';
 
 export default class GaragePageModel implements Model {
 	private _allCarsData: AllCarsData = [];
 	private _pageNumber = 1;
 
 	public async setRequestData(): Promise<void> {
-		this.allCarsData = await getCarsData<AllCarsData>(RequestDirs.ALLCARSDATA);
+		this.allCarsData = await getAllCarsData();
 	}
 
 	public get pageNumber(): number {
