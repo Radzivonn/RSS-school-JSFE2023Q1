@@ -16,12 +16,18 @@ export default class GaragePageController implements Controller {
 		this.bindListeners();
 	}
 
-	public getView(): HTMLElement {
-		return this.view.createView(
+	private renderView(): void {
+		this.view.updateView(
 			this.model.pageNumber,
 			this.model.allCarsData.length,
 			this.model.getDisplayedCarsData(),
 		);
+	}
+
+	public getView(): HTMLElement {
+		const componentView = this.view.createView();
+		this.renderView();
+		return componentView;
 	}
 
 	private bindListeners() {

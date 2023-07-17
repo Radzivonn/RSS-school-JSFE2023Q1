@@ -57,7 +57,7 @@ export default class GaragePageView implements View {
 		this.switchButtonsBlock.append(...createPaginationButtons());
 	}
 
-	public createView(pageNumber: number, allCarsAmount: number, allCarsData: AllCarsData): HTMLElement {
+	public createView(): HTMLElement {
 		const garageNode = createElement({ tag: 'div', classNames: ['garage'] });
 
 		garageNode.append(
@@ -65,8 +65,6 @@ export default class GaragePageView implements View {
 			this.createRaceBlock(),
 			this.switchButtonsBlock,
 		);
-
-		this.updateView(pageNumber, allCarsAmount, allCarsData);
 		return garageNode;
 	}
 
