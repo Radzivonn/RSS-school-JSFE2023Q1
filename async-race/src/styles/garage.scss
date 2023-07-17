@@ -1,0 +1,119 @@
+.cars-creator {
+	width: 35vw;
+	display: flex;
+	flex-direction: column;
+	gap: 15px;
+	margin-top: 40px;
+}
+
+.create-block,
+.update-block,
+.control-buttons {
+	width: 100%;
+	height: 25px;
+	display: flex;
+	gap: 10px;
+}
+
+.text-input {
+	width: 50%;
+	caret-color: $backgrondColor;
+}
+
+.color-palette {
+	width: 20%;
+	min-width: 25px;
+	max-width: 80px;
+	background-color: $backgrondColor;
+}
+
+.create-block__button,
+.update-block__button {
+	width: 30%;
+}
+
+.control-buttons  {
+	& button {
+		width: 25%;
+	}
+	& .generate-cars-button {
+		width: 50%;
+	}
+}
+
+.race-block {
+	width: 100%;
+	height: auto;
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+	margin-top: 70px;
+}
+
+.garage-header,
+.track-block-header {
+	color: $buttonColor;
+}
+
+.switch-buttons {
+	width: 20%;
+	display: flex;
+	gap: 10px;
+	& button {
+		min-width: 80px;
+		min-width: 100px;
+		width: 48%;
+		height: 25px;
+	}
+}
+
+.track {
+	width: 100%;
+	height: auto;
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+	margin: 15px 10px;
+}
+
+.car-buttons,
+.car-control-buttons {
+	display: flex;
+	gap: 10px;
+	& .button {
+		min-width: 80px;
+		height: 20px;
+	}
+}
+
+.car-name {
+	color: $buttonColor;
+}
+
+.car {
+	width: 120px;
+	height: 120px;
+	transform: translate(0px, -16px);
+}
+
+.highway {
+	position: relative;
+	z-index: -5;
+	width: 100%;
+	height: 4px;
+	background-color: $buttonColor;
+	border-radius: 10px;
+	-webkit-box-shadow: 1px 1px 10px 1px $buttonColor;
+	-moz-box-shadow: 1px 1px 10px 1px $buttonColor;
+	box-shadow: 1px 1px 10px 1px $buttonColor;
+	transform: translate(0px, -70px);
+}
+
+.finish {
+	position: absolute;
+  top: -50px;
+  right: 25px;
+	width: 50px;
+	height: 50px;
+	background: center/cover url('../assets/images/favicon.svg') no-repeat;
+}
