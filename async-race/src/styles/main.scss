@@ -1,1 +1,78 @@
 @import './nullstyle.css';
+@import './fonts';
+
+$backgrondColor: #091a48;
+$buttonColor: rgb(231 36 199);
+$fontColor: #0033bf;
+
+body {
+	width: 100vw;
+	height: auto;
+	min-height: 100vh;
+	overflow-x: hidden;
+	padding: 15px;
+	background-color: $backgrondColor;
+	font-family: 'NFS font';
+	font-size: 1.15em;
+	border: 3px solid $buttonColor;
+	-webkit-box-shadow: inset 0px 0px 35px 0px rgb(235 63 207 / 75%);
+	-moz-box-shadow: inset 0px 0px 35px 0px rgb(235 63 207 / 75%);
+	box-shadow: inset 0px 0px 35px 0px rgb(235 63 207 / 75%);
+	&::-webkit-scrollbar,
+	&::-webkit-scrollbar-track {
+		width: 4px;
+		border-radius: 5px;
+		background: #071336;
+	}
+	&::-webkit-scrollbar-button {
+		color: $buttonColor;
+	}
+	&::-webkit-scrollbar-thumb {
+		border-radius: 5px;
+		background: $buttonColor;
+		-webkit-box-shadow: 0px 0px 25px 2px rgb(235 63 207);
+		-moz-box-shadow: 0px 0px 25px 2px rgb(235 63 207);
+		box-shadow: 0px 0px 25px 2px rgb(235 63 207);
+	}
+}
+
+.button,
+.text-input {
+	max-width: 250px;
+	min-width: 80px;
+	background: none;
+	border-radius: 5px;
+	color: $fontColor;
+	-webkit-box-shadow: 1px 1px 10px 1px $buttonColor;
+	-moz-box-shadow: 1px 1px 10px 1px $buttonColor;
+	box-shadow: 1px 1px 10px 1px $buttonColor;
+	border: 2px solid $buttonColor;
+	color: $buttonColor;
+	transition: all 0.3s ease 0s;
+	&:hover {
+		color: $fontColor;
+		background: $buttonColor;
+		-webkit-box-shadow: 0px 0px 25px 2px rgb(235 63 207);
+		-moz-box-shadow: 0px 0px 25px 2px rgb(235 63 207);
+		box-shadow: 0px 0px 25px 2px rgb(235 63 207);
+	}
+}
+
+.nav-buttons {
+	display: flex;
+	justify-content: start;
+	gap: 15px;
+}
+
+.nav-button {
+	min-width: 120px;
+	width: 12vw;
+	height: 30px;
+	border-radius: 5px;
+	background-color: $buttonColor;
+	padding: 5px;
+	color: $fontColor;
+}
+
+@import './garage';
+@import './winners-page';
