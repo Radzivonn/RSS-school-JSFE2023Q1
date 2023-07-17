@@ -12,6 +12,6 @@ export interface Controller {
 }
 
 export interface View {
-	createView(pageNumber: number, allCarsData: AllCarsData,): HTMLElement;
-	updateView(pageNumber: number, carsData: AllCarsData): void;
+	createView(pageNumber: number, allCarsAmount: number, allCarsData: AllCarsData,): HTMLElement;
+	updateView(pageNumber: number, allCarsAmount: number, carsData: AllCarsData): void;
 }

@@ -17,7 +17,11 @@ export default class GaragePageController implements Controller {
 	}
 
 	public getView(): HTMLElement {
-		return this.view.createView(this.model.pageNumber, this.model.allCarsData);
+		return this.view.createView(
+			this.model.pageNumber,
+			this.model.allCarsData.length,
+			this.model.getDisplayedCarsData(),
+		);
 	}
 
 	private bindListeners() {
@@ -34,9 +38,11 @@ export default class GaragePageController implements Controller {
 		);
 		const carsAmount = this.model.allCarsData.length;
 		const pageNumber = this.model.pageNumber;
-		const currentPage = Math.ceil(carsAmount / this.view.TRACKSPERPAGE);
+		const pagesAmount = Math.ceil(carsAmount / this.model.TRACKSPERPAGE);
 
 		this.view.updatePageHeaders(carsAmount, pageNumber);
-		if (currentPage === pageNumber)	this.view.updateTracksBlock(pageNumber, this.model.allCarsData);
+		if (pagesAmount === pageNumber) {
+			this.view.updateTracksBlock(this.model.getDisplayedCarsData());
+		}
 	}
 }

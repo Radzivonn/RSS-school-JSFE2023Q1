@@ -52,13 +52,12 @@ export default class GaragePageView implements View {
 	};
 
 	public switchButtonsBlock = createElement({ tag: 'div', classNames: ['switch-buttons'] });
-	public TRACKSPERPAGE = 7;
 
 	constructor() {
 		this.switchButtonsBlock.append(...createPaginationButtons());
 	}
 
-	public createView(pageNumber: number, allCarsData: AllCarsData): HTMLElement {
+	public createView(pageNumber: number, allCarsAmount: number, allCarsData: AllCarsData): HTMLElement {
 		const garageNode = createElement({ tag: 'div', classNames: ['garage'] });
 
 		garageNode.append(
@@ -67,7 +66,7 @@ export default class GaragePageView implements View {
 			this.switchButtonsBlock,
 		);
 
-		this.updateView(pageNumber, allCarsData);
+		this.updateView(pageNumber, allCarsAmount, allCarsData);
 		return garageNode;
 	}
 
@@ -110,9 +109,8 @@ export default class GaragePageView implements View {
 		return raceNode;
 	}
 
-	private createTracksForPage(pageNumber: number, carsData: AllCarsData): HTMLElement[] {
-		return carsData.slice((pageNumber - 1) * this.TRACKSPERPAGE, this.TRACKSPERPAGE * pageNumber)
-			.map(carData => this.createTrack(carData));
+	private createTracksForPage(carsData: AllCarsData): HTMLElement[] {
+		return carsData.map(carData => this.createTrack(carData));
 	}
 
 	private createTrack(carData: ResponseCarData): HTMLElement {
@@ -141,9 +139,9 @@ export default class GaragePageView implements View {
 		return track;
 	}
 
-	public updateView(pageNumber: number, carsData: AllCarsData): void {
-		this.updatePageHeaders(carsData.length, pageNumber);
-		this.updateTracksBlock(pageNumber, carsData);
+	public updateView(pageNumber: number, allCarsAmount: number, carsData: AllCarsData): void {
+		this.updatePageHeaders(allCarsAmount, pageNumber);
+		this.updateTracksBlock(carsData);
 	}
 
 	public updatePageHeaders(allCarsAmount: number, pageNumber: number) {
@@ -151,7 +149,7 @@ export default class GaragePageView implements View {
 		this.pageNumber.textContent = `${pageNumber}`;
 	}
 
-	public updateTracksBlock(pageNumber: number, carsData: AllCarsData): void {
-		this.tracksBlock.replaceChildren(...this.createTracksForPage(pageNumber, carsData));
+	public updateTracksBlock(carsData: AllCarsData): void {
+		this.tracksBlock.replaceChildren(...this.createTracksForPage(carsData));
 	}
 }

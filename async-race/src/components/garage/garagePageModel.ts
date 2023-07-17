@@ -5,6 +5,7 @@ import { getAllCarsData, createCarOnServer } from '@/utils/helperFuncs';
 export default class GaragePageModel implements Model {
 	private _allCarsData: AllCarsData = [];
 	private _pageNumber = 1;
+	readonly TRACKSPERPAGE = 7;
 
 	public async setRequestData(): Promise<void> {
 		this.allCarsData = await getAllCarsData();
@@ -15,6 +16,13 @@ export default class GaragePageModel implements Model {
 		console.log(carData);
 		this.allCarsData.push(carData);
 		return carData;
+	}
+
+	public getDisplayedCarsData(): AllCarsData {
+		return this.allCarsData.slice(
+			(this.pageNumber - 1) * this.TRACKSPERPAGE,
+			this.TRACKSPERPAGE * this.pageNumber,
+		);
 	}
 
 	public get pageNumber(): number {
