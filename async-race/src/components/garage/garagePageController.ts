@@ -35,6 +35,10 @@ export default class GaragePageController implements Controller {
 			'click',
 			() => this.createCarButtonHandler(),
 		);
+		this.view.switchButtonsBlock.addEventListener(
+			'click',
+			(e) => this.paginationButtonsHandler(e),
+		);
 	}
 
 	private async createCarButtonHandler(): Promise<void> {
@@ -49,6 +53,17 @@ export default class GaragePageController implements Controller {
 		this.view.updatePageHeaders(carsAmount, pageNumber);
 		if (pagesAmount === pageNumber) {
 			this.view.updateTracksBlock(this.model.getDisplayedCarsData());
+		}
+	}
+
+	private paginationButtonsHandler(e: MouseEvent) {
+		const clickedElement = e.target as HTMLElement;
+		if (clickedElement && clickedElement.classList.contains('next-button')) {
+			this.model.switchToNextPage();
+			this.renderView();
+		} else if (clickedElement && clickedElement.classList.contains('previous-button')) {
+			this.model.switchToPrevPage();
+			this.renderView();
 		}
 	}
 }

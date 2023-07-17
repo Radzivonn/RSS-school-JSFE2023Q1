@@ -5,10 +5,12 @@ import { getAllCarsData, createCarOnServer } from '@/utils/helperFuncs';
 export default class GaragePageModel implements Model {
 	private _allCarsData: AllCarsData = [];
 	private _pageNumber = 1;
+	private _pagesAmount = 0;
 	readonly TRACKSPERPAGE = 7;
 
 	public async setRequestData(): Promise<void> {
 		this.allCarsData = await getAllCarsData();
+		this.updatePagesAmount();
 	}
 
 	public async createCar(carName: string, carColor: string): Promise<ResponseCarData> {
@@ -23,6 +25,18 @@ export default class GaragePageModel implements Model {
 			(this.pageNumber - 1) * this.TRACKSPERPAGE,
 			this.TRACKSPERPAGE * this.pageNumber,
 		);
+	}
+	
+	private updatePagesAmount() {
+		this.pagesAmount = this.allCarsData.length / this.TRACKSPERPAGE;
+	}
+
+	public switchToNextPage(): void {
+		if (this.pageNumber <= this.pagesAmount) this.pageNumber += 1;
+	}
+
+	public switchToPrevPage(): void {
+		if (this.pageNumber > 1) this.pageNumber -= 1;
 	}
 
 	public get pageNumber(): number {
@@ -39,5 +53,13 @@ export default class GaragePageModel implements Model {
 
 	public set allCarsData(data) {
 		this._allCarsData = data;
+	}
+
+	public get pagesAmount() {
+		return this._pagesAmount;
+	}
+
+	public set pagesAmount(value) {
+		this._pagesAmount = value;
 	}
 }
