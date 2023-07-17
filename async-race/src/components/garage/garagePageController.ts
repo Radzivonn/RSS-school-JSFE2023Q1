@@ -23,11 +23,11 @@ export default class GaragePageController implements Controller {
 	private bindListeners() {
 		this.view.gameControllers.buttons.createCarButton.addEventListener(
 			'click',
-			() => this.createButtonHandler(),
+			() => this.createCarButtonHandler(),
 		);
 	}
 
-	private async createButtonHandler() {
+	private async createCarButtonHandler(): Promise<void> {
 		await this.model.createCar(
 			this.view.gameControllers.inputs.createCarInput.value,
 			this.view.gameControllers.colorPalettes.createCarPalette.value,
