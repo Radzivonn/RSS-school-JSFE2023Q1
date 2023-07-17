@@ -1,0 +1,59 @@
+.winners-page {
+	color: $buttonColor;
+	.switch-buttons {
+		margin: 0 auto;
+	}
+}
+
+.winners-header,
+.winners-page-header {
+	font-size: 1.75em;
+	text-align: center;
+}
+
+.winners-table {
+	min-width: 760px;
+	width: 75%;
+	display: flex;
+	margin: 50px auto;
+	font-size: 1.15em;
+	& div {
+		:first-child {
+			color: $fontColor;
+			background: $buttonColor;
+			white-space: nowrap;
+		}
+		p {
+			width: 100%;
+			height: inherit;
+		}
+	}
+	
+}
+
+.winners-table__number-column {
+	width: 20%;
+}
+
+.winners-table__car-column {
+	width: 10%;
+	& .car,
+	& .car svg {
+    width: 40px;
+    height: 30px;
+		background: none;
+		transform: translate(0px, 0px);
+	}
+}
+
+.winners-table__name-column {
+	width: 30%;
+}
+
+.winners-table__wins-column {
+	width: 10%;
+}
+
+.winners-table__best-time-column {
+	width: 30%;
+}
