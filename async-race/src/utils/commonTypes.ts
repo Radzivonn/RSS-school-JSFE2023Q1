@@ -1,10 +1,10 @@
-export type CarData = {
+export type ResponseCarData = {
 	name: string,
 	color: string,
 	id: number,
 };
 
-export type AllCarsData = CarData[];
+export type AllCarsData = ResponseCarData[];
 
 export type WinnerData = {
 	id: number,
@@ -13,3 +13,8 @@ export type WinnerData = {
 };
 
 export type AllWinnersData = WinnerData[];
+
+export type CreatedCarData = {
+	name: string,
+	color: string,
+};
