@@ -32,8 +32,10 @@ export const createPaginationButtons = (): HTMLElement[] =>
 		createElement({ tag: 'button', classNames: ['button', 'next-button'], text: 'next' }),
 	];
 
-export const getRequestData = async <T>(URL: string): Promise<T> => {
-	const data = await fetch(URL);
+export const getRequestData = async <T>(URL: string, method = 'GET'): Promise<T> => {
+	const data = await fetch(URL, {
+		method: method,
+	});
 	if (data.ok) return data.json();
 	throw new Error(data.statusText);
 };
