@@ -11,29 +11,40 @@ export default class GaragePageView implements View {
 			createCarInput: createElement({
 				tag: 'input',
 				classNames: ['text-input', 'create-block__input'],
-				attr: { attrName: 'type', attrValue: 'text' },
+				attrs: [{ attrName: 'type', attrValue: 'text' }],
 			}),
 			updateCarInput: createElement({
 				tag: 'input',
 				classNames: ['text-input', 'update-block__input'],
-				attr: { attrName: 'type', attrValue: 'text' },
+				attrs: [
+					{ attrName: 'type', attrValue: 'text' },
+					{ attrName: 'disabled', attrValue: 'true' },
+				],
 			}),
 		},
 		colorPalettes: {
 			createCarPalette: createElement({
 				tag: 'input',
 				classNames: ['color-palette', 'create-block__colorPalette'],
-				attr: { attrName: 'type', attrValue: 'color' },
+				attrs: [{ attrName: 'type', attrValue: 'color' }],
 			}),
 			updateCarPalette: createElement({
 				tag: 'input',
 				classNames: ['color-palette', 'update-block__colorPalette'],
-				attr: { attrName: 'type', attrValue: 'color' },
+				attrs: [
+					{ attrName: 'type', attrValue: 'color' },
+					{ attrName: 'disabled', attrValue: 'true' },
+				],
 			}),
 		},
 		buttons: {
 			createCarButton: createElement({ tag: 'button', classNames: ['button', 'create-block__button'], text: 'create' }),
-			updateCarButton: createElement({ tag: 'button', classNames: ['button', 'update-block__button'], text: 'update' }),
+			updateCarButton: createElement({
+				tag: 'button',
+				classNames: ['button', 'update-block__button'],
+				text: 'update',
+				attrs: [{ attrName: 'disabled', attrValue: 'true' }],
+			}),
 			raceButton: createElement({ tag: 'button', classNames: ['button', 'race-button'], text: 'race' }),
 			resetButton: createElement({ tag: 'button', classNames: ['button', 'reset-button'], text: 'reset' }),
 			generateCarsButton: createElement({ tag: 'button', classNames: ['button', 'generate-cars-button'], text: 'generate cars' }),
