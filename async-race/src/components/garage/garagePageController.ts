@@ -12,7 +12,7 @@ export default class GaragePageController implements Controller {
 	}
 
 	public async init(): Promise<void> {
-		await this.model.setRequestData();
+		await this.model.setRequestData().catch(error => console.error(error));
 		this.bindListeners();
 	}
 
@@ -45,7 +45,9 @@ export default class GaragePageController implements Controller {
 		await this.model.createCar(
 			this.view.gameControllers.inputs.createCarInput.value,
 			this.view.gameControllers.colorPalettes.createCarPalette.value,
-		);
+		).catch(error => {
+			console.error(error);
+		});
 		const carsAmount = this.model.allCarsData.length;
 		const pageNumber = this.model.pageNumber;
 		const pagesAmount = Math.ceil(carsAmount / this.model.TRACKSPERPAGE);

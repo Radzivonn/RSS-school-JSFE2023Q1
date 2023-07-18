@@ -12,7 +12,7 @@ export default class WinnersController implements Controller {
 	}
 
 	public async init(): Promise<void> {
-		this.model.setRequestData();
+		this.model.setRequestData().catch(error => console.error(error));
 	}
 
 	public getView() {

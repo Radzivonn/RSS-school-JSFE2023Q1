@@ -7,14 +7,21 @@ export default class GaragePageModel implements Model {
 	private _pageNumber = 1;
 	private _pagesAmount = 0;
 	readonly TRACKSPERPAGE = 7;
+	private readonly RANDOMCARSAMOUT = 100;
 
 	public async setRequestData(): Promise<void> {
-		this._allCarsData = await getAllCarsData();
+		this._allCarsData = await getAllCarsData()
+			.catch(error => {
+				throw error;
+			});
 		this.updatePagesAmount();
 	}
 
 	public async createCar(carName: string, carColor: string): Promise<ResponseCarData> {
-		const carData = await createCarOnServer({ name: carName, color: carColor });
+		const carData = await createCarOnServer({ name: carName, color: carColor })
+			.catch(error => {
+				throw error;
+			});
 		console.log(carData);
 		this.allCarsData.push(carData);
 		return carData;
@@ -26,6 +33,10 @@ export default class GaragePageModel implements Model {
 			this.TRACKSPERPAGE * this.pageNumber,
 		);
 	}
+
+	// public async generateRandomCars() {
+		
+	// }
 	
 	private updatePagesAmount() {
 		this._pagesAmount = this.allCarsData.length / this.TRACKSPERPAGE;

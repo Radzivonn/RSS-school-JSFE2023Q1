@@ -42,18 +42,27 @@ export const getRequestData = async <T>(
 		method: method,
 		headers: headers,
 		body: body,
+	}).catch(error => {
+		throw error;
 	});
-	if (data.ok) return data.json();
-	throw new Error(data.statusText);
+	return data.json();
 };
 
 export const getAllCarsData = async (): Promise<AllCarsData> => {
-	const data = await getRequestData<AllCarsData>(`${BASEREQUESTtURL}/${RequestDirs.CARSDATAPATH}`);
+	const data = await getRequestData<AllCarsData>(
+		`${BASEREQUESTtURL}/${RequestDirs.CARSDATAPATH}`,
+	).catch((error) => {
+		throw error;
+	});
 	return data;
 };
 
 export const getAllWinnersData = async (): Promise<AllWinnersData> => {
-	const data = await getRequestData<AllWinnersData>(`${BASEREQUESTtURL}/${RequestDirs.WINNERSDATAPATH}`);
+	const data = await getRequestData<AllWinnersData>(
+		`${BASEREQUESTtURL}/${RequestDirs.WINNERSDATAPATH}`,
+	).catch((error) => {
+		throw error;
+	});
 	return data;
 };
 
@@ -63,7 +72,9 @@ export const createCarOnServer = async (carData: CreatedCarData): Promise<Respon
 		'POST',
 		{ 'Content-Type': 'application/json' },
 		JSON.stringify(carData),
-	);
+	).catch((error) => {
+		throw error;
+	});
 	return data;
 };
 

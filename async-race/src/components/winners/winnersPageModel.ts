@@ -8,8 +8,14 @@ export default class WinnersPageModel implements Model {
 	private _pageNumber = 1;
 
 	public async setRequestData(): Promise<void> {
-		this.allCarsData = await getAllCarsData();
-		this.allWinnersData = await getAllWinnersData();
+		this.allCarsData = await getAllCarsData()
+			.catch(error => {
+				throw error;
+			});
+		this.allWinnersData = await getAllWinnersData()
+			.catch(error => {
+				throw error;
+			});
 	}
 
 	public get pageNumber(): number {
