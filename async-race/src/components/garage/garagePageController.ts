@@ -30,10 +30,14 @@ export default class GaragePageController implements Controller {
 		return componentView;
 	}
 
-	private bindListeners() {
+	private bindListeners(): void {
 		this.view.gameControllers.buttons.createCarButton.addEventListener(
 			'click',
 			() => this.createCarButtonHandler(),
+		);
+		this.view.gameControllers.buttons.generateCarsButton.addEventListener(
+			'click',
+			() => this.generateCarsButtonHandler(),
 		);
 		this.view.switchButtonsBlock.addEventListener(
 			'click',
@@ -48,17 +52,23 @@ export default class GaragePageController implements Controller {
 		).catch(error => {
 			console.error(error);
 		});
+
 		const carsAmount = this.model.allCarsData.length;
-		const pageNumber = this.model.pageNumber;
+		const currentPageNumber = this.model.pageNumber;
 		const pagesAmount = Math.ceil(carsAmount / this.model.TRACKSPERPAGE);
 
-		this.view.updatePageHeaders(carsAmount, pageNumber);
-		if (pagesAmount === pageNumber) {
+		this.view.updatePageHeaders(carsAmount, currentPageNumber);
+		if (pagesAmount === currentPageNumber) {
 			this.view.updateTracksBlock(this.model.getDisplayedCarsData());
 		}
 	}
 
-	private paginationButtonsHandler(e: MouseEvent) {
+	private async generateCarsButtonHandler(): Promise<void> {
+		await this.model.generateRandomCars();
+		this.renderView();
+	}
+
+	private paginationButtonsHandler(e: MouseEvent): void {
 		const clickedElement = e.target as HTMLElement;
 		if (clickedElement && clickedElement.classList.contains('next-button')) {
 			this.model.switchToNextPage();

@@ -1,6 +1,6 @@
 import { Model } from './types';
 import { AllCarsData, ResponseCarData } from '@/utils/commonTypes';
-import { getAllCarsData, createCarOnServer } from '@/utils/helperFuncs';
+import { getAllCarsData, createCarOnServer, generateRandomCarsData } from '@/utils/helperFuncs';
 
 export default class GaragePageModel implements Model {
 	private _allCarsData: AllCarsData = [];
@@ -22,8 +22,8 @@ export default class GaragePageModel implements Model {
 			.catch(error => {
 				throw error;
 			});
-		console.log(carData);
 		this.allCarsData.push(carData);
+		this.updatePagesAmount();
 		return carData;
 	}
 
@@ -34,16 +34,18 @@ export default class GaragePageModel implements Model {
 		);
 	}
 
-	// public async generateRandomCars() {
-		
-	// }
-	
-	private updatePagesAmount() {
-		this._pagesAmount = this.allCarsData.length / this.TRACKSPERPAGE;
+	public async generateRandomCars(): Promise<void> {
+		const carsData = await generateRandomCarsData(this.RANDOMCARSAMOUT);
+		this.allCarsData.push(...carsData);
+		this.updatePagesAmount();
+	}
+
+	private updatePagesAmount(): void {
+		this._pagesAmount = Math.ceil(this.allCarsData.length / this.TRACKSPERPAGE);
 	}
 
 	public switchToNextPage(): void {
-		if (this.pageNumber <= this.pagesAmount) this._pageNumber += 1;
+		if (this.pageNumber < this.pagesAmount) this._pageNumber += 1;
 	}
 
 	public switchToPrevPage(): void {
