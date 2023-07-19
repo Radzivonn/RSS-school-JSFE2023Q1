@@ -42,6 +42,15 @@ export default class AsyncRaceAPI {
 		return data;
 	};
 
+	public getCarDataByID = async (id: string): Promise<ResponseCarData> => {
+		const data: ListOfCarsData = await this.getRequestData<ListOfCarsData>(
+			`${this.baseUrl}/${RequestDirs.CARSDATAPATH}?id=${id}`,
+		).catch((error) => {
+			throw error;
+		});
+		return data[0];
+	};
+
 	public createCarOnServer = async (carData: CreatedCarData): Promise<ResponseCarData> => {
 		const data = await this.getRequestData<ResponseCarData>(
 			`${this.baseUrl}/${RequestDirs.CARSDATAPATH}`,
