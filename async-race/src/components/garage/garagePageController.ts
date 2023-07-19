@@ -41,6 +41,10 @@ export default class GaragePageController implements Controller {
 			'click',
 			() => this.generateCarsButtonHandler(),
 		);
+		this.view.tracksBlock.addEventListener(
+			'click',
+			(e) => this.tracksBlockHandler(e),
+		);
 		this.view.switchButtonsBlock.addEventListener(
 			'click',
 			(e) => this.paginationButtonsHandler(e),
@@ -78,6 +82,35 @@ export default class GaragePageController implements Controller {
 		} else if (clickedElement && clickedElement.classList.contains('previous-button')) {
 			this.model.switchToPrevPage();
 			this.renderView();
+		}
+	}
+
+	private tracksBlockHandler(e: MouseEvent) {
+		const clickedElement = e.target as HTMLElement | null;
+		if (clickedElement) {
+			switch (clickedElement.id) {
+				case 'select': this.selectButtonHandler(clickedElement);
+					break;
+				case 'remove':
+					break;
+				case 'start':
+					break;
+				case 'stop':
+					break;
+			}
+		}
+	}
+
+	private async selectButtonHandler(button: HTMLElement): Promise<void> {
+		const track = button.closest('.track') as HTMLElement; // take parent element with class "track"
+		const { name, color } = await this.model.getCarData(track.id);
+		if (name && color) {
+			const updatingBlock = this.view.updatingBlock;
+			unlockBlock(updatingBlock);
+			this.view.gameControllers.inputs.updateCarInput.value = name;
+			this.view.gameControllers.colorPalettes.updateCarPalette.value = color;
+			this.model.selectedCarID = track.id;
+			console.log(this.model.selectedCarID);
 		}
 	}
 }

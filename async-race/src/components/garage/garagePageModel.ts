@@ -5,6 +5,7 @@ import { getRandomInt } from '@/utils/helperFuncs';
 import AsyncRaceAPI from '@/utils/asyncRaceAPI';
 
 export default class GaragePageModel implements Model {
+	public selectedCarID: string | null = null;
 	private _allCarsData: ListOfCarsData = [];
 	private _pageNumber = 1;
 	private _pagesAmount = 0;
@@ -35,6 +36,11 @@ export default class GaragePageModel implements Model {
 			(this.pageNumber - 1) * this.TRACKSPERPAGE,
 			this.TRACKSPERPAGE * this.pageNumber,
 		);
+	}
+
+	public async getCarData(id: string): Promise<ResponseCarData> {
+		const data = await this.API.getCarDataByID(id);
+		return data;
 	}
 
 	public async generateRandomCars(): Promise<void> {
