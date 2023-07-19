@@ -104,3 +104,19 @@ export const generateRandomCarsData = (carsAmount: number): Promise<ResponseCarD
 	}
 	return Promise.all(carsData);
 };
+
+/**
+ * A function that turns on the disabled attribute on all child elements of the block
+ * @param block HTML block whose disabled attribute turns ON 
+ */
+export const lockBlock = (block: HTMLElement): void => {
+	for (const childElem of block.children) childElem.setAttribute('disabled', '');
+};
+
+/**
+ * A function that turns off the disabled attribute on all child elements of the block
+ * @param block HTML block whose disabled attribute turns OFF
+ */
+export const unlockBlock = (block: HTMLElement): void => {
+	for (const childElem of block.children) childElem.removeAttribute('disabled');
+};

@@ -3,6 +3,9 @@ import { createCarImg, createElement, createPaginationButtons } from '@/utils/he
 import { ResponseCarData, ListOfCarsData } from '@/utils/commonTypes';
 
 export default class GaragePageView implements View {
+	public creatingBlock = createElement({ tag: 'div', classNames: ['create-block'] });
+	public updatingBlock = createElement({ tag: 'div', classNames: ['update-block'] });
+	public controlButtonsBlock = createElement({ tag: 'div', classNames: ['control-buttons'] }); 
 	public carsAmount = createElement({ tag: 'output', classNames: ['cars-number'] });
 	public pageNumber = createElement({ tag: 'output', classNames: ['page-number'] });
 	public tracksBlock = createElement({ tag: 'div', classNames: ['tracks-block'] });
@@ -18,7 +21,6 @@ export default class GaragePageView implements View {
 				classNames: ['text-input', 'update-block__input'],
 				attrs: [
 					{ attrName: 'type', attrValue: 'text' },
-					{ attrName: 'disabled', attrValue: 'true' },
 				],
 			}) as HTMLInputElement,
 		},
@@ -33,7 +35,6 @@ export default class GaragePageView implements View {
 				classNames: ['color-palette', 'update-block__colorPalette'],
 				attrs: [
 					{ attrName: 'type', attrValue: 'color' },
-					{ attrName: 'disabled', attrValue: 'true' },
 				],
 			}) as HTMLInputElement,
 		},
@@ -43,7 +44,6 @@ export default class GaragePageView implements View {
 				tag: 'button',
 				classNames: ['button', 'update-block__button'],
 				text: 'update',
-				attrs: [{ attrName: 'disabled', attrValue: 'true' }],
 			}),
 			raceButton: createElement({ tag: 'button', classNames: ['button', 'race-button'], text: 'race' }),
 			resetButton: createElement({ tag: 'button', classNames: ['button', 'reset-button'], text: 'reset' }),
@@ -70,25 +70,22 @@ export default class GaragePageView implements View {
 
 	private createCarsCreatorBlock(): HTMLElement {
 		const carsCreatorNode = createElement({ tag: 'div', classNames: ['cars-creator'] });
-		const createBlock = createElement({ tag: 'div', classNames: ['create-block'] });
-		const updateBlock = createElement({ tag: 'div', classNames: ['update-block'] });
-		const controlButtons = createElement({ tag: 'div', classNames: ['control-buttons'] }); 
-		createBlock.append(
+		this.creatingBlock.append(
 			this.gameControllers.inputs.createCarInput,
 			this.gameControllers.colorPalettes.createCarPalette,
 			this.gameControllers.buttons.createCarButton,
 		);
-		updateBlock.append(
+		this.updatingBlock.append(
 			this.gameControllers.inputs.updateCarInput,
 			this.gameControllers.colorPalettes.updateCarPalette,
 			this.gameControllers.buttons.updateCarButton,
 		);
-		controlButtons.append(
+		this.controlButtonsBlock.append(
 			this.gameControllers.buttons.raceButton,
 			this.gameControllers.buttons.resetButton,
 			this.gameControllers.buttons.generateCarsButton,
 		);
-		carsCreatorNode.append(createBlock, updateBlock, controlButtons);
+		carsCreatorNode.append(this.creatingBlock, this.updatingBlock, this.controlButtonsBlock);
 		return carsCreatorNode;
 	}
 
@@ -118,13 +115,13 @@ export default class GaragePageView implements View {
 		const highway = createElement({ tag: 'div', classNames: ['highway'] });
 		
 		carButtons.append(
-			createElement({ tag: 'button', classNames: ['button', 'select-button'], text: 'select' }),
-			createElement({ tag: 'button', classNames: ['button', 'remove-button'], text: 'remove' }),
+			createElement({ tag: 'button', classNames: ['button', 'select-button'], id: 'select', text: 'select' }),
+			createElement({ tag: 'button', classNames: ['button', 'remove-button'], id: 'remove', text: 'remove' }),
 			createElement({ tag: 'p', classNames: ['car-name'], text: carData.name }),
 		);
 		carControlButtons.append(
-			createElement({ tag: 'button', classNames: ['button', 'start-button'], text: 'start' }),
-			createElement({ tag: 'button', classNames: ['button', 'stop-button'], text: 'stop' }),
+			createElement({ tag: 'button', classNames: ['button', 'start-button'], id: 'start', text: 'start' }),
+			createElement({ tag: 'button', classNames: ['button', 'stop-button'], id: 'stop', text: 'stop' }),
 		);
 		highway.append(createElement({ tag: 'div', classNames: ['finish'] }));
 		

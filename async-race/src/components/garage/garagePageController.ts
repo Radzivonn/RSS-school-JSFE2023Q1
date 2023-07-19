@@ -1,3 +1,4 @@
+import { lockBlock, unlockBlock } from '@/utils/helperFuncs';
 import GaragePageModel from './garagePageModel';
 import GaragePageView from './garagePageView';
 import { Controller } from './types';
@@ -27,6 +28,7 @@ export default class GaragePageController implements Controller {
 	public getView(): HTMLElement {
 		const componentView = this.view.createView();
 		this.renderView();
+		lockBlock(this.view.updatingBlock);
 		return componentView;
 	}
 
