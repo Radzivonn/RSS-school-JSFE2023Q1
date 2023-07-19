@@ -1,6 +1,6 @@
-import { BASEREQUESTtURL, RequestDirs } from './commonVars';
 import carSVGcode from './carSVGcode';
 import { AllCarsData, AllWinnersData, ResponseCarData, CreatedCarData } from './commonTypes';
+import { BASEREQUESTtURL, RequestDirs, carColors, carModels, carNames } from './commonVars';
 
 type ElementParams = Readonly<{
 	tag: string,
@@ -83,4 +83,16 @@ export const createCarImg = (color: string): HTMLElement => {
 	car.style.fill = color;
 	car.insertAdjacentHTML('afterbegin', carSVGcode);
 	return car;
+};
+
+export function getRandomInt(min: number, max: number): number {
+	// Maximum not included, minimum included
+	return Math.floor(Math.random() * (Math.floor(max) - Math.ceil(min))) + Math.ceil(min);
+}
+
+export const createRandomCarData = (): CreatedCarData => {
+	return {
+		name: `${carNames[getRandomInt(0, carNames.length)]} ${carModels[getRandomInt(0, carModels.length)]}`,
+		color: carColors[getRandomInt(0, carColors.length)],
+	};
 };
