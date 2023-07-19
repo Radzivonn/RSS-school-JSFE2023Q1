@@ -18,3 +18,5 @@ export type CreatedCarData = {
 	name: string,
 	color: string,
 };
+
+export type ListOfCreatedCarsData = CreatedCarData[];
