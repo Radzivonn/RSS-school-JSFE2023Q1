@@ -1,9 +1,9 @@
 import { Model } from './types';
-import { AllCarsData, ResponseCarData } from '@/utils/commonTypes';
+import { ListOfCarsData, ResponseCarData } from '@/utils/commonTypes';
 import { getAllCarsData, createCarOnServer, generateRandomCarsData } from '@/utils/helperFuncs';
 
 export default class GaragePageModel implements Model {
-	private _allCarsData: AllCarsData = [];
+	private _allCarsData: ListOfCarsData = [];
 	private _pageNumber = 1;
 	private _pagesAmount = 0;
 	readonly TRACKSPERPAGE = 7;
@@ -27,7 +27,7 @@ export default class GaragePageModel implements Model {
 		return carData;
 	}
 
-	public getDisplayedCarsData(): AllCarsData {
+	public getDisplayedCarsData(): ListOfCarsData {
 		return this.allCarsData.slice(
 			(this.pageNumber - 1) * this.TRACKSPERPAGE,
 			this.TRACKSPERPAGE * this.pageNumber,
@@ -56,7 +56,7 @@ export default class GaragePageModel implements Model {
 		return this._pageNumber;
 	}
 
-	public get allCarsData(): AllCarsData {
+	public get allCarsData(): ListOfCarsData {
 		return this._allCarsData;
 	}
 

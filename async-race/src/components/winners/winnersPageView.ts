@@ -1,4 +1,4 @@
-import { AllCarsData, AllWinnersData } from '@/utils/commonTypes';
+import { ListOfCarsData, ListOfWinnersData } from '@/utils/commonTypes';
 import { View } from './types';
 import { createCarImg, createElement, createPaginationButtons } from '@/utils/helperFuncs';
 
@@ -19,7 +19,7 @@ export default class WinnersPageView implements View {
 		this.switchButtonsBlock.append(...createPaginationButtons());
 	}
 
-	public createView(pageNumber: number, allWinnersData: AllWinnersData, allCarsData: AllCarsData): HTMLElement {
+	public createView(pageNumber: number, allWinnersData: ListOfWinnersData, allCarsData: ListOfCarsData): HTMLElement {
 		const winnersNode = createElement({ tag: 'div', classNames: ['winners-page'] });
 		const winnersHeader = createElement({ tag: 'h2', classNames: ['winners-header'], text: 'Garage' });
 		const winnersPageHeader = createElement({ tag: 'h3', classNames: ['winners-page-header'], text: 'Page #' });
@@ -39,7 +39,7 @@ export default class WinnersPageView implements View {
 		return winnersNode;
 	}
 
-	private createWinnersTable(pageNumber: number, winnersData: AllWinnersData, allCarsData: AllCarsData): HTMLElement {
+	private createWinnersTable(pageNumber: number, winnersData: ListOfWinnersData, allCarsData: ListOfCarsData): HTMLElement {
 		const winnersTable = createElement({ tag: 'div', classNames: ['winners-table'] });
 
 		this.updateWinnersTableView(pageNumber, winnersData, allCarsData);
@@ -54,7 +54,7 @@ export default class WinnersPageView implements View {
 		return winnersTable;
 	}
 
-	public updateView(winnersAmount: number, pageNumber: number, winnersData: AllWinnersData, allCarsData: AllCarsData) {
+	public updateView(winnersAmount: number, pageNumber: number, winnersData: ListOfWinnersData, allCarsData: ListOfCarsData) {
 		this.updatePageHeaders(winnersAmount, pageNumber);
 		this.updateWinnersTableView(pageNumber, winnersData, allCarsData);
 	}
@@ -64,7 +64,7 @@ export default class WinnersPageView implements View {
 		this.pageNumber.textContent = `${pageNumber}`;
 	}
 
-	private updateWinnersTableView(pageNumber: number, winnersData: AllWinnersData, allCarsData: AllCarsData) {
+	private updateWinnersTableView(pageNumber: number, winnersData: ListOfWinnersData, allCarsData: ListOfCarsData) {
 		const numberColumn = [createElement({ tag: 'p', text: 'Number' })];
 		const carColumn = [createElement({ tag: 'p', text: 'car' })];
 		const nameColumn = [createElement({ tag: 'p', text: 'name' })];

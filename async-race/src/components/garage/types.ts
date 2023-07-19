@@ -1,4 +1,4 @@
-import { AllCarsData } from '@/utils/commonTypes';
+import { ListOfCarsData } from '@/utils/commonTypes';
 
 export interface Model {
 	setRequestData(): Promise<void>;
@@ -12,6 +12,6 @@ export interface Controller {
 }
 
 export interface View {
-	createView(pageNumber: number, allCarsAmount: number, allCarsData: AllCarsData,): HTMLElement;
-	updateView(pageNumber: number, allCarsAmount: number, carsData: AllCarsData): void;
+	createView(pageNumber: number, allCarsAmount: number, allCarsData: ListOfCarsData,): HTMLElement;
+	updateView(pageNumber: number, allCarsAmount: number, carsData: ListOfCarsData): void;
 }

@@ -1,5 +1,5 @@
 import carSVGcode from './carSVGcode';
-import { AllCarsData, AllWinnersData, ResponseCarData, CreatedCarData } from './commonTypes';
+import { ListOfCarsData, ListOfWinnersData, ResponseCarData, CreatedCarData } from './commonTypes';
 import { BASEREQUESTtURL, RequestDirs, carColors, carModels, carNames } from './commonVars';
 
 type ElementParams = Readonly<{
@@ -48,8 +48,8 @@ export const getRequestData = async <T>(
 	return data.json();
 };
 
-export const getAllCarsData = async (): Promise<AllCarsData> => {
-	const data = await getRequestData<AllCarsData>(
+export const getAllCarsData = async (): Promise<ListOfCarsData> => {
+	const data = await getRequestData<ListOfCarsData>(
 		`${BASEREQUESTtURL}/${RequestDirs.CARSDATAPATH}`,
 	).catch((error) => {
 		throw error;
@@ -57,8 +57,8 @@ export const getAllCarsData = async (): Promise<AllCarsData> => {
 	return data;
 };
 
-export const getAllWinnersData = async (): Promise<AllWinnersData> => {
-	const data = await getRequestData<AllWinnersData>(
+export const getAllWinnersData = async (): Promise<ListOfWinnersData> => {
+	const data = await getRequestData<ListOfWinnersData>(
 		`${BASEREQUESTtURL}/${RequestDirs.WINNERSDATAPATH}`,
 	).catch((error) => {
 		throw error;

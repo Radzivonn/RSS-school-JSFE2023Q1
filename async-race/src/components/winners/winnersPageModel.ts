@@ -1,10 +1,10 @@
 import { Model } from './types';
-import { AllCarsData, AllWinnersData } from '@/utils/commonTypes';
+import { ListOfCarsData, ListOfWinnersData } from '@/utils/commonTypes';
 import { getAllCarsData, getAllWinnersData } from '@/utils/helperFuncs';
 
 export default class WinnersPageModel implements Model {
-	private _allWinnersData: AllWinnersData = [];
-	private _allCarsData: AllCarsData = [];
+	private _allWinnersData: ListOfWinnersData = [];
+	private _allCarsData: ListOfCarsData = [];
 	private _pageNumber = 1;
 
 	public async setRequestData(): Promise<void> {
@@ -26,7 +26,7 @@ export default class WinnersPageModel implements Model {
 		this._pageNumber = value;
 	}
 
-	public get allCarsData(): AllCarsData {
+	public get allCarsData(): ListOfCarsData {
 		return this._allCarsData;
 	}
 
@@ -34,7 +34,7 @@ export default class WinnersPageModel implements Model {
 		this._allCarsData = data;
 	}
 
-	public get allWinnersData(): AllWinnersData {
+	public get allWinnersData(): ListOfWinnersData {
 		return this._allWinnersData;
 	}
 

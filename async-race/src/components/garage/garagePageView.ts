@@ -1,6 +1,6 @@
 import { View } from './types';
 import { createCarImg, createElement, createPaginationButtons } from '@/utils/helperFuncs';
-import { ResponseCarData, AllCarsData } from '@/utils/commonTypes';
+import { ResponseCarData, ListOfCarsData } from '@/utils/commonTypes';
 
 export default class GaragePageView implements View {
 	public carsAmount = createElement({ tag: 'output', classNames: ['cars-number'] });
@@ -107,7 +107,7 @@ export default class GaragePageView implements View {
 		return raceNode;
 	}
 
-	private createTracksForPage(carsData: AllCarsData): HTMLElement[] {
+	private createTracksForPage(carsData: ListOfCarsData): HTMLElement[] {
 		return carsData.map(carData => this.createTrack(carData));
 	}
 
@@ -137,7 +137,7 @@ export default class GaragePageView implements View {
 		return track;
 	}
 
-	public updateView(pageNumber: number, allCarsAmount: number, carsData: AllCarsData): void {
+	public updateView(pageNumber: number, allCarsAmount: number, carsData: ListOfCarsData): void {
 		this.updatePageHeaders(allCarsAmount, pageNumber);
 		this.updateTracksBlock(carsData);
 	}
@@ -147,7 +147,7 @@ export default class GaragePageView implements View {
 		this.pageNumber.textContent = `${pageNumber}`;
 	}
 
-	public updateTracksBlock(carsData: AllCarsData): void {
+	public updateTracksBlock(carsData: ListOfCarsData): void {
 		this.tracksBlock.replaceChildren(...this.createTracksForPage(carsData));
 	}
 }
