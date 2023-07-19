@@ -14,9 +14,9 @@ export type WinnerData = {
 
 export type ListOfWinnersData = WinnerData[];
 
-export type CreatedCarData = {
+export type RequestCarData = {
 	name: string,
 	color: string,
 };
 
-export type ListOfCreatedCarsData = CreatedCarData[];
+export type ListOfCreatedCarsData = RequestCarData[];

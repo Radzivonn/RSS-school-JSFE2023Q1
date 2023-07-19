@@ -1,4 +1,4 @@
-import { ListOfCarsData, ListOfWinnersData, ResponseCarData, CreatedCarData } from './commonTypes';
+import { ListOfCarsData, ListOfWinnersData, ResponseCarData, RequestCarData } from './commonTypes';
 import { RequestDirs } from './commonVars';
 
 export default class AsyncRaceAPI {
@@ -51,7 +51,7 @@ export default class AsyncRaceAPI {
 		return data[0];
 	};
 
-	public createCarOnServer = async (carData: CreatedCarData): Promise<ResponseCarData> => {
+	public createCarOnServer = async (carData: RequestCarData): Promise<ResponseCarData> => {
 		const data = await this.getRequestData<ResponseCarData>(
 			`${this.baseUrl}/${RequestDirs.CARSDATAPATH}`,
 			'POST',

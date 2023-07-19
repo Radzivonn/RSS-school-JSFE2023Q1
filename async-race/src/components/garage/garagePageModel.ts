@@ -1,5 +1,5 @@
 import { Model } from './types';
-import { ListOfCarsData, ResponseCarData, CreatedCarData } from '@/utils/commonTypes';
+import { ListOfCarsData, ResponseCarData, RequestCarData } from '@/utils/commonTypes';
 import { BASEREQUESTURL, carNames, carModels, carColors } from '@/utils/commonVars';
 import { getRandomInt } from '@/utils/helperFuncs';
 import AsyncRaceAPI from '@/utils/asyncRaceAPI';
@@ -57,7 +57,7 @@ export default class GaragePageModel implements Model {
 		return Promise.all(carsData);
 	};
 
-	private createRandomCarData = (): CreatedCarData => {
+	private createRandomCarData = (): RequestCarData => {
 		return {
 			name: `${carNames[getRandomInt(0, carNames.length)]} ${carModels[getRandomInt(0, carModels.length)]}`,
 			color: carColors[getRandomInt(0, carColors.length)],
