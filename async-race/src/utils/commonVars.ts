@@ -10,4 +10,4 @@ export const carNames = ['Tesla', 'Ford', 'BMW', 'Mersedes-Benz', 'Porshe', 'Lad
 
 export const carModels = ['Model X', 'Mustang', 'X5', 'Maybach', 'Carrera', 'Priora', 'Gallardo', 'Camaro', 'GTR', 'Lancer Evolution X', 'R8'];
 
-export const carColors = ['black', 'red', 'yellow', 'aquamarine', 'cyan', 'white', 'purple', 'orange', 'gold', 'blue'];
+export const carColors = ['#000000', '#FF0000', '#FFEA00', '#03FCA1', '#0398FC', '#FFFFFF', '#8800FF', '#FF9900', '#FFD000', '#0026FF', '#00FF26', '#FF009D', '#3D3D3D'];
