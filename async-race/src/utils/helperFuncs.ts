@@ -1,9 +1,4 @@
 import carSVGcode from './carSVGcode';
-import { ResponseCarData, CreatedCarData } from './commonTypes';
-import { BASEREQUESTURL, carColors, carModels, carNames } from './commonVars';
-import AsyncRaceAPI from './asyncRaceAPI';
-
-const API = new AsyncRaceAPI(BASEREQUESTURL);
 
 type ElementParams = Readonly<{
 	tag: string,
@@ -46,21 +41,6 @@ export function getRandomInt(min: number, max: number): number {
 	// Maximum not included, minimum included
 	return Math.floor(Math.random() * (Math.floor(max) - Math.ceil(min))) + Math.ceil(min);
 }
-
-export const createRandomCarData = (): CreatedCarData => {
-	return {
-		name: `${carNames[getRandomInt(0, carNames.length)]} ${carModels[getRandomInt(0, carModels.length)]}`,
-		color: carColors[getRandomInt(0, carColors.length)],
-	};
-};
-
-export const generateRandomCarsData = (carsAmount: number): Promise<ResponseCarData[]> => {
-	const carsData: Promise<ResponseCarData>[] = [];
-	for (let i = 0; i < carsAmount; i++) {
-		carsData.push(API.createCarOnServer(createRandomCarData()));
-	}
-	return Promise.all(carsData);
-};
 
 /**
  * A function that turns on the disabled attribute on all child elements of the block

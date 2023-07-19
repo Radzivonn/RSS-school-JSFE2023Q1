@@ -1,7 +1,7 @@
 import { Model } from './types';
-import { ListOfCarsData, ResponseCarData } from '@/utils/commonTypes';
-import { BASEREQUESTURL } from '@/utils/commonVars';
-import { generateRandomCarsData } from '@/utils/helperFuncs';
+import { ListOfCarsData, ResponseCarData, CreatedCarData } from '@/utils/commonTypes';
+import { BASEREQUESTURL, carNames, carModels, carColors } from '@/utils/commonVars';
+import { getRandomInt } from '@/utils/helperFuncs';
 import AsyncRaceAPI from '@/utils/asyncRaceAPI';
 
 export default class GaragePageModel implements Model {
@@ -38,10 +38,25 @@ export default class GaragePageModel implements Model {
 	}
 
 	public async generateRandomCars(): Promise<void> {
-		const carsData = await generateRandomCarsData(this.RANDOMCARSAMOUT);
+		const carsData = await this.generateRandomCarsData(this.RANDOMCARSAMOUT);
 		this.allCarsData.push(...carsData);
 		this.updatePagesAmount();
 	}
+
+	private generateRandomCarsData = (carsAmount: number): Promise<ResponseCarData[]> => {
+		const carsData: Promise<ResponseCarData>[] = [];
+		for (let i = 0; i < carsAmount; i++) {
+			carsData.push(this.API.createCarOnServer(this.createRandomCarData()));
+		}
+		return Promise.all(carsData);
+	};
+
+	private createRandomCarData = (): CreatedCarData => {
+		return {
+			name: `${carNames[getRandomInt(0, carNames.length)]} ${carModels[getRandomInt(0, carModels.length)]}`,
+			color: carColors[getRandomInt(0, carColors.length)],
+		};
+	};
 
 	private updatePagesAmount(): void {
 		this._pagesAmount = Math.ceil(this.allCarsData.length / this.TRACKSPERPAGE);
