@@ -1,18 +1,20 @@
 import { Model } from './types';
 import { ListOfCarsData, ListOfWinnersData } from '@/utils/commonTypes';
-import { getAllCarsData, getAllWinnersData } from '@/utils/helperFuncs';
+import { BASEREQUESTURL } from '@/utils/commonVars';
+import AsyncRaceAPI from '@/utils/asyncRaceAPI';
 
 export default class WinnersPageModel implements Model {
 	private _allWinnersData: ListOfWinnersData = [];
 	private _allCarsData: ListOfCarsData = [];
 	private _pageNumber = 1;
+	private readonly API = new AsyncRaceAPI(BASEREQUESTURL);
 
 	public async setRequestData(): Promise<void> {
-		this.allCarsData = await getAllCarsData()
+		this.allCarsData = await this.API.getAllCarsData()
 			.catch(error => {
 				throw error;
 			});
-		this.allWinnersData = await getAllWinnersData()
+		this.allWinnersData = await this.API.getAllWinnersData()
 			.catch(error => {
 				throw error;
 			});

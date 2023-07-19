@@ -109,7 +109,7 @@ export default class GaragePageView implements View {
 	}
 
 	private createTrack(carData: ResponseCarData): HTMLElement {
-		const track = createElement({ tag: 'div', classNames: ['track'] });
+		const track = createElement({ tag: 'div', classNames: ['track'], id: String(carData.id) });
 		const carButtons = createElement({ tag: 'div', classNames: ['car-buttons'] });
 		const carControlButtons = createElement({ tag: 'div', classNames: ['car-control-buttons'] });
 		const highway = createElement({ tag: 'div', classNames: ['highway'] });

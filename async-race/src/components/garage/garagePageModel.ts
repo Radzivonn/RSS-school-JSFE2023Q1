@@ -1,6 +1,8 @@
 import { Model } from './types';
 import { ListOfCarsData, ResponseCarData } from '@/utils/commonTypes';
-import { getAllCarsData, createCarOnServer, generateRandomCarsData } from '@/utils/helperFuncs';
+import { BASEREQUESTURL } from '@/utils/commonVars';
+import { generateRandomCarsData } from '@/utils/helperFuncs';
+import AsyncRaceAPI from '@/utils/asyncRaceAPI';
 
 export default class GaragePageModel implements Model {
 	private _allCarsData: ListOfCarsData = [];
@@ -8,9 +10,10 @@ export default class GaragePageModel implements Model {
 	private _pagesAmount = 0;
 	readonly TRACKSPERPAGE = 7;
 	private readonly RANDOMCARSAMOUT = 100;
+	private readonly API = new AsyncRaceAPI(BASEREQUESTURL);
 
 	public async setRequestData(): Promise<void> {
-		this._allCarsData = await getAllCarsData()
+		this._allCarsData = await this.API.getAllCarsData()
 			.catch(error => {
 				throw error;
 			});
@@ -18,7 +21,7 @@ export default class GaragePageModel implements Model {
 	}
 
 	public async createCar(carName: string, carColor: string): Promise<ResponseCarData> {
-		const carData = await createCarOnServer({ name: carName, color: carColor })
+		const carData = await this.API.createCarOnServer({ name: carName, color: carColor })
 			.catch(error => {
 				throw error;
 			});
