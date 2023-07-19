@@ -96,3 +96,11 @@ export const createRandomCarData = (): CreatedCarData => {
 		color: carColors[getRandomInt(0, carColors.length)],
 	};
 };
+
+export const generateRandomCarsData = (carsAmount: number): Promise<ResponseCarData[]> => {
+	const carsData: Promise<ResponseCarData>[] = [];
+	for (let i = 0; i < carsAmount; i++) {
+		carsData.push(createCarOnServer(createRandomCarData()));
+	}
+	return Promise.all(carsData);
+};
