@@ -147,4 +147,20 @@ export default class GaragePageView implements View {
 	public updateTracksBlock(carsData: ListOfCarsData): void {
 		this.tracksBlock.replaceChildren(...this.createTracksForPage(carsData));
 	}
+
+	public updateTrack(carData: ResponseCarData): void {
+		const trackNode = document.getElementById(String(carData.id));
+		if (trackNode) {
+			const carNode = trackNode.querySelector('.car') as HTMLElement;
+			const carNameNode = trackNode.querySelector('.car-name') as HTMLElement;
+			carNameNode.textContent = carData.name;
+			carNode.style.fill = carData.color;
+			this.setUpdateBlockValues('', '#000000');
+		}
+	}
+
+	public setUpdateBlockValues(inputText: string, color: string): void {
+		this.gameControllers.inputs.updateCarInput.value = inputText;
+		this.gameControllers.colorPalettes.updateCarPalette.value = color;
+	}
 }

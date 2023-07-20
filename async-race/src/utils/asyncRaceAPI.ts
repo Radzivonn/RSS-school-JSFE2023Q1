@@ -81,4 +81,16 @@ export default class AsyncRaceAPI {
 		});
 		return data;
 	};
+
+	public updateCarOnServer = async (carID: string, carData: RequestCarData): Promise<ResponseCarData> => {
+		const data = await this.getResponseData<ResponseCarData>(
+			`${this.baseUrl}/${RequestDirs.CARSDATAPATH}/${carID}`,
+			'PUT',
+			{ 'Content-Type': 'application/json' },
+			JSON.stringify(carData),
+		).catch((error) => {
+			throw error;
+		});
+		return data;
+	};
 }

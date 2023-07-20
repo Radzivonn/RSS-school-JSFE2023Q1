@@ -28,6 +28,7 @@ export default class GaragePageController implements Controller {
 	public getView(): HTMLElement {
 		const componentView = this.view.createView();
 		this.renderView();
+		this.view.setUpdateBlockValues('', '#000000');
 		lockBlock(this.view.updatingBlock);
 		return componentView;
 	}
@@ -36,6 +37,10 @@ export default class GaragePageController implements Controller {
 		this.view.gameControllers.buttons.createCarButton.addEventListener(
 			'click',
 			() => this.createCarButtonHandler(),
+		);
+		this.view.gameControllers.buttons.updateCarButton.addEventListener(
+			'click',
+			() => this.updateCarButtonHandler(),
 		);
 		this.view.gameControllers.buttons.generateCarsButton.addEventListener(
 			'click',
@@ -108,9 +113,24 @@ export default class GaragePageController implements Controller {
 		if (name && color) {
 			const updatingBlock = this.view.updatingBlock;
 			unlockBlock(updatingBlock);
-			this.view.gameControllers.inputs.updateCarInput.value = name;
-			this.view.gameControllers.colorPalettes.updateCarPalette.value = color;
+			this.view.setUpdateBlockValues(name, color);
 			this.model.selectedCarID = track.id;
+		}
+	}
+
+	private async updateCarButtonHandler(): Promise<void> {
+		const carID = this.model.selectedCarID;
+		if (carID) {
+			const carData = await this.model.updateCarData(
+				carID,
+				{
+					name: this.view.gameControllers.inputs.updateCarInput.value,
+					color: this.view.gameControllers.colorPalettes.updateCarPalette.value,
+				},
+			);
+			this.view.updateTrack(carData);
+			this.model.selectedCarID = null;
+			lockBlock(this.view.updatingBlock);
 		}
 	}
 }

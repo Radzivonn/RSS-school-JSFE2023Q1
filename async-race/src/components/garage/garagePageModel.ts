@@ -50,6 +50,11 @@ export default class GaragePageModel implements Model {
 		};
 	};
 
+	public async updateCarData(carID: string, reqData: RequestCarData): Promise<ResponseCarData> {
+		const carData = await this.API.updateCarOnServer(carID, reqData);
+		return carData;
+	}
+
 	private updatePagesAmount(): void {
 		this._pagesAmount = Math.ceil(this.carsAmount / this.TRACKSPERPAGE);
 	}
