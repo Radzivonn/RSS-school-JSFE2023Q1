@@ -12,10 +12,39 @@ export default class WinnersController implements Controller {
 	}
 
 	public async init(): Promise<void> {
-		this.model.setRequestData().catch(error => console.error(error));
+		this.bindListeners();
 	}
 
-	public getView() {
-		return this.view.createView(this.model.pageNumber, this.model.allWinnersData, this.model.allCarsData);
+	public getView(): HTMLElement {
+		const componentView = this.view.createView();
+		this.renderView();
+		return componentView;
+	}
+
+	private async renderView(): Promise<void> {
+		const winnersData = await this.model.getDisplayedWinnersData();
+		const carsData = await this.model.getDisplayedCarsData();
+		this.view.updateView(
+			this.model.pageNumber,
+			this.model.winnersAmount,
+			winnersData,
+			carsData,
+		);
+	}
+
+	private bindListeners() {
+		this.view.switchButtonsBlock.addEventListener(
+			'click',
+			(e) => this.paginationButtonsHandler(e),
+		);
+	}
+
+	private paginationButtonsHandler(e: MouseEvent): void {
+		const clickedElement = e.target as HTMLElement;
+		if (clickedElement && clickedElement.classList.contains('next-button')) {
+			if (this.model.switchToNextPage()) this.renderView();
+		} else if (clickedElement && clickedElement.classList.contains('previous-button')) {
+			if (this.model.switchToPrevPage()) this.renderView();			
+		}
 	}
 }

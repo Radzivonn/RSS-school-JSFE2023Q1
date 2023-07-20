@@ -13,13 +13,12 @@ export default class WinnersPageView implements View {
 		carBestTime: createElement({ tag: 'div', classNames: ['winners-table__best-time-column'] }),
 	};
 	public switchButtonsBlock = createElement({ tag: 'div', classNames: ['switch-buttons'] });
-	private WINNERSPERPAGE = 10;
 
 	constructor() {
 		this.switchButtonsBlock.append(...createPaginationButtons());
 	}
 
-	public createView(pageNumber: number, allWinnersData: ListOfWinnersData, allCarsData: ListOfCarsData): HTMLElement {
+	public createView(): HTMLElement {
 		const winnersNode = createElement({ tag: 'div', classNames: ['winners-page'] });
 		const winnersHeader = createElement({ tag: 'h2', classNames: ['winners-header'], text: 'Garage' });
 		const winnersPageHeader = createElement({ tag: 'h3', classNames: ['winners-page-header'], text: 'Page #' });
@@ -30,19 +29,15 @@ export default class WinnersPageView implements View {
 		winnersNode.append(
 			winnersHeader,
 			winnersPageHeader,
-			this.createWinnersTable(pageNumber, allWinnersData, allCarsData),
+			this.createWinnersTable(),
 			this.switchButtonsBlock,
 		);
-
-		this.updatePageHeaders(allWinnersData.length, pageNumber);
 
 		return winnersNode;
 	}
 
-	private createWinnersTable(pageNumber: number, winnersData: ListOfWinnersData, allCarsData: ListOfCarsData): HTMLElement {
+	private createWinnersTable(): HTMLElement {
 		const winnersTable = createElement({ tag: 'div', classNames: ['winners-table'] });
-
-		this.updateWinnersTableView(pageNumber, winnersData, allCarsData);
 
 		winnersTable.append(
 			this.winnersTableColumns.carNumber,
@@ -54,9 +49,9 @@ export default class WinnersPageView implements View {
 		return winnersTable;
 	}
 
-	public updateView(winnersAmount: number, pageNumber: number, winnersData: ListOfWinnersData, allCarsData: ListOfCarsData) {
+	public updateView(pageNumber: number, winnersAmount: number, winnersData: ListOfWinnersData, carsData: ListOfCarsData) {
 		this.updatePageHeaders(winnersAmount, pageNumber);
-		this.updateWinnersTableView(pageNumber, winnersData, allCarsData);
+		this.updateWinnersTableView(winnersData, carsData);
 	}
 
 	private updatePageHeaders(winnersAmount: number, pageNumber: number) {
@@ -64,16 +59,15 @@ export default class WinnersPageView implements View {
 		this.pageNumber.textContent = `${pageNumber}`;
 	}
 
-	private updateWinnersTableView(pageNumber: number, winnersData: ListOfWinnersData, allCarsData: ListOfCarsData) {
+	private updateWinnersTableView(winnersData: ListOfWinnersData, carsData: ListOfCarsData) {
 		const numberColumn = [createElement({ tag: 'p', text: 'Number' })];
 		const carColumn = [createElement({ tag: 'p', text: 'car' })];
 		const nameColumn = [createElement({ tag: 'p', text: 'name' })];
 		const winsColumn = [createElement({ tag: 'p', text: 'wins' })];
 		const bestTimeColumn = [createElement({ tag: 'p', text: 'Best time (seconds)' })];
 
-		winnersData.slice((pageNumber - 1) * this.WINNERSPERPAGE, pageNumber * this.WINNERSPERPAGE)
-			.forEach((winner, index) => {
-				const carData = allCarsData.find(data => data.id === winner.id);
+		winnersData.forEach((winner, index) => {
+			const carData = carsData.find(car => car.id === winner.id);
 				if (carData) {
 					const	{ name, color } = carData;
 					numberColumn.push(createElement({ tag: 'p', text: String(index + 1) }));

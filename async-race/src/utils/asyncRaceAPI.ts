@@ -1,6 +1,11 @@
 import { ListOfCarsData, ListOfWinnersData, ResponseCarData, RequestCarData } from './commonTypes';
 import { RequestDirs } from './commonVars';
 
+type GetAllResponseData = {
+	data: Promise<ListOfCarsData & ListOfWinnersData>,
+	totalCount: string | null
+};
+
 export default class AsyncRaceAPI {
 	private baseUrl: string;
 
@@ -8,12 +13,12 @@ export default class AsyncRaceAPI {
 		this.baseUrl = baseUrl;
 	}
 
-	private getRequestData = async <T>(
+	private getResponse = async (
 		URL: string,
 		method = 'GET',
 		headers: HeadersInit = {},
 		body: BodyInit | null = null,
-	): Promise<T> => {
+	): Promise<Response> => {
 		const data = await fetch(URL, {
 			method: method,
 			headers: headers,
@@ -21,29 +26,43 @@ export default class AsyncRaceAPI {
 		}).catch(error => {
 			throw error;
 		});
+		return data;
+	};
+
+	private getResponseData = async <T>(
+		URL: string,
+		method = 'GET',
+		headers: HeadersInit = {},
+		body: BodyInit | null = null,
+	): Promise<T> => {
+		const data = await this.getResponse(URL, method, headers, body);
 		return data.json();
 	};
 
-	public getAllCarsData = async (): Promise<ListOfCarsData> => {
-		const data = await this.getRequestData<ListOfCarsData>(
-			`${this.baseUrl}/${RequestDirs.CARSDATAPATH}`,
-		).catch((error) => {
-			throw error;
-		});
-		return data;
+	public getAllCarsData = async (pageNumber: number, carsPerPage: number): Promise<GetAllResponseData> => {
+		let URL = `${this.baseUrl}/${RequestDirs.CARSDATAPATH}?`;
+		if (pageNumber) URL += `_page=${pageNumber}`;
+		if (carsPerPage) URL += `&_limit=${carsPerPage}`;
+		const data = await this.getResponse(URL)
+			.catch((error) => {
+				throw error;
+			});
+		return { data: data.json(), totalCount: data.headers.get('X-Total-Count') };
 	};
 
-	public getAllWinnersData = async (): Promise<ListOfWinnersData> => {
-		const data = await this.getRequestData<ListOfWinnersData>(
-			`${this.baseUrl}/${RequestDirs.WINNERSDATAPATH}`,
-		).catch((error) => {
-			throw error;
-		});
-		return data;
+	public getAllWinnersData = async (pageNumber: number, carsPerPage: number): Promise<GetAllResponseData> => {
+		let URL = `${this.baseUrl}/${RequestDirs.WINNERSDATAPATH}?`;
+		if (pageNumber) URL += `_page${pageNumber}`;
+		if (carsPerPage) URL += `&_limit=${carsPerPage}`;
+		const data = await this.getResponse(URL)
+			.catch((error) => {
+				throw error;
+			});
+		return { data: data.json(), totalCount: data.headers.get('X-Total-Count') };
 	};
 
 	public getCarDataByID = async (id: string): Promise<ResponseCarData> => {
-		const data: ListOfCarsData = await this.getRequestData<ListOfCarsData>(
+		const data: ListOfCarsData = await this.getResponseData<ListOfCarsData>(
 			`${this.baseUrl}/${RequestDirs.CARSDATAPATH}?id=${id}`,
 		).catch((error) => {
 			throw error;
@@ -52,7 +71,7 @@ export default class AsyncRaceAPI {
 	};
 
 	public createCarOnServer = async (carData: RequestCarData): Promise<ResponseCarData> => {
-		const data = await this.getRequestData<ResponseCarData>(
+		const data = await this.getResponseData<ResponseCarData>(
 			`${this.baseUrl}/${RequestDirs.CARSDATAPATH}`,
 			'POST',
 			{ 'Content-Type': 'application/json' },

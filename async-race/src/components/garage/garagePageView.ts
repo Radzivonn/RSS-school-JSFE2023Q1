@@ -134,13 +134,13 @@ export default class GaragePageView implements View {
 		return track;
 	}
 
-	public updateView(pageNumber: number, allCarsAmount: number, carsData: ListOfCarsData): void {
-		this.updatePageHeaders(allCarsAmount, pageNumber);
+	public updateView(pageNumber: number, carsAmount: number, carsData: ListOfCarsData): void {
+		this.updatePageHeaders(carsAmount, pageNumber);
 		this.updateTracksBlock(carsData);
 	}
 
-	public updatePageHeaders(allCarsAmount: number, pageNumber: number) {
-		this.carsAmount.textContent = ` ${allCarsAmount}`;
+	public updatePageHeaders(carsAmount: number, pageNumber: number) {
+		this.carsAmount.textContent = ` ${carsAmount}`;
 		this.pageNumber.textContent = `${pageNumber}`;
 	}
 

@@ -13,15 +13,15 @@ export default class GaragePageController implements Controller {
 	}
 
 	public async init(): Promise<void> {
-		await this.model.setRequestData().catch(error => console.error(error));
 		this.bindListeners();
 	}
 
-	private renderView(): void {
+	private async renderView(): Promise<void> {
+		const carsData = await this.model.getDisplayedCarsData();
 		this.view.updateView(
 			this.model.pageNumber,
-			this.model.allCarsData.length,
-			this.model.getDisplayedCarsData(),
+			this.model.carsAmount,
+			carsData,
 		);
 	}
 
@@ -53,19 +53,22 @@ export default class GaragePageController implements Controller {
 
 	private async createCarButtonHandler(): Promise<void> {
 		await this.model.createCar(
-			this.view.gameControllers.inputs.createCarInput.value,
-			this.view.gameControllers.colorPalettes.createCarPalette.value,
+			{
+				name: this.view.gameControllers.inputs.createCarInput.value,
+				color: this.view.gameControllers.colorPalettes.createCarPalette.value,
+			},
 		).catch(error => {
 			console.error(error);
 		});
 
-		const carsAmount = this.model.allCarsData.length;
+		const carsAmount = this.model.carsAmount;
 		const currentPageNumber = this.model.pageNumber;
 		const pagesAmount = Math.ceil(carsAmount / this.model.TRACKSPERPAGE);
 
 		this.view.updatePageHeaders(carsAmount, currentPageNumber);
 		if (pagesAmount === currentPageNumber) {
-			this.view.updateTracksBlock(this.model.getDisplayedCarsData());
+			const carsData = await this.model.getDisplayedCarsData(); 
+			this.view.updateTracksBlock(carsData);
 		}
 	}
 
@@ -77,11 +80,9 @@ export default class GaragePageController implements Controller {
 	private paginationButtonsHandler(e: MouseEvent): void {
 		const clickedElement = e.target as HTMLElement;
 		if (clickedElement && clickedElement.classList.contains('next-button')) {
-			this.model.switchToNextPage();
-			this.renderView();
+			if (this.model.switchToNextPage()) this.renderView();
 		} else if (clickedElement && clickedElement.classList.contains('previous-button')) {
-			this.model.switchToPrevPage();
-			this.renderView();
+			if (this.model.switchToPrevPage()) this.renderView();
 		}
 	}
 
@@ -110,7 +111,6 @@ export default class GaragePageController implements Controller {
 			this.view.gameControllers.inputs.updateCarInput.value = name;
 			this.view.gameControllers.colorPalettes.updateCarPalette.value = color;
 			this.model.selectedCarID = track.id;
-			console.log(this.model.selectedCarID);
 		}
 	}
 }

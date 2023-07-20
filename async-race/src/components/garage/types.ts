@@ -1,7 +1,12 @@
-import { ListOfCarsData } from '@/utils/commonTypes';
+import { ListOfCarsData, RequestCarData, ResponseCarData } from '@/utils/commonTypes';
 
 export interface Model {
-	setRequestData(): Promise<void>;
+	getDisplayedCarsData(): Promise<ListOfCarsData>;
+	createCar(reqCarData: RequestCarData): Promise<ResponseCarData>;
+	getCarData(id: string): Promise<ResponseCarData>
+	switchToNextPage(): boolean;
+	switchToPrevPage(): boolean;
+	generateRandomCars(): Promise<void>
 }
 
 export interface Controller {
@@ -12,6 +17,10 @@ export interface Controller {
 }
 
 export interface View {
-	createView(pageNumber: number, allCarsAmount: number, allCarsData: ListOfCarsData,): HTMLElement;
-	updateView(pageNumber: number, allCarsAmount: number, carsData: ListOfCarsData): void;
+	createView(): HTMLElement;
+	updateView(
+		pageNumber: number,
+		carsAmount: number,
+		carsData: ListOfCarsData
+	): void;
 }

@@ -4,43 +4,70 @@ import { BASEREQUESTURL } from '@/utils/commonVars';
 import AsyncRaceAPI from '@/utils/asyncRaceAPI';
 
 export default class WinnersPageModel implements Model {
-	private _allWinnersData: ListOfWinnersData = [];
-	private _allCarsData: ListOfCarsData = [];
 	private _pageNumber = 1;
+	private _pagesAmount = 0;
+	private _winnersAmount = 0;
+	private _carsAmount = 0;
+	readonly WINNERSPERPAGE = 10;
 	private readonly API = new AsyncRaceAPI(BASEREQUESTURL);
 
-	public async setRequestData(): Promise<void> {
-		this.allCarsData = await this.API.getAllCarsData()
+	public async getDisplayedWinnersData(): Promise<ListOfWinnersData> {
+		const responseData = await this.API.getAllWinnersData(this.pageNumber, this.WINNERSPERPAGE)
 			.catch(error => {
 				throw error;
 			});
-		this.allWinnersData = await this.API.getAllWinnersData()
-			.catch(error => {
-				throw error;
-			});
+		if (responseData.totalCount) this._winnersAmount = Number(responseData.totalCount); 
+		this.updatePagesAmount();
+		return responseData.data;
+	}
+
+	public async getDisplayedCarsData(): Promise<ListOfCarsData> {
+		const responseData = await this.API.getAllCarsData(this.pageNumber, this.WINNERSPERPAGE)
+		.catch(error => {
+			throw error;
+		});
+		if (responseData.totalCount) this._carsAmount = Number(responseData.totalCount);
+		return responseData.data;
+	}
+
+	private updatePagesAmount(): void {
+		this._pagesAmount = Math.ceil(this.winnersAmount / this.WINNERSPERPAGE);
+	}
+	/**
+	 * Returns true if page was switched to next, else returns false
+	 */
+	public switchToNextPage(): boolean {
+		if (this._pageNumber < this.pagesAmount) {
+			this._pageNumber += 1;
+			return true;
+		}
+		return false;
+	}
+
+	/**
+	 * Returns true if page was switched to previous, else returns false
+	 */
+	public switchToPrevPage(): boolean {
+		if (this._pageNumber > 1) {
+			this._pageNumber -= 1;
+			return true;
+		}
+		return false;
 	}
 
 	public get pageNumber(): number {
 		return this._pageNumber;
 	}
 
-	public set pageNumber(value) {
-		this._pageNumber = value;
+	public get pagesAmount() {
+		return this._pagesAmount;
 	}
 
-	public get allCarsData(): ListOfCarsData {
-		return this._allCarsData;
+	public get winnersAmount() {
+		return this._winnersAmount;
 	}
 
-	public set allCarsData(data) {
-		this._allCarsData = data;
-	}
-
-	public get allWinnersData(): ListOfWinnersData {
-		return this._allWinnersData;
-	}
-
-	public set allWinnersData(data) {
-		this._allWinnersData = data;
+	public get carsAmount() {
+		return this._carsAmount;
 	}
 }

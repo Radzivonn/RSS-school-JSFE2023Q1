@@ -1,17 +1,23 @@
 import { ListOfCarsData, ListOfWinnersData } from '@/utils/commonTypes';
 
 export interface Model {
-	setRequestData(): Promise<void>;
+	getDisplayedWinnersData(): Promise<ListOfWinnersData>;
+	getDisplayedCarsData(): Promise<ListOfCarsData>
 }
 
 export interface Controller {
 	view: View;
 	model: Model;
-	getView(): HTMLElement;
 	init(): Promise<void>;
+	getView(): HTMLElement;
 }
 
 export interface View {
-	createView(pageNumber: number, allWinnersData: ListOfWinnersData, allCarsData: ListOfCarsData): HTMLElement;
-	updateView(winnersAmount: number, pageNumber: number, winnersData: ListOfWinnersData, allCarsData: ListOfCarsData): void;
+	createView(): HTMLElement;
+	updateView(
+		pageNumber: number,
+		winnersAmount: number,
+		winnersData: ListOfWinnersData,
+		carsData: ListOfCarsData
+	): void;
 }
