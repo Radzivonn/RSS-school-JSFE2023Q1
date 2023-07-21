@@ -159,6 +159,11 @@ export default class GaragePageView implements View {
 		}
 	}
 
+	public setCreateBlockValues(inputText: string, color: string): void {
+		this.gameControllers.inputs.createCarInput.value = inputText;
+		this.gameControllers.colorPalettes.createCarPalette.value = color;
+	}
+
 	public setUpdateBlockValues(inputText: string, color: string): void {
 		this.gameControllers.inputs.updateCarInput.value = inputText;
 		this.gameControllers.colorPalettes.updateCarPalette.value = color;
