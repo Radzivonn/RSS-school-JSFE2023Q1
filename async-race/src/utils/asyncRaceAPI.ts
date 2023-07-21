@@ -1,4 +1,4 @@
-import { ListOfCarsData, ListOfWinnersData, ResponseCarData, RequestCarData } from './commonTypes';
+import { ListOfCarsData, ListOfWinnersData, ResponseCarData, RequestCarData, WinnerData } from './commonTypes';
 import { RequestDirs } from './commonVars';
 
 type GetAllResponseData = {
@@ -23,8 +23,6 @@ export default class AsyncRaceAPI {
 			method: method,
 			headers: headers,
 			body: body,
-		}).catch(error => {
-			throw error;
 		});
 		return data;
 	};
@@ -35,7 +33,12 @@ export default class AsyncRaceAPI {
 		headers: HeadersInit = {},
 		body: BodyInit | null = null,
 	): Promise<T> => {
-		const data = await this.getResponse(URL, method, headers, body);
+		const data = await this.getResponse(
+			URL,
+			method,
+			headers,
+			body,
+		);
 		return data.json();
 	};
 
@@ -43,10 +46,7 @@ export default class AsyncRaceAPI {
 		let URL = `${this.baseUrl}/${RequestDirs.CARSDATAPATH}?`;
 		if (pageNumber) URL += `_page=${pageNumber}`;
 		if (carsPerPage) URL += `&_limit=${carsPerPage}`;
-		const data = await this.getResponse(URL)
-			.catch((error) => {
-				throw error;
-			});
+		const data = await this.getResponse(URL);
 		return { data: data.json(), totalCount: data.headers.get('X-Total-Count') };
 	};
 
@@ -54,19 +54,21 @@ export default class AsyncRaceAPI {
 		let URL = `${this.baseUrl}/${RequestDirs.WINNERSDATAPATH}?`;
 		if (pageNumber) URL += `_page${pageNumber}`;
 		if (carsPerPage) URL += `&_limit=${carsPerPage}`;
-		const data = await this.getResponse(URL)
-			.catch((error) => {
-				throw error;
-			});
+		const data = await this.getResponse(URL);
 		return { data: data.json(), totalCount: data.headers.get('X-Total-Count') };
 	};
 
-	public getCarDataByID = async (id: string): Promise<ResponseCarData> => {
-		const data: ListOfCarsData = await this.getResponseData<ListOfCarsData>(
-			`${this.baseUrl}/${RequestDirs.CARSDATAPATH}?id=${id}`,
-		).catch((error) => {
-			throw error;
-		});
+	public getCarDataByID = async (carID: string): Promise<ResponseCarData> => {
+		const data = await this.getResponseData<ListOfCarsData>(
+			`${this.baseUrl}/${RequestDirs.CARSDATAPATH}?id=${carID}`,
+		);
+		return data[0];
+	};
+
+	public getWinnerDataByID = async (carID: string): Promise<WinnerData> => {
+		const data = await this.getResponseData<ListOfWinnersData>(
+			`${this.baseUrl}/${RequestDirs.WINNERSDATAPATH}?id=${carID}`,
+		);
 		return data[0];
 	};
 
@@ -76,9 +78,7 @@ export default class AsyncRaceAPI {
 			'POST',
 			{ 'Content-Type': 'application/json' },
 			JSON.stringify(carData),
-		).catch((error) => {
-			throw error;
-		});
+		);
 		return data;
 	};
 
@@ -88,9 +88,21 @@ export default class AsyncRaceAPI {
 			'PUT',
 			{ 'Content-Type': 'application/json' },
 			JSON.stringify(carData),
-		).catch((error) => {
-			throw error;
-		});
+		);
 		return data;
+	};
+
+	public deleteCarOnServer = async (carID: string): Promise<void> => {
+		await this.getResponseData<ResponseCarData>(
+			`${this.baseUrl}/${RequestDirs.CARSDATAPATH}/${carID}`,
+			'DELETE',
+		);
+	};
+
+	public deleteWinnerOnServer = async (carID: string): Promise<void> => {
+		await this.getResponseData(
+			`${this.baseUrl}/${RequestDirs.WINNERSDATAPATH}/${carID}`,
+			'DELETE',
+		);
 	};
 }

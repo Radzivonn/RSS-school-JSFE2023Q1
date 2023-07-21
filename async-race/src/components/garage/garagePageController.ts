@@ -65,16 +65,8 @@ export default class GaragePageController implements Controller {
 		).catch(error => {
 			console.error(error);
 		});
-
-		const carsAmount = this.model.carsAmount;
-		const currentPageNumber = this.model.pageNumber;
-		const pagesAmount = Math.ceil(carsAmount / this.model.TRACKSPERPAGE);
-
-		this.view.updatePageHeaders(carsAmount, currentPageNumber);
-		if (pagesAmount === currentPageNumber) {
-			const carsData = await this.model.getDisplayedCarsData(); 
-			this.view.updateTracksBlock(carsData);
-		}
+		this.view.setCreateBlockValues('', '#000000');
+		this.renderView();
 	}
 
 	private async generateCarsButtonHandler(): Promise<void> {
@@ -97,7 +89,7 @@ export default class GaragePageController implements Controller {
 			switch (clickedElement.id) {
 				case 'select': this.selectButtonHandler(clickedElement);
 					break;
-				case 'remove':
+				case 'remove': this.removeButtonHandler(clickedElement);
 					break;
 				case 'start':
 					break;
@@ -109,11 +101,11 @@ export default class GaragePageController implements Controller {
 
 	private async selectButtonHandler(button: HTMLElement): Promise<void> {
 		const track = button.closest('.track') as HTMLElement; // take parent element with class "track"
-		const { name, color } = await this.model.getCarData(track.id);
-		if (name && color) {
+		const carData = await this.model.getCarData(track.id);
+		if (carData) {
 			const updatingBlock = this.view.updatingBlock;
 			unlockBlock(updatingBlock);
-			this.view.setUpdateBlockValues(name, color);
+			this.view.setUpdateBlockValues(carData.name, carData.color);
 			this.model.selectedCarID = track.id;
 		}
 	}
@@ -132,5 +124,13 @@ export default class GaragePageController implements Controller {
 			this.model.selectedCarID = null;
 			lockBlock(this.view.updatingBlock);
 		}
+	}
+
+	private async removeButtonHandler(button: HTMLElement): Promise<void> {
+		const track = button.closest('.track') as HTMLElement; // take parent element with class "track"
+		this.model.deleteCar(track.id);
+		this.view.setUpdateBlockValues('', '#000000');
+		lockBlock(this.view.updatingBlock);
+		this.renderView();
 	}
 }

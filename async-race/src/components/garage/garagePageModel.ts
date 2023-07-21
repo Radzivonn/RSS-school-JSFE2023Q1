@@ -18,7 +18,6 @@ export default class GaragePageModel implements Model {
 			.catch(error => {
 				throw error;
 			});
-		this._carsAmount++;
 		return carData;
 	}
 
@@ -53,6 +52,13 @@ export default class GaragePageModel implements Model {
 	public async updateCarData(carID: string, reqData: RequestCarData): Promise<ResponseCarData> {
 		const carData = await this.API.updateCarOnServer(carID, reqData);
 		return carData;
+	}
+
+	public async deleteCar(carID: string): Promise<void> {
+		await this.API.deleteCarOnServer(carID);
+		if (await this.API.getWinnerDataByID(carID)) {
+			await this.API.deleteWinnerOnServer(carID);
+		}
 	}
 
 	private updatePagesAmount(): void {
