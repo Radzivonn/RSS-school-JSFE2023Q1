@@ -12,20 +12,14 @@ export default class WinnersPageModel implements Model {
 	private readonly API = new AsyncRaceAPI(BASEREQUESTURL);
 
 	public async getDisplayedWinnersData(): Promise<ListOfWinnersData> {
-		const responseData = await this.API.getAllWinnersData(this.pageNumber, this.WINNERSPERPAGE)
-			.catch(error => {
-				throw error;
-			});
+		const responseData = await this.API.getListOfWinnersData(this.pageNumber, this.WINNERSPERPAGE);
 		if (responseData.totalCount) this._winnersAmount = Number(responseData.totalCount); 
 		this.updatePagesAmount();
 		return responseData.data;
 	}
 
 	public async getDisplayedCarsData(): Promise<ListOfCarsData> {
-		const responseData = await this.API.getAllCarsData(this.pageNumber, this.WINNERSPERPAGE)
-		.catch(error => {
-			throw error;
-		});
+		const responseData = await this.API.getListOfCarsData(this.pageNumber, this.WINNERSPERPAGE);
 		if (responseData.totalCount) this._carsAmount = Number(responseData.totalCount);
 		return responseData.data;
 	}

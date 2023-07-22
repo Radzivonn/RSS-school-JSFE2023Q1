@@ -14,18 +14,12 @@ export default class GaragePageModel implements Model {
 	private readonly API = new AsyncRaceAPI(BASEREQUESTURL);
 
 	public async createCar(reqCarData: RequestCarData): Promise<ResponseCarData> {
-		const carData = await this.API.createCarOnServer(reqCarData)
-			.catch(error => {
-				throw error;
-			});
+		const carData = await this.API.createCarOnServer(reqCarData);
 		return carData;
 	}
 
 	public async getDisplayedCarsData(): Promise<ListOfCarsData> {
-		const responseData = await this.API.getAllCarsData(this.pageNumber, this.TRACKSPERPAGE)
-			.catch(error => {
-				throw error;
-			});
+		const responseData = await this.API.getListOfCarsData(this.pageNumber, this.TRACKSPERPAGE);
 		if (responseData.totalCount) this._carsAmount = Number(responseData.totalCount);
 		this.updatePagesAmount();
 		return responseData.data;
@@ -55,9 +49,7 @@ export default class GaragePageModel implements Model {
 
 	public async deleteCar(carID: string): Promise<void> {
 		await this.API.deleteCarOnServer(carID);
-		if (await this.API.getWinnerDataByID(carID)) {
-			await this.API.deleteWinnerOnServer(carID);
-		}
+		await this.API.deleteWinnerOnServer(carID);
 	}
 
 	private updatePagesAmount(): void {

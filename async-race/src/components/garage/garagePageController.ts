@@ -62,9 +62,7 @@ export default class GaragePageController implements Controller {
 				name: this.view.gameControllers.inputs.createCarInput.value,
 				color: this.view.gameControllers.colorPalettes.createCarPalette.value,
 			},
-		).catch(error => {
-			console.error(error);
-		});
+		);
 		this.view.setCreateBlockValues('', '#000000');
 		this.renderView();
 	}
@@ -102,7 +100,7 @@ export default class GaragePageController implements Controller {
 	private async selectButtonHandler(button: HTMLElement): Promise<void> {
 		const track = button.closest('.track') as HTMLElement; // take parent element with class "track"
 		const carData = await this.model.getCarData(track.id);
-		if (carData) {
+		if (Object.keys(carData).length > 0) {
 			const updatingBlock = this.view.updatingBlock;
 			unlockBlock(updatingBlock);
 			this.view.setUpdateBlockValues(carData.name, carData.color);
