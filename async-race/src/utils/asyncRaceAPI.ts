@@ -59,17 +59,17 @@ export default class AsyncRaceAPI {
 	};
 
 	public getCarDataByID = async (carID: string): Promise<ResponseCarData> => {
-		const data = await this.getResponseData<ListOfCarsData>(
-			`${this.baseUrl}/${RequestDirs.CARSDATAPATH}?id=${carID}`,
+		const data = await this.getResponseData<ResponseCarData>(
+			`${this.baseUrl}/${RequestDirs.CARSDATAPATH}/${carID}`,
 		);
-		return data[0];
+		return data;
 	};
 
 	public getWinnerDataByID = async (carID: string): Promise<WinnerData> => {
-		const data = await this.getResponseData<ListOfWinnersData>(
-			`${this.baseUrl}/${RequestDirs.WINNERSDATAPATH}?id=${carID}`,
+		const data = await this.getResponseData<WinnerData>(
+			`${this.baseUrl}/${RequestDirs.WINNERSDATAPATH}/${carID}`,
 		);
-		return data[0];
+		return data;
 	};
 
 	public createCarOnServer = async (carData: RequestCarData): Promise<ResponseCarData> => {
@@ -100,7 +100,7 @@ export default class AsyncRaceAPI {
 	};
 
 	public deleteWinnerOnServer = async (carID: string): Promise<void> => {
-		await this.getResponseData(
+		await this.getResponseData<WinnerData>(
 			`${this.baseUrl}/${RequestDirs.WINNERSDATAPATH}/${carID}`,
 			'DELETE',
 		);
