@@ -1,7 +1,7 @@
 import { ListOfCarsData, ListOfWinnersData, ResponseCarData, RequestCarData, WinnerData } from './commonTypes';
 import { RequestDirs } from './commonVars';
 
-type GetAllResponseData = {
+type ListOfData = {
 	data: Promise<ListOfCarsData & ListOfWinnersData>,
 	totalCount: string | null
 };
@@ -13,94 +13,79 @@ export default class AsyncRaceAPI {
 		this.baseUrl = baseUrl;
 	}
 
-	private getResponse = async (
+	private requestData = async (
 		URL: string,
 		method = 'GET',
 		headers: HeadersInit = {},
 		body: BodyInit | null = null,
 	): Promise<Response> => {
-		const data = await fetch(URL, {
+		const response = await fetch(URL, {
 			method: method,
 			headers: headers,
 			body: body,
 		});
-		return data;
+		return response;
 	};
 
-	private getResponseData = async <T>(
-		URL: string,
-		method = 'GET',
-		headers: HeadersInit = {},
-		body: BodyInit | null = null,
-	): Promise<T> => {
-		const data = await this.getResponse(
-			URL,
-			method,
-			headers,
-			body,
-		);
-		return data.json();
-	};
-
-	public getAllCarsData = async (pageNumber: number, carsPerPage: number): Promise<GetAllResponseData> => {
+	public getListOfCarsData = async (pageNumber: number, carsPerPage: number): Promise<ListOfData> => {
 		let URL = `${this.baseUrl}/${RequestDirs.CARSDATAPATH}?`;
 		if (pageNumber) URL += `_page=${pageNumber}`;
 		if (carsPerPage) URL += `&_limit=${carsPerPage}`;
-		const data = await this.getResponse(URL);
-		return { data: data.json(), totalCount: data.headers.get('X-Total-Count') };
+		const response = await this.requestData(URL);
+		return { data: response.json(), totalCount: response.headers.get('X-Total-Count') };
 	};
 
-	public getAllWinnersData = async (pageNumber: number, carsPerPage: number): Promise<GetAllResponseData> => {
+	public getListOfWinnersData = async (pageNumber: number, carsPerPage: number): Promise<ListOfData> => {
 		let URL = `${this.baseUrl}/${RequestDirs.WINNERSDATAPATH}?`;
 		if (pageNumber) URL += `_page${pageNumber}`;
 		if (carsPerPage) URL += `&_limit=${carsPerPage}`;
-		const data = await this.getResponse(URL);
-		return { data: data.json(), totalCount: data.headers.get('X-Total-Count') };
+		const response = await this.requestData(URL);
+		return { data: response.json(), totalCount: response.headers.get('X-Total-Count') };
 	};
 
 	public getCarDataByID = async (carID: string): Promise<ResponseCarData> => {
-		const data = await this.getResponseData<ResponseCarData>(
+		const response = await this.requestData(
 			`${this.baseUrl}/${RequestDirs.CARSDATAPATH}/${carID}`,
 		);
-		return data;
+		return response.json();
 	};
 
 	public getWinnerDataByID = async (carID: string): Promise<WinnerData> => {
-		const data = await this.getResponseData<WinnerData>(
+		const response = await this.requestData(
 			`${this.baseUrl}/${RequestDirs.WINNERSDATAPATH}/${carID}`,
 		);
-		return data;
+		return response.json();
 	};
 
 	public createCarOnServer = async (carData: RequestCarData): Promise<ResponseCarData> => {
-		const data = await this.getResponseData<ResponseCarData>(
+		const response = await this.requestData(
 			`${this.baseUrl}/${RequestDirs.CARSDATAPATH}`,
 			'POST',
 			{ 'Content-Type': 'application/json' },
 			JSON.stringify(carData),
 		);
-		return data;
+		return response.json();
 	};
 
 	public updateCarOnServer = async (carID: string, carData: RequestCarData): Promise<ResponseCarData> => {
-		const data = await this.getResponseData<ResponseCarData>(
+		const response = await this.requestData(
 			`${this.baseUrl}/${RequestDirs.CARSDATAPATH}/${carID}`,
 			'PUT',
 			{ 'Content-Type': 'application/json' },
 			JSON.stringify(carData),
 		);
-		return data;
+		return response.json();
 	};
 
 	public deleteCarOnServer = async (carID: string): Promise<void> => {
-		await this.getResponseData<ResponseCarData>(
+		await this.requestData(
 			`${this.baseUrl}/${RequestDirs.CARSDATAPATH}/${carID}`,
 			'DELETE',
 		);
 	};
 
 	public deleteWinnerOnServer = async (carID: string): Promise<void> => {
-		await this.getResponseData<WinnerData>(
+		await this.requestData(
 			`${this.baseUrl}/${RequestDirs.WINNERSDATAPATH}/${carID}`,
 			'DELETE',
 		);
