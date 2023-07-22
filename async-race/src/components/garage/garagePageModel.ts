@@ -38,7 +38,6 @@ export default class GaragePageModel implements Model {
 
 	public async generateRandomCars(): Promise<void> {
 		for (let i = 0; i < this.RANDOMCARSAMOUT; i++) this.createCar(this.createRandomCarData());
-		this._carsAmount += this.RANDOMCARSAMOUT;
 		this.updatePagesAmount();
 	}
 
