@@ -43,6 +43,10 @@ export default class GaragePageController implements Controller {
 			'click',
 			() => this.updateCarButtonHandler(),
 		);
+		this.view.gameControllers.buttons.raceButton.addEventListener(
+			'click',
+			() => this.raceButtonHandler(),
+		);
 		this.view.gameControllers.buttons.generateCarsButton.addEventListener(
 			'click',
 			() => this.generateCarsButtonHandler(),
@@ -82,6 +86,30 @@ export default class GaragePageController implements Controller {
 		}
 	}
 
+	private async updateCarButtonHandler(): Promise<void> {
+		const carID = this.model.selectedCarID;
+		if (carID) {
+			const carData = await this.model.updateCarData(
+				carID,
+				{
+					name: this.view.gameControllers.inputs.updateCarInput.value,
+					color: this.view.gameControllers.colorPalettes.updateCarPalette.value,
+				},
+			);
+
+			this.view.updateTrack(carData);
+			this.model.selectedCarID = null;
+			lockBlock(this.view.updatingBlock);
+		}
+	}
+
+	private raceButtonHandler(): void {
+		this.view.tracksBlock.querySelectorAll('.track').forEach(track => {
+			const car = track.querySelector('.car') as HTMLElement;
+			this.startCar(car, track.id);
+		});
+	}
+
 	private carControlButtonsHandler(e: MouseEvent) {
 		const clickedElement = e.target as HTMLElement | null;
 		if (clickedElement) {
@@ -109,23 +137,6 @@ export default class GaragePageController implements Controller {
 		}
 	}
 
-	private async updateCarButtonHandler(): Promise<void> {
-		const carID = this.model.selectedCarID;
-		if (carID) {
-			const carData = await this.model.updateCarData(
-				carID,
-				{
-					name: this.view.gameControllers.inputs.updateCarInput.value,
-					color: this.view.gameControllers.colorPalettes.updateCarPalette.value,
-				},
-			);
-
-			this.view.updateTrack(carData);
-			this.model.selectedCarID = null;
-			lockBlock(this.view.updatingBlock);
-		}
-	}
-
 	private async removeButtonHandler(button: HTMLElement): Promise<void> {
 		const track = button.closest('.track') as HTMLElement; // take parent element with class "track"
 		this.model.deleteCar(track.id);
@@ -146,14 +157,12 @@ export default class GaragePageController implements Controller {
 		const carVelocity = (await this.model.toggleEngine(String(carID), 'started')).velocity;
 		const animationID = animateElement(car, this.model.DISTANCE / carVelocity);
 		this.carsAnimationIDs[carID] = animationID;
-		console.log(this.carsAnimationIDs);
 
 		this.view.setCarVelocityAttr(carID, carVelocity);
 
 		this.model.switchEngineToDriveMode(carID).then(() => {
 			clearInterval(animationID);
 			delete this.carsAnimationIDs[carID];
-			console.log(this.carsAnimationIDs);
 		});
 	}
 
