@@ -1,7 +1,7 @@
 import { Model } from './types';
-import { ListOfCarsData, ResponseCarData, RequestCarData } from '@/utils/commonTypes';
+import { ListOfCarsData, ResponseCarData, RequestCarData, EngineData, EngineStatus } from '@/utils/commonTypes';
 import { BASEREQUESTURL, carNames, carModels, carColors } from '@/utils/commonVars';
-import { getRandomInt } from '@/utils/helperFuncs';
+import { getRandomInt, setCarVelocityAttr, unlockCarControlInterface } from '@/utils/helperFuncs';
 import AsyncRaceAPI from '@/utils/asyncRaceAPI';
 
 export default class GaragePageModel implements Model {
@@ -10,6 +10,7 @@ export default class GaragePageModel implements Model {
 	private _pagesAmount = 0;
 	private _carsAmount = 0;
 	readonly TRACKSPERPAGE = 7;
+	readonly DISTANCE = 500000;
 	private readonly RANDOMCARSAMOUT = 100;
 	private readonly API = new AsyncRaceAPI(BASEREQUESTURL);
 
@@ -21,8 +22,18 @@ export default class GaragePageModel implements Model {
 	public async getDisplayedCarsData(): Promise<ListOfCarsData> {
 		const responseData = await this.API.getListOfCarsData(this.pageNumber, this.TRACKSPERPAGE);
 		if (responseData.totalCount) this._carsAmount = Number(responseData.totalCount);
+
+		const carsData = await responseData.data;
+		carsData.forEach(carData => {
+			this.toggleEngine(String(carData.id), 'started')
+				.then(data => {
+					setCarVelocityAttr(carData.id, data.velocity);
+					unlockCarControlInterface(String(carData.id));
+				});
+		});
+
 		this.updatePagesAmount();
-		return responseData.data;
+		return carsData;
 	}
 
 	public async getCarData(id: string): Promise<ResponseCarData> {
@@ -50,6 +61,16 @@ export default class GaragePageModel implements Model {
 	public async deleteCar(carID: string): Promise<void> {
 		await this.API.deleteCarOnServer(carID);
 		await this.API.deleteWinnerOnServer(carID);
+	}
+
+	public async toggleEngine(carID: string, engineStatus: EngineStatus): Promise<EngineData> {
+		const engineData = this.API.toggleEngineOnServer(carID, engineStatus);
+		return engineData;
+	}
+
+	public async switchEngineToDriveMode(carID: string): Promise<Response> {
+		const response = this.API.switchDriveModeOnServer(carID);
+		return response;
 	}
 
 	private updatePagesAmount(): void {

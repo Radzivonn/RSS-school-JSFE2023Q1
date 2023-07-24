@@ -20,3 +20,10 @@ export type RequestCarData = {
 };
 
 export type ListOfCreatedCarsData = RequestCarData[];
+
+export type EngineData = {
+	velocity: number,
+	distance: number,
+};
+
+export type EngineStatus = 'started' | 'stopped';

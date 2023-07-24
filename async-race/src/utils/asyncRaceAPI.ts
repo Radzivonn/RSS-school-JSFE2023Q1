@@ -1,4 +1,12 @@
-import { ListOfCarsData, ListOfWinnersData, ResponseCarData, RequestCarData, WinnerData } from './commonTypes';
+import {
+	ListOfCarsData,
+	ListOfWinnersData,
+	ResponseCarData,
+	RequestCarData,
+	WinnerData,
+	EngineData,
+	EngineStatus,
+} from './commonTypes';
 import { RequestDirs } from './commonVars';
 
 type ListOfData = {
@@ -57,13 +65,17 @@ export default class AsyncRaceAPI {
 		return response.json();
 	};
 
-	public createCarOnServer = async (carData: RequestCarData): Promise<ResponseCarData> => {
-		const response = await this.requestData(
+	public requestCarCreation = (carData: RequestCarData): Promise<Response> => {
+		return this.requestData(
 			`${this.baseUrl}/${RequestDirs.CARSDATAPATH}`,
 			'POST',
 			{ 'Content-Type': 'application/json' },
 			JSON.stringify(carData),
 		);
+	};
+
+	public createCarOnServer = async (carData: RequestCarData): Promise<ResponseCarData> => {
+		const response = await this.requestCarCreation(carData);
 		return response.json();
 	};
 
@@ -89,5 +101,21 @@ export default class AsyncRaceAPI {
 			`${this.baseUrl}/${RequestDirs.WINNERSDATAPATH}/${carID}`,
 			'DELETE',
 		);
+	};
+
+	public toggleEngineOnServer = async (carID: string, engineStatus: EngineStatus): Promise<EngineData> => {
+		const response = await this.requestData(
+			`${this.baseUrl}/${RequestDirs.ENGINEDATAPATH}?id=${carID}&status=${engineStatus}`,
+			'PATCH',
+		);
+		return response.json();
+	};
+
+	public switchDriveModeOnServer = async (carID: string): Promise<Response> => {
+		const response = await this.requestData(
+			`${this.baseUrl}/${RequestDirs.ENGINEDATAPATH}?id=${carID}&status=drive`,
+			'PATCH',
+		);
+		return response;
 	};
 }

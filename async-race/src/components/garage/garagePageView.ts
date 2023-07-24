@@ -1,5 +1,5 @@
 import { View } from './types';
-import { createCarImg, createElement, createPaginationButtons } from '@/utils/helperFuncs';
+import { createCarNode, createElement, createPaginationButtons } from '@/utils/helperFuncs';
 import { ResponseCarData, ListOfCarsData } from '@/utils/commonTypes';
 
 export default class GaragePageView implements View {
@@ -115,20 +115,44 @@ export default class GaragePageView implements View {
 		const highway = createElement({ tag: 'div', classNames: ['highway'] });
 		
 		carButtons.append(
-			createElement({ tag: 'button', classNames: ['button', 'select-button'], id: 'select', text: 'select' }),
-			createElement({ tag: 'button', classNames: ['button', 'remove-button'], id: 'remove', text: 'remove' }),
+			createElement({
+				tag: 'button',
+				classNames: ['button', 'select-button'],
+				id: 'select',
+				attrs: [ { attrName: 'disabled', attrValue: '' } ],
+				text: 'select',
+			}),
+			createElement({
+				tag: 'button',
+				classNames: ['button', 'remove-button'],
+				id: 'remove',
+				attrs: [ { attrName: 'disabled', attrValue: '' } ],
+				text: 'remove',
+			}),
 			createElement({ tag: 'p', classNames: ['car-name'], text: carData.name }),
 		);
 		carControlButtons.append(
-			createElement({ tag: 'button', classNames: ['button', 'start-button'], id: 'start', text: 'start' }),
-			createElement({ tag: 'button', classNames: ['button', 'stop-button'], id: 'stop', text: 'stop' }),
+			createElement({
+				tag: 'button',
+				classNames: ['button', 'start-button'],
+				id: 'start',
+				attrs: [ { attrName: 'disabled', attrValue: '' } ],
+				text: 'start',
+			}),
+			createElement({
+				tag: 'button',
+				classNames: ['button', 'stop-button'],
+				id: 'stop',
+				attrs: [ { attrName: 'disabled', attrValue: '' } ],
+				text: 'stop',
+			}),
 		);
 		highway.append(createElement({ tag: 'div', classNames: ['finish'] }));
 		
 		track.append(
 			carButtons,
 			carControlButtons,
-			createCarImg(carData.color),
+			createCarNode(carData.color),
 			highway,
 		);
 		return track;

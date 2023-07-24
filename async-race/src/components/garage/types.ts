@@ -1,4 +1,4 @@
-import { ListOfCarsData, RequestCarData, ResponseCarData } from '@/utils/commonTypes';
+import { ListOfCarsData, RequestCarData, ResponseCarData, EngineStatus, EngineData } from '@/utils/commonTypes';
 
 export interface Model {
 	getDisplayedCarsData(): Promise<ListOfCarsData>;
@@ -6,7 +6,11 @@ export interface Model {
 	getCarData(id: string): Promise<ResponseCarData>
 	switchToNextPage(): boolean;
 	switchToPrevPage(): boolean;
-	generateRandomCars(): Promise<void>
+	generateRandomCars(): Promise<void>;
+	updateCarData(carID: string, reqData: RequestCarData): Promise<ResponseCarData>;
+	deleteCar(carID: string): Promise<void>;
+	toggleEngine(carID: string, engineStatus: EngineStatus): Promise<EngineData>;
+	switchEngineToDriveMode(carID: string): Promise<Response>
 }
 
 export interface Controller {
