@@ -1,7 +1,7 @@
 import { Model } from './types';
 import { ListOfCarsData, ResponseCarData, RequestCarData, EngineData, EngineStatus } from '@/utils/commonTypes';
 import { BASEREQUESTURL, carNames, carModels, carColors } from '@/utils/commonVars';
-import { getRandomInt, setCarVelocityAttr, unlockCarControlInterface } from '@/utils/helperFuncs';
+import { getRandomInt } from '@/utils/helperFuncs';
 import AsyncRaceAPI from '@/utils/asyncRaceAPI';
 
 export default class GaragePageModel implements Model {
@@ -22,15 +22,7 @@ export default class GaragePageModel implements Model {
 	public async getDisplayedCarsData(): Promise<ListOfCarsData> {
 		const responseData = await this.API.getListOfCarsData(this.pageNumber, this.TRACKSPERPAGE);
 		if (responseData.totalCount) this._carsAmount = Number(responseData.totalCount);
-
 		const carsData = await responseData.data;
-		carsData.forEach(carData => {
-			this.toggleEngine(String(carData.id), 'started')
-				.then(data => {
-					setCarVelocityAttr(carData.id, data.velocity);
-					unlockCarControlInterface(String(carData.id));
-				});
-		});
 
 		this.updatePagesAmount();
 		return carsData;

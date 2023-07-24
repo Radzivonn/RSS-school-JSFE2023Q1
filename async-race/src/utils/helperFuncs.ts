@@ -42,11 +42,6 @@ export const createCarNode = (color: string): HTMLElement => {
 	return car;
 };
 
-export const setCarVelocityAttr = (carID: number, velocity: number): void => {
-	const carNode = document.getElementById(String(carID))?.querySelector('.car') as HTMLElement | null;
-	if (carNode) carNode.dataset.velocity = String(velocity);
-};
-
 export function getRandomInt(min: number, max: number): number {
 	// Maximum not included, minimum included
 	return Math.floor(Math.random() * (Math.floor(max) - Math.ceil(min))) + Math.ceil(min);
@@ -70,20 +65,6 @@ export const unlockBlock = (...blocks: HTMLElement[]): void => {
 	blocks.forEach(block => {
 		for (const childElem of block.children) childElem.removeAttribute('disabled');
 	});
-};
-
-export const unlockCarControlInterface = (carID: string): void => {
-	const track = document.getElementById(String(carID)) as HTMLElement; // take parent element with class "track"
-	const carButtons = track.querySelector('.car-buttons') as HTMLElement;
-	const carControlButtons = track.querySelector('.car-control-buttons') as HTMLElement;
-	unlockBlock(carButtons, carControlButtons);
-};
-
-export const lockCarControlInterface = (carID: string): void => {
-	const track = document.getElementById(String(carID)) as HTMLElement; // take parent element with class "track"
-	const carButtons = track.querySelector('.car-buttons') as HTMLElement;
-	track.querySelector('.start-button')?.setAttribute('disabled', '');
-	lockBlock(carButtons);
 };
 
 type DrawFunction = (element: HTMLElement, progress: number) => void;

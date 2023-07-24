@@ -1,4 +1,4 @@
-import { lockBlock, unlockBlock, animateElement, lockCarControlInterface } from '@/utils/helperFuncs';
+import { lockBlock, unlockBlock, animateElement } from '@/utils/helperFuncs';
 import GaragePageModel from './garagePageModel';
 import GaragePageView from './garagePageView';
 import { Controller } from './types';
@@ -133,16 +133,19 @@ export default class GaragePageController implements Controller {
 	}
 
 	private async startButtonHandler(button: HTMLElement): Promise<void> {
-		const track = button.closest('.track') as HTMLElement; // take parent element with class "track"
+		const track = button.closest('.track') as HTMLElement;
 		const car = track.querySelector('.car') as HTMLElement;
-		lockCarControlInterface(track.id);
 		this.startCar(car, track.id);
 	}
 
-	private startCar(car: HTMLElement, carID: string): void {
-		const carVelocity = Number(car.dataset.velocity);
+	private async startCar(car: HTMLElement, carID: string): Promise<void> {
+		this.view.setCarControlsDuringMove(carID);
+
+		const carVelocity = (await this.model.toggleEngine(String(carID), 'started')).velocity;
 		const animationID = animateElement(car, this.model.DISTANCE / carVelocity);
-		const driveCarResponse = this.model.switchEngineToDriveMode(carID);
-		driveCarResponse.then(() => clearInterval(animationID));
+
+		this.view.setCarVelocityAttr(carID, carVelocity);
+
+		this.model.switchEngineToDriveMode(carID).then(() => clearInterval(animationID));
 	}
 }

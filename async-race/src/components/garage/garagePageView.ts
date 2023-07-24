@@ -1,5 +1,5 @@
 import { View } from './types';
-import { createCarNode, createElement, createPaginationButtons } from '@/utils/helperFuncs';
+import { createCarNode, createElement, createPaginationButtons, lockBlock, unlockBlock } from '@/utils/helperFuncs';
 import { ResponseCarData, ListOfCarsData } from '@/utils/commonTypes';
 
 export default class GaragePageView implements View {
@@ -119,14 +119,12 @@ export default class GaragePageView implements View {
 				tag: 'button',
 				classNames: ['button', 'select-button'],
 				id: 'select',
-				attrs: [ { attrName: 'disabled', attrValue: '' } ],
 				text: 'select',
 			}),
 			createElement({
 				tag: 'button',
 				classNames: ['button', 'remove-button'],
 				id: 'remove',
-				attrs: [ { attrName: 'disabled', attrValue: '' } ],
 				text: 'remove',
 			}),
 			createElement({ tag: 'p', classNames: ['car-name'], text: carData.name }),
@@ -136,7 +134,6 @@ export default class GaragePageView implements View {
 				tag: 'button',
 				classNames: ['button', 'start-button'],
 				id: 'start',
-				attrs: [ { attrName: 'disabled', attrValue: '' } ],
 				text: 'start',
 			}),
 			createElement({
@@ -191,5 +188,27 @@ export default class GaragePageView implements View {
 	public setUpdateBlockValues(inputText: string, color: string): void {
 		this.gameControllers.inputs.updateCarInput.value = inputText;
 		this.gameControllers.colorPalettes.updateCarPalette.value = color;
+	}
+
+	
+	public setCarVelocityAttr = (carID: string, velocity: number): void => {
+		const carNode = document.getElementById(carID)?.querySelector('.car') as HTMLElement | null;
+		if (carNode) carNode.dataset.velocity = String(velocity);
+	};
+
+	public setCarControlsDuringMove(carID: string): void {
+		const track = document.getElementById(carID) as HTMLElement; // take parent element with class "track"
+		const carButtons = track.querySelector('.car-buttons') as HTMLElement;
+		track.querySelector('.start-button')?.setAttribute('disabled', '');
+		track.querySelector('.stop-button')?.removeAttribute('disabled');
+		lockBlock(carButtons);
+	}
+
+	public setCarControlsDuringStandStill(carID: string): void {
+		const track = document.getElementById(carID) as HTMLElement; // take parent element with class "track"
+		const carButtons = track.querySelector('.car-buttons') as HTMLElement;
+		track.querySelector('.start-button')?.removeAttribute('disabled');
+		track.querySelector('.stop-button')?.setAttribute('disabled', '');
+		unlockBlock(carButtons);
 	}
 }
