@@ -28,3 +28,7 @@ export interface View {
 		carsData: ListOfCarsData
 	): void;
 }
+
+export type AnimationIDs = {
+	[key: string]: NodeJS.Timer
+};

@@ -1,12 +1,13 @@
+import { Controller, AnimationIDs } from './types';
 import { lockBlock, unlockBlock, animateElement } from '@/utils/helperFuncs';
 import GaragePageModel from './garagePageModel';
 import GaragePageView from './garagePageView';
-import { Controller } from './types';
 
 export default class GaragePageController implements Controller {
 	public view: GaragePageView;
 	public model: GaragePageModel;
-	
+	private carsAnimationIDs: AnimationIDs = {};
+
 	constructor() {
 		this.model = new GaragePageModel();
 		this.view = new GaragePageView();
@@ -91,7 +92,7 @@ export default class GaragePageController implements Controller {
 					break;
 				case 'start': this.startButtonHandler(clickedElement);
 					break;
-				case 'stop':
+				case 'stop': this.stopButtonHandler(clickedElement);
 					break;
 			}
 		}
@@ -132,7 +133,7 @@ export default class GaragePageController implements Controller {
 		this.renderView();
 	}
 
-	private async startButtonHandler(button: HTMLElement): Promise<void> {
+	private startButtonHandler(button: HTMLElement): void {
 		const track = button.closest('.track') as HTMLElement;
 		const car = track.querySelector('.car') as HTMLElement;
 		this.startCar(car, track.id);
@@ -143,9 +144,29 @@ export default class GaragePageController implements Controller {
 
 		const carVelocity = (await this.model.toggleEngine(String(carID), 'started')).velocity;
 		const animationID = animateElement(car, this.model.DISTANCE / carVelocity);
+		this.carsAnimationIDs[carID] = animationID;
+		console.log(this.carsAnimationIDs);
 
 		this.view.setCarVelocityAttr(carID, carVelocity);
 
-		this.model.switchEngineToDriveMode(carID).then(() => clearInterval(animationID));
+		this.model.switchEngineToDriveMode(carID).then(() => {
+			clearInterval(animationID);
+			delete this.carsAnimationIDs[carID];
+			console.log(this.carsAnimationIDs);
+		});
+	}
+
+	private stopButtonHandler(button: HTMLElement): void {
+		const track = button.closest('.track') as HTMLElement;
+		const car = track.querySelector('.car') as HTMLElement;
+		this.stopCar(car, track.id);
+	}
+
+	private async stopCar(car: HTMLElement, carID: string): Promise<void> {
+		this.view.setCarControlsDuringStandStill(carID);
+		await this.model.toggleEngine(carID, 'stopped');
+		clearInterval(this.carsAnimationIDs[carID]);
+		delete this.carsAnimationIDs[carID];
+		this.view.putCarBack(car);
 	}
 }

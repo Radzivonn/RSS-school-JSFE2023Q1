@@ -211,4 +211,8 @@ export default class GaragePageView implements View {
 		track.querySelector('.stop-button')?.setAttribute('disabled', '');
 		unlockBlock(carButtons);
 	}
+
+	public putCarBack(car: HTMLElement) {
+		car.style.transform = 'translateX(0px)';
+	}
 }
