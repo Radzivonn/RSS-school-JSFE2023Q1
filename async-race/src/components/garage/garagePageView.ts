@@ -24,6 +24,7 @@ export default class GaragePageView implements View {
 				],
 			}) as HTMLInputElement,
 		},
+
 		colorPalettes: {
 			createCarPalette: createElement({
 				tag: 'input',
@@ -38,6 +39,7 @@ export default class GaragePageView implements View {
 				],
 			}) as HTMLInputElement,
 		},
+
 		buttons: {
 			createCarButton: createElement({ tag: 'button', classNames: ['button', 'create-block__button'], text: 'create' }),
 			updateCarButton: createElement({
@@ -129,6 +131,7 @@ export default class GaragePageView implements View {
 			}),
 			createElement({ tag: 'p', classNames: ['car-name'], text: carData.name }),
 		);
+
 		carControlButtons.append(
 			createElement({
 				tag: 'button',

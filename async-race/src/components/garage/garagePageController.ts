@@ -49,7 +49,7 @@ export default class GaragePageController implements Controller {
 		);
 		this.view.tracksBlock.addEventListener(
 			'click',
-			(e) => this.tracksBlockHandler(e),
+			(e) => this.carControlButtonsHandler(e),
 		);
 		this.view.switchButtonsBlock.addEventListener(
 			'click',
@@ -82,7 +82,7 @@ export default class GaragePageController implements Controller {
 		}
 	}
 
-	private tracksBlockHandler(e: MouseEvent) {
+	private carControlButtonsHandler(e: MouseEvent) {
 		const clickedElement = e.target as HTMLElement | null;
 		if (clickedElement) {
 			switch (clickedElement.id) {
@@ -119,6 +119,7 @@ export default class GaragePageController implements Controller {
 					color: this.view.gameControllers.colorPalettes.updateCarPalette.value,
 				},
 			);
+
 			this.view.updateTrack(carData);
 			this.model.selectedCarID = null;
 			lockBlock(this.view.updatingBlock);
@@ -164,7 +165,9 @@ export default class GaragePageController implements Controller {
 
 	private async stopCar(car: HTMLElement, carID: string): Promise<void> {
 		this.view.setCarControlsDuringStandStill(carID);
+
 		await this.model.toggleEngine(carID, 'stopped');
+
 		clearInterval(this.carsAnimationIDs[carID]);
 		delete this.carsAnimationIDs[carID];
 		this.view.putCarBack(car);

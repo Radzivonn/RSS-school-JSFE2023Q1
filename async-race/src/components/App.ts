@@ -27,14 +27,11 @@ export default class App {
 	}
 
 	private async routingButtonsHandler(e: Event): Promise<void> {
-		const clickedElement = e.target as HTMLElement;
-		if (clickedElement) {
-			const clickedButton = clickedElement.closest('.nav-button');
-			if (clickedButton && clickedButton.id === 'toGarage') {
-				this.switchPage(this.garagePage.getView());
-			} else if (clickedButton && clickedButton.id === 'toWinners') {
-				this.switchPage(this.winnersPage.getView());
-			}
+		const clickedButton = (e.target as HTMLElement)?.closest('.nav-button');
+		if (clickedButton && clickedButton.id === 'toGarage') {
+			this.switchPage(this.garagePage.getView());
+		} else if (clickedButton && clickedButton.id === 'toWinners') {
+			this.switchPage(this.winnersPage.getView());
 		}
 	}
 

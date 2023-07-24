@@ -32,7 +32,7 @@ export default class WinnersController implements Controller {
 		);
 	}
 
-	private bindListeners() {
+	private bindListeners(): void {
 		this.view.switchButtonsBlock.addEventListener(
 			'click',
 			(e) => this.paginationButtonsHandler(e),
@@ -41,10 +41,11 @@ export default class WinnersController implements Controller {
 
 	private paginationButtonsHandler(e: MouseEvent): void {
 		const clickedElement = e.target as HTMLElement;
-		if (clickedElement && clickedElement.classList.contains('next-button')) {
-			if (this.model.switchToNextPage()) this.renderView();
-		} else if (clickedElement && clickedElement.classList.contains('previous-button')) {
-			if (this.model.switchToPrevPage()) this.renderView();			
+		if (
+			(clickedElement && clickedElement.classList.contains('next-button') && this.model.switchToNextPage())
+			|| (clickedElement && clickedElement.classList.contains('previous-button') && this.model.switchToPrevPage())
+		) {
+			this.renderView();		
 		}
 	}
 }
