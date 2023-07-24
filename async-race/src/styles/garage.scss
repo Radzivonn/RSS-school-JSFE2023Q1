@@ -93,7 +93,6 @@
 .car {
 	width: 120px;
 	height: 120px;
-	transform: translate(0px, -16px);
 }
 
 .highway {
@@ -106,13 +105,13 @@
 	-webkit-box-shadow: 1px 1px 10px 1px $buttonColor;
 	-moz-box-shadow: 1px 1px 10px 1px $buttonColor;
 	box-shadow: 1px 1px 10px 1px $buttonColor;
-	transform: translate(0px, -70px);
+	transform: translate(0px, -54px);
 }
 
 .finish {
 	position: absolute;
   top: -50px;
-  right: 25px;
+  right: 120px;
 	width: 50px;
 	height: 50px;
 	background: center/cover url('../assets/images/favicon.svg') no-repeat;
