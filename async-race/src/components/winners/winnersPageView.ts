@@ -1,6 +1,6 @@
 import { ListOfCarsData, ListOfWinnersData } from '@/utils/commonTypes';
 import { View } from './types';
-import { createCarImg, createElement, createPaginationButtons } from '@/utils/helperFuncs';
+import { createCarNode, createElement, createPaginationButtons } from '@/utils/helperFuncs';
 
 export default class WinnersPageView implements View {
 	public winnersAmount = createElement({ tag: 'output', classNames: ['cars-number'] });
@@ -71,7 +71,7 @@ export default class WinnersPageView implements View {
 				if (carData) {
 					const	{ name, color } = carData;
 					numberColumn.push(createElement({ tag: 'p', text: String(index + 1) }));
-					carColumn.push(createCarImg(color));
+					carColumn.push(createCarNode(color));
 					nameColumn.push(createElement({ tag: 'p', text: name }));
 					winsColumn.push(createElement({ tag: 'p', text: String(winner.wins) }));
 					bestTimeColumn.push(createElement({ tag: 'p', text: String(winner.time) }));
