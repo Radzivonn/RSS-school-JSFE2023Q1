@@ -205,6 +205,8 @@ export default class GaragePageView implements View {
 		track.querySelector('.start-button')?.setAttribute('disabled', '');
 		track.querySelector('.stop-button')?.removeAttribute('disabled');
 		lockBlock(carButtons);
+		this.gameControllers.buttons.raceButton.setAttribute('disabled', '');
+		this.gameControllers.buttons.resetButton.removeAttribute('disabled');
 	}
 
 	public setCarControlsDuringStandStill(carID: string): void {
@@ -215,7 +217,12 @@ export default class GaragePageView implements View {
 		unlockBlock(carButtons);
 	}
 
-	public putCarBack(car: HTMLElement) {
+	public putCarBack(car: HTMLElement): void {
 		car.style.transform = 'translateX(0px)';
+	}
+
+	public resetRaceButtons(): void {
+		this.gameControllers.buttons.raceButton.removeAttribute('disabled');
+		this.gameControllers.buttons.resetButton.setAttribute('disabled', '');
 	}
 }

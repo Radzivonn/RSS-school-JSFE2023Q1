@@ -47,6 +47,10 @@ export default class GaragePageController implements Controller {
 			'click',
 			() => this.raceButtonHandler(),
 		);
+		this.view.gameControllers.buttons.resetButton.addEventListener(
+			'click',
+			() => this.resetButtonHandler(),
+		);
 		this.view.gameControllers.buttons.generateCarsButton.addEventListener(
 			'click',
 			() => this.generateCarsButtonHandler(),
@@ -80,9 +84,15 @@ export default class GaragePageController implements Controller {
 	private paginationButtonsHandler(e: MouseEvent): void {
 		const clickedElement = e.target as HTMLElement;
 		if (clickedElement && clickedElement.classList.contains('next-button')) {
-			if (this.model.switchToNextPage()) this.renderView();
+			if (this.model.switchToNextPage()) {
+				this.renderView();
+				this.view.resetRaceButtons();
+			}
 		} else if (clickedElement && clickedElement.classList.contains('previous-button')) {
-			if (this.model.switchToPrevPage()) this.renderView();
+			if (this.model.switchToPrevPage()) {
+				this.renderView();
+				this.view.resetRaceButtons();
+			}
 		}
 	}
 
@@ -104,10 +114,26 @@ export default class GaragePageController implements Controller {
 	}
 
 	private raceButtonHandler(): void {
+		this.view.gameControllers.buttons.raceButton.setAttribute('disabled', '');
+		this.view.gameControllers.buttons.resetButton.removeAttribute('disabled');
+
 		this.view.tracksBlock.querySelectorAll('.track').forEach(track => {
 			const car = track.querySelector('.car') as HTMLElement;
-			this.startCar(car, track.id);
+			if (!this.carsAnimationIDs[track.id]) this.startCar(car, track.id);
 		});
+	}
+
+	private async resetButtonHandler(): Promise<void> {
+		this.view.gameControllers.buttons.resetButton.setAttribute('disabled', '');
+
+		const allTracks = this.view.tracksBlock.querySelectorAll('.track');
+		for (const track of allTracks) {
+			const car = track.querySelector('.car') as HTMLElement;
+			this.view.setCarControlsDuringMove(track.id);
+			await this.stopCar(car, track.id);
+		}
+
+		this.view.gameControllers.buttons.raceButton.removeAttribute('disabled');
 	}
 
 	private carControlButtonsHandler(e: MouseEvent) {
@@ -173,10 +199,9 @@ export default class GaragePageController implements Controller {
 	}
 
 	private async stopCar(car: HTMLElement, carID: string): Promise<void> {
-		this.view.setCarControlsDuringStandStill(carID);
-
 		await this.model.toggleEngine(carID, 'stopped');
 
+		this.view.setCarControlsDuringStandStill(carID);
 		clearInterval(this.carsAnimationIDs[carID]);
 		delete this.carsAnimationIDs[carID];
 		this.view.putCarBack(car);
