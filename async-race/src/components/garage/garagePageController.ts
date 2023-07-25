@@ -28,9 +28,9 @@ export default class GaragePageController implements Controller {
 
 	public getView(): HTMLElement {
 		const componentView = this.view.createView();
-		this.renderView();
-		this.view.setUpdateBlockValues('', '#000000');
+		// this.view.setUpdateBlockValues('', '#000000');
 		lockBlock(this.view.updatingBlock);
+		this.renderView();
 		return componentView;
 	}
 
@@ -128,9 +128,11 @@ export default class GaragePageController implements Controller {
 
 		const allTracks = this.view.tracksBlock.querySelectorAll('.track');
 		for (const track of allTracks) {
-			const car = track.querySelector('.car') as HTMLElement;
-			this.view.setCarControlsDuringMove(track.id);
-			await this.stopCar(car, track.id);
+			if (this.carsAnimationIDs[track.id]) {
+				const car = track.querySelector('.car') as HTMLElement;
+				// this.view.setCarControlsDuringMove(track.id);
+				await this.stopCar(car, track.id);
+			}
 		}
 
 		this.view.gameControllers.buttons.raceButton.removeAttribute('disabled');
@@ -186,10 +188,7 @@ export default class GaragePageController implements Controller {
 
 		this.view.setCarVelocityAttr(carID, carVelocity);
 
-		this.model.switchEngineToDriveMode(carID).then(() => {
-			clearInterval(animationID);
-			delete this.carsAnimationIDs[carID];
-		});
+		this.model.switchEngineToDriveMode(carID).then(() => clearInterval(this.carsAnimationIDs[carID]));
 	}
 
 	private stopButtonHandler(button: HTMLElement): void {
@@ -201,9 +200,17 @@ export default class GaragePageController implements Controller {
 	private async stopCar(car: HTMLElement, carID: string): Promise<void> {
 		await this.model.toggleEngine(carID, 'stopped');
 
+		this.deleteAnimation(carID);
+		if (Object.keys(this.carsAnimationIDs).length === 0) {
+			this.view.resetRaceButtons();
+		}
+
 		this.view.setCarControlsDuringStandStill(carID);
+		this.view.putCarBack(car);
+	}
+
+	private deleteAnimation(carID: string): void {
 		clearInterval(this.carsAnimationIDs[carID]);
 		delete this.carsAnimationIDs[carID];
-		this.view.putCarBack(car);
 	}
 }
