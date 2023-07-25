@@ -48,7 +48,12 @@ export default class GaragePageView implements View {
 				text: 'update',
 			}),
 			raceButton: createElement({ tag: 'button', classNames: ['button', 'race-button'], text: 'race' }),
-			resetButton: createElement({ tag: 'button', classNames: ['button', 'reset-button'], text: 'reset' }),
+			resetButton: createElement({
+				tag: 'button',
+				classNames: ['button', 'reset-button'],
+				attrs: [ { attrName: 'disabled', attrValue: '' }],
+				text: 'reset',
+			}),
 			generateCarsButton: createElement({ tag: 'button', classNames: ['button', 'generate-cars-button'], text: 'generate cars' }),
 		},
 	};
@@ -193,7 +198,6 @@ export default class GaragePageView implements View {
 		this.gameControllers.colorPalettes.updateCarPalette.value = color;
 	}
 
-	
 	public setCarVelocityAttr = (carID: string, velocity: number): void => {
 		const carNode = document.getElementById(carID)?.querySelector('.car') as HTMLElement | null;
 		if (carNode) carNode.dataset.velocity = String(velocity);
@@ -209,7 +213,7 @@ export default class GaragePageView implements View {
 		this.gameControllers.buttons.resetButton.removeAttribute('disabled');
 	}
 
-	public setCarControlsDuringStandStill(carID: string): void {
+	public setCarControlsDuringParking(carID: string): void {
 		const track = document.getElementById(carID) as HTMLElement; // take parent element with class "track"
 		const carButtons = track.querySelector('.car-buttons') as HTMLElement;
 		track.querySelector('.start-button')?.removeAttribute('disabled');
@@ -219,10 +223,5 @@ export default class GaragePageView implements View {
 
 	public putCarBack(car: HTMLElement): void {
 		car.style.transform = 'translateX(0px)';
-	}
-
-	public resetRaceButtons(): void {
-		this.gameControllers.buttons.raceButton.removeAttribute('disabled');
-		this.gameControllers.buttons.resetButton.setAttribute('disabled', '');
 	}
 }
