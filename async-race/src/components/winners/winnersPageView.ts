@@ -28,7 +28,7 @@ export default class WinnersPageView implements View {
 
 	public createView(): HTMLElement {
 		const winnersNode = createElement({ tag: 'div', classNames: ['winners-page'] });
-		const winnersHeader = createElement({ tag: 'h2', classNames: ['winners-header'], text: 'Garage' });
+		const winnersHeader = createElement({ tag: 'h2', classNames: ['winners-header'], text: 'Winners' });
 		const winnersPageHeader = createElement({ tag: 'h3', classNames: ['winners-page-header'], text: 'Page #' });
 
 		winnersHeader.append(this.winnersAmount);

@@ -3,10 +3,10 @@ import WinnersController from './winners/winnersPageController';
 import { createElement } from '@/utils/helperFuncs';
 
 export default class App {
-	private garagePage = new GaragePageController();
-	private winnersPage = new WinnersController();
 	private rootNode = createElement({ tag: 'div', classNames: ['app'] });
 	private routingButtons = createElement({ tag: 'nav', classNames: ['nav-buttons'] });
+	private garagePage = new GaragePageController(this.routingButtons);
+	private winnersPage = new WinnersController();
 
 	public async init(): Promise<void> {
 		await this.garagePage.init();

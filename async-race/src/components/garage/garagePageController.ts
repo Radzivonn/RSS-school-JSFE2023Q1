@@ -10,9 +10,9 @@ export default class GaragePageController implements Controller {
 	private carsAnimationIDs: AnimationIDs = {};
 	private winnerID: string | null = null;
 
-	constructor() {
+	constructor(routingButtons: HTMLElement) {
 		this.model = new GaragePageModel();
-		this.view = new GaragePageView();
+		this.view = new GaragePageView(routingButtons);
 	}
 
 	public async init(): Promise<void> {
@@ -31,7 +31,7 @@ export default class GaragePageController implements Controller {
 	public getView(): HTMLElement {
 		const componentView = this.view.createView();
 		lockBlock(this.view.updatingBlock);
-		this.resetCars();
+		// this.resetCars();
 		this.renderView();
 		return componentView;
 	}
@@ -216,6 +216,7 @@ export default class GaragePageController implements Controller {
 		this.deleteAnimation(carID);
 		if (Object.keys(this.carsAnimationIDs).length === 0) {
 			this.view.gameControllers.buttons.raceButton.removeAttribute('disabled');
+			unlockBlock(this.view.routingButtons);
 		}
 
 		this.view.setCarControlsDuringParking(carID);

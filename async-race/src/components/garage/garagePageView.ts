@@ -57,11 +57,13 @@ export default class GaragePageView implements View {
 			generateCarsButton: createElement({ tag: 'button', classNames: ['button', 'generate-cars-button'], text: 'generate cars' }),
 		},
 	};
+	public routingButtons: HTMLElement;
 
 	public switchButtonsBlock = createElement({ tag: 'div', classNames: ['switch-buttons'] });
 
-	constructor() {
+	constructor(routingButtons: HTMLElement) {
 		this.switchButtonsBlock.append(...createPaginationButtons());
+		this.routingButtons = routingButtons;
 	}
 
 	public createView(): HTMLElement {
@@ -211,6 +213,7 @@ export default class GaragePageView implements View {
 		lockBlock(carButtons);
 		this.gameControllers.buttons.raceButton.setAttribute('disabled', '');
 		this.gameControllers.buttons.resetButton.removeAttribute('disabled');
+		lockBlock(this.routingButtons);
 	}
 
 	public setCarControlsDuringParking(carID: string): void {
