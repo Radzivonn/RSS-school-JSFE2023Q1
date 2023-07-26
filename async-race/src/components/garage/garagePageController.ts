@@ -2,11 +2,13 @@ import { Controller, AnimationIDs } from './types';
 import { lockBlock, unlockBlock, animateElement } from '@/utils/helperFuncs';
 import GaragePageModel from './garagePageModel';
 import GaragePageView from './garagePageView';
+import { ResponseWinnerData } from '@/utils/commonTypes';
 
 export default class GaragePageController implements Controller {
 	public view: GaragePageView;
 	public model: GaragePageModel;
 	private carsAnimationIDs: AnimationIDs = {};
+	private winnerID: string | null = null;
 
 	constructor() {
 		this.model = new GaragePageModel();
@@ -110,6 +112,7 @@ export default class GaragePageController implements Controller {
 	}
 
 	private async raceButtonHandler(): Promise<void> {
+		this.winnerID = null;
 		this.view.gameControllers.buttons.raceButton.setAttribute('disabled', '');
 
 		this.view.tracksBlock.querySelectorAll('.track').forEach(track => {
@@ -151,6 +154,7 @@ export default class GaragePageController implements Controller {
 		if (Object.keys(carData).length > 0) {
 			const updatingBlock = this.view.updatingBlock;
 			unlockBlock(updatingBlock);
+
 			this.view.setUpdateBlockValues(carData.name, carData.color);
 			this.model.selectedCarID = track.id;
 		}
@@ -174,13 +178,28 @@ export default class GaragePageController implements Controller {
 
 	private async startCar(car: HTMLElement, carID: string): Promise<void> {
 		this.view.setCarControlsDuringMove(carID);
-	
-		const carVelocity = (await this.model.toggleEngine(String(carID), 'started')).velocity;
+
+		const engineData = await this.model.toggleEngine(String(carID), 'started');
+		const carVelocity = (engineData).velocity;
+		const raceTime = this.model.DISTANCE / carVelocity; // race time in milliseconds
+
 		this.view.setCarVelocityAttr(carID, carVelocity);
-		const animationID = animateElement(car, this.model.DISTANCE / carVelocity);
+		const animationID = animateElement(car, raceTime);
 		this.carsAnimationIDs[carID] = animationID;
 
-		this.model.switchEngineToDriveMode(carID).then(() => clearInterval(this.carsAnimationIDs[carID]));
+		this.model.switchEngineToDriveMode(carID).then(response => {
+			clearInterval(this.carsAnimationIDs[carID]);
+
+			if (response.ok && !this.winnerID && Object.keys(this.carsAnimationIDs).length > 1) {
+				this.winnerID = carID;
+				const detail: ResponseWinnerData = {
+					id: Number(carID),
+					wins: 1,
+					time: Number((raceTime / 1000).toFixed(2)),
+				};
+				document.dispatchEvent(new CustomEvent('carWon', { detail }));
+			}
+		});
 	}
 
 	private stopButtonHandler(button: HTMLElement): void {

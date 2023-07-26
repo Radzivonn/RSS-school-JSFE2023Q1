@@ -5,6 +5,7 @@ import { createCarNode, createElement, createPaginationButtons } from '@/utils/h
 export default class WinnersPageView implements View {
 	public winnersAmount = createElement({ tag: 'output', classNames: ['cars-number'] });
 	public pageNumber = createElement({ tag: 'output', classNames: ['page-number'] });
+	public winnersColumnsNames = createElement({ tag: 'div', classNames: ['columns-names'] });
 	public winnersTableColumns = {
 		carNumber: createElement({ tag: 'div', classNames: ['winners-table__number-column'] }),
 		carImg: createElement({ tag: 'div', classNames: ['winners-table__car-column'] }),
@@ -16,6 +17,13 @@ export default class WinnersPageView implements View {
 
 	constructor() {
 		this.switchButtonsBlock.append(...createPaginationButtons());
+		this.winnersColumnsNames.append(
+			createElement({ tag: 'p', text: 'Number' }),
+			createElement({ tag: 'p', text: 'car' }),
+			createElement({ tag: 'p', text: 'name' }),
+			createElement({ tag: 'p', classNames: ['sort-button'], id: 'wins', text: 'wins' }),
+			createElement({ tag: 'p', classNames: ['sort-button'], id: 'time', text: 'Best time (seconds)' }),
+		);
 	}
 
 	public createView(): HTMLElement {
@@ -29,6 +37,7 @@ export default class WinnersPageView implements View {
 		winnersNode.append(
 			winnersHeader,
 			winnersPageHeader,
+			this.winnersColumnsNames,
 			this.createWinnersTable(),
 			this.switchButtonsBlock,
 		);
@@ -60,11 +69,11 @@ export default class WinnersPageView implements View {
 	}
 
 	private updateWinnersTableView(winnersData: ListOfWinnersData, carsData: ListOfCarsData) {
-		const numberColumn = [createElement({ tag: 'p', text: 'Number' })];
-		const carColumn = [createElement({ tag: 'p', text: 'car' })];
-		const nameColumn = [createElement({ tag: 'p', text: 'name' })];
-		const winsColumn = [createElement({ tag: 'p', text: 'wins' })];
-		const bestTimeColumn = [createElement({ tag: 'p', text: 'Best time (seconds)' })];
+		const numberColumn: HTMLElement[] = [];
+		const carColumn: HTMLElement[] = [];
+		const nameColumn: HTMLElement[] = [];
+		const winsColumn: HTMLElement[] = [];
+		const bestTimeColumn: HTMLElement[] = [];
 
 		winnersData.forEach((winner, index) => {
 			const carData = carsData.find(car => car.id === winner.id);

@@ -1,5 +1,5 @@
-import { Model } from './types';
-import { ListOfCarsData, ListOfWinnersData } from '@/utils/commonTypes';
+import { Model, SortingFunction } from './types';
+import { ListOfCarsData, ListOfWinnersData, ResponseWinnerData } from '@/utils/commonTypes';
 import { BASEREQUESTURL } from '@/utils/commonVars';
 import AsyncRaceAPI from '@/utils/asyncRaceAPI';
 
@@ -8,20 +8,42 @@ export default class WinnersPageModel implements Model {
 	private _pagesAmount = 0;
 	private _winnersAmount = 0;
 	private _carsAmount = 0;
+	public sortingFunction: SortingFunction | null = null;
 	readonly WINNERSPERPAGE = 10;
 	private readonly API = new AsyncRaceAPI(BASEREQUESTURL);
 
-	public async getDisplayedWinnersData(): Promise<ListOfWinnersData> {
+	public async getDisplayedWinnersData(sortingFunction: SortingFunction): Promise<ListOfWinnersData> {
 		const responseData = await this.API.getListOfWinnersData(this.pageNumber, this.WINNERSPERPAGE);
 		if (responseData.totalCount) this._winnersAmount = Number(responseData.totalCount); 
 		this.updatePagesAmount();
-		return responseData.data;
+		return (await responseData.data).sort(sortingFunction);
 	}
 
-	public async getDisplayedCarsData(): Promise<ListOfCarsData> {
-		const responseData = await this.API.getListOfCarsData(this.pageNumber, this.WINNERSPERPAGE);
-		if (responseData.totalCount) this._carsAmount = Number(responseData.totalCount);
-		return responseData.data;
+	public async getDisplayedCarsData(ListOfCarIDs: string[]): Promise<ListOfCarsData> {
+		const carsData = await Promise.all(
+			ListOfCarIDs.map(carID => this.API.getCarDataByID(carID)),
+		);
+		return carsData;
+	}
+
+	public async getWinnerData(winnerID: string): Promise<ResponseWinnerData> {
+		const winnerData = await this.API.getWinnerDataByID(winnerID);
+		return winnerData;
+	}
+
+	public addWinner = async (winnerData: ResponseWinnerData): Promise<void> => {
+		await this.API.createWinnerOnServer(winnerData);
+		this._winnersAmount++;
+	};
+
+	public async updateWinner(winnerData: ResponseWinnerData, lastTime: number): Promise<void> {
+		const { id, wins, time } = winnerData;
+		await this.API.updateWinnerOnServer(
+			{
+				id: id,
+				wins: wins + 1,
+				time: time < lastTime ? time : lastTime,
+			});
 	}
 
 	private updatePagesAmount(): void {
