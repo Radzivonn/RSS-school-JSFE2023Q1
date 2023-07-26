@@ -83,5 +83,19 @@ body {
 	color: $fontColor;
 }
 
+.win-message {
+	position: absolute;
+	left: 30vw;
+	top: 40vh;
+	max-width: 600px;
+	font-size: 60px;
+	color: $fontColor;
+	background-color: $buttonColor;
+	border-radius: 5px;
+	-webkit-box-shadow: 0px 0px 25px 2px rgb(235 63 207);
+	-moz-box-shadow: 0px 0px 25px 2px rgb(235 63 207);
+	box-shadow: 0px 0px 25px 2px rgb(235 63 207);
+}
+
 @import './garage';
 @import './winners-page';

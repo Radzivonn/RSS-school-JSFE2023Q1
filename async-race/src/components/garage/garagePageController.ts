@@ -181,23 +181,29 @@ export default class GaragePageController implements Controller {
 
 		const engineData = await this.model.toggleEngine(String(carID), 'started');
 		const carVelocity = (engineData).velocity;
-		const raceTime = this.model.DISTANCE / carVelocity; // race time in milliseconds
+		let raceTime = this.model.DISTANCE / carVelocity; // race time in milliseconds
 
 		this.view.setCarVelocityAttr(carID, carVelocity);
 		const animationID = animateElement(car, raceTime);
 		this.carsAnimationIDs[carID] = animationID;
 
+		const carName = (await this.model.getCarData(carID)).name;
+
 		this.model.switchEngineToDriveMode(carID).then(response => {
 			clearInterval(this.carsAnimationIDs[carID]);
 
 			if (response.ok && !this.winnerID && Object.keys(this.carsAnimationIDs).length > 1) {
+				raceTime = Number((raceTime / 1000).toFixed(2));
 				this.winnerID = carID;
+
 				const detail: ResponseWinnerData = {
 					id: Number(carID),
 					wins: 1,
-					time: Number((raceTime / 1000).toFixed(2)),
+					time: raceTime,
 				};
 				document.dispatchEvent(new CustomEvent('carWon', { detail }));
+
+				this.view.writeWinnerMessage(`${carName} went first ${raceTime} !`);
 			}
 		});
 	}
@@ -209,14 +215,14 @@ export default class GaragePageController implements Controller {
 	}
 
 	private async stopCar(car: HTMLElement, carID: string): Promise<void> {
-		this.view.gameControllers.buttons.resetButton.setAttribute('disabled', '');
-
 		await this.model.toggleEngine(carID, 'stopped');
 
 		this.deleteAnimation(carID);
 		if (Object.keys(this.carsAnimationIDs).length === 0) {
 			this.view.gameControllers.buttons.raceButton.removeAttribute('disabled');
-			unlockBlock(this.view.routingButtons);
+			this.view.gameControllers.buttons.resetButton.setAttribute('disabled', '');
+			unlockBlock(this.view.switchButtonsBlock);
+			this.renderView();
 		}
 
 		this.view.setCarControlsDuringParking(carID);
