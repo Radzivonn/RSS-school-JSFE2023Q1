@@ -1,0 +1,75 @@
+@charset "UTF-8";
+/*Обнуление*/
+* {
+  padding: 0;
+  margin: 0;
+  border: 0;
+}
+
+*, *:before, *:after {
+  box-sizing: border-box;
+}
+
+:focus, :active {
+  outline: none;
+}
+
+a:focus, a:active {
+  outline: none;
+}
+
+nav, footer, header, aside {
+  display: block;
+}
+
+html, body {
+  height: 100%;
+  width: 100%;
+  font-size: 100%;
+  line-height: 1;
+  font-size: 14px;
+  -ms-text-size-adjust: 100%;
+  -moz-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+}
+
+input, button, textarea {
+  font-family: inherit;
+}
+
+input::-ms-clear {
+  display: none;
+}
+
+button {
+  cursor: pointer;
+}
+
+button::-moz-focus-inner {
+  padding: 0;
+  border: 0;
+}
+
+a, a:visited {
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+ul li {
+  list-style: none;
+}
+
+img {
+  vertical-align: top;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-size: inherit;
+  font-weight: inherit;
+}
+
+/*--------------------*/
+@font-face{font-family:"NFS font";src:url(assets/8b4f06592105b7ffbc41.woff) format("woff");font-weight:400;font-style:normal}body{width:100vw;height:auto;min-height:100vh;overflow-x:hidden;padding:15px;background-color:#091a48;font-family:"NFS font";font-size:1.15em;border:3px solid #e724c7;-webkit-box-shadow:inset 0px 0px 35px 0px rgba(235,63,207,.75);-moz-box-shadow:inset 0px 0px 35px 0px rgba(235,63,207,.75);box-shadow:inset 0px 0px 35px 0px rgba(235,63,207,.75)}body::-webkit-scrollbar,body::-webkit-scrollbar-track{width:4px;border-radius:5px;background:#071336}body::-webkit-scrollbar-button{color:#e724c7}body::-webkit-scrollbar-thumb{border-radius:5px;background:#e724c7;-webkit-box-shadow:0px 0px 25px 2px #eb3fcf;-moz-box-shadow:0px 0px 25px 2px #eb3fcf;box-shadow:0px 0px 25px 2px #eb3fcf}.button,.text-input{max-width:250px;min-width:80px;background:none;border-radius:5px;color:#0033bf;-webkit-box-shadow:1px 1px 10px 1px #e724c7;-moz-box-shadow:1px 1px 10px 1px #e724c7;box-shadow:1px 1px 10px 1px #e724c7;border:2px solid #e724c7;color:#e724c7;transition:all .3s ease 0s}.button:hover,.text-input:hover{color:#0033bf;background:#e724c7;-webkit-box-shadow:0px 0px 25px 2px #eb3fcf;-moz-box-shadow:0px 0px 25px 2px #eb3fcf;box-shadow:0px 0px 25px 2px #eb3fcf}.button:disabled,.text-input:disabled{box-shadow:none}.button:disabled:hover,.text-input:disabled:hover{cursor:default;background:none;box-shadow:none;color:#e724c7}.nav-buttons{display:flex;justify-content:start;gap:15px}.nav-button{min-width:120px;width:12vw;height:30px;border-radius:5px;background-color:#e724c7;padding:5px;color:#0033bf}.win-message{position:absolute;left:30vw;top:40vh;max-width:600px;font-size:60px;color:#0033bf;background-color:#e724c7;border-radius:5px;-webkit-box-shadow:0px 0px 25px 2px #eb3fcf;-moz-box-shadow:0px 0px 25px 2px #eb3fcf;box-shadow:0px 0px 25px 2px #eb3fcf}.cars-creator{width:35vw;display:flex;flex-direction:column;gap:15px;margin-top:40px}.create-block,.update-block,.control-buttons{width:100%;height:25px;display:flex;gap:10px}.text-input{width:50%;caret-color:#091a48}.color-palette{width:20%;min-width:25px;max-width:80px;background-color:#091a48}.create-block__button,.update-block__button{width:30%}.control-buttons button{width:25%}.control-buttons .generate-cars-button{width:50%}.race-block{width:100%;height:auto;display:flex;flex-direction:column;gap:10px;margin-top:70px}.garage-header,.track-block-header{color:#e724c7}.switch-buttons{width:20%;display:flex;gap:10px}.switch-buttons button{min-width:80px;min-width:100px;width:48%;height:25px}.track{width:100%;height:auto;display:flex;flex-direction:column;gap:10px;margin:15px 10px}.car-buttons,.car-control-buttons{display:flex;gap:10px}.car-buttons .button,.car-control-buttons .button{min-width:80px;height:20px}.car-name{color:#e724c7}.car{width:120px;height:120px}.highway{position:relative;z-index:-5;width:100%;height:4px;background-color:#e724c7;border-radius:10px;-webkit-box-shadow:1px 1px 10px 1px #e724c7;-moz-box-shadow:1px 1px 10px 1px #e724c7;box-shadow:1px 1px 10px 1px #e724c7;transform:translate(0px, -54px)}.finish{position:absolute;top:-50px;right:120px;width:50px;height:50px;background:center/cover url(assets/493c52550d53d18a428d.svg) no-repeat}.winners-page{color:#e724c7}.winners-page .switch-buttons{margin:0 auto}.winners-header,.winners-page-header{font-size:1.75em;text-align:center}.columns-names{display:flex;width:75%;min-width:840px;margin:50px auto 0;font-size:1.15em}.columns-names p{height:25px;color:#0033bf;background:#e724c7;white-space:nowrap}.columns-names p.sort-button::after{content:"▲";display:inline-block;width:18px;height:18px;margin-left:10px;transition:all .2s ease 0s;transform:rotate(0deg)}.columns-names p.down::after{transform:rotate(-180deg)}.columns-names :first-child{width:20%}.columns-names :nth-child(2),.columns-names :nth-child(4){width:10%}.columns-names :nth-child(3),.columns-names :nth-child(5){width:30%}.winners-table{display:flex;width:75%;min-width:840px;margin:0 auto 30px;font-size:1.15em}.winners-table__number-column{width:20%}.winners-table__car-column{width:10%}.winners-table__car-column .car,.winners-table__car-column .car svg{width:40px;height:30px;background:none;transform:translate(0px, 0px)}.winners-table__name-column{width:30%}.winners-table__wins-column{width:10%}.winners-table__best-time-column{width:30%}.winners-table__number-column *,.winners-table__car-column *,.winners-table__name-column *,.winners-table__wins-column *,.winners-table__best-time-column *{min-height:30px}
