@@ -203,11 +203,6 @@ export default class GaragePageView implements View {
 		this.gameControllers.colorPalettes.updateCarPalette.value = color;
 	}
 
-	public setCarVelocityAttr = (carID: string, velocity: number): void => {
-		const carNode = document.getElementById(carID)?.querySelector('.car') as HTMLElement | null;
-		if (carNode) carNode.dataset.velocity = String(velocity);
-	};
-
 	public setCarControlsDuringMove(carID: string): void {
 		const track = document.getElementById(carID) as HTMLElement; // take parent element with class "track"
 		const carButtons = track.querySelector('.car-buttons') as HTMLElement;
