@@ -1,6 +1,8 @@
 .winners-page {
 	color: $buttonColor;
 	.switch-buttons {
+		min-width: 250px;
+    width: 25vw;
 		margin: 0 auto;
 	}
 }
@@ -9,18 +11,19 @@
 .winners-page-header {
 	font-size: 1.75em;
 	text-align: center;
+	margin-top: 20px;
 }
 
 .columns-names {
 	display: flex;
 	width: 75%;
-	min-width: 840px;
 	margin: 50px auto 0;
+	border-radius: 5px;
 	font-size: 1.15em;
+	background: $buttonColor;
 	p {
-		height: 25px;
+		min-height: 25px;
 		color: $fontColor;
-		background: $buttonColor;
 		white-space: nowrap;
 		&.sort-button::after {
 			content: '▲';
@@ -38,6 +41,7 @@
 		}
 	}
 	:first-child {
+		min-width: 85px;
 		width: 20%;
 	}
 	:nth-child(2),
@@ -45,15 +49,26 @@
 		width: 10%;
 	}
 	:nth-child(3),
-	:nth-child(5)  {
+	:last-child  {
 		width: 30%;
+	}
+	:nth-child(2) {
+		min-width: 45px;
+	}
+	:nth-child(2) {
+		min-width: 65px;
+	}
+	:nth-child(4) {
+		min-width: 70px;
+	}
+	:last-child {
+		white-space: break-spaces;
 	}
 }
 
 .winners-table {
 	display: flex;
 	width: 75%;
-	min-width: 840px;
 	margin: 0 auto 30px;
 	font-size: 1.15em;
 }
@@ -92,5 +107,29 @@
 .winners-table__best-time-column {
 	* {
 		min-height: 30px;
+	}
+}
+
+@media (max-width: 1100px) {
+	.columns-names,
+	.winners-table {
+		width: 90%;
+	}
+}
+
+@media (max-width: 867px) {
+	.columns-names,
+	.winners-table {
+		width: 100%;
+		font-size: 1em;
+	}
+
+	.columns-names {
+		:nth-child(3){
+			width: 20%;
+		}
+		:nth-child(5){
+			width: 40%;
+		}
 	}
 }
