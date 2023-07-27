@@ -9,6 +9,7 @@ export default class GaragePageController implements Controller {
 	public model: GaragePageModel;
 	private carsAnimationIDs: AnimationIDs = {};
 	private winnerID: string | null = null;
+	private isRaceActive = false;
 
 	constructor(routingButtons: HTMLElement) {
 		this.model = new GaragePageModel();
@@ -31,7 +32,6 @@ export default class GaragePageController implements Controller {
 	public getView(): HTMLElement {
 		const componentView = this.view.createView();
 		lockBlock(this.view.updatingBlock);
-		// this.resetCars();
 		this.renderView();
 		return componentView;
 	}
@@ -112,6 +112,7 @@ export default class GaragePageController implements Controller {
 	}
 
 	private async raceButtonHandler(): Promise<void> {
+		this.isRaceActive = true;
 		this.winnerID = null;
 		this.view.gameControllers.buttons.raceButton.setAttribute('disabled', '');
 
@@ -192,7 +193,7 @@ export default class GaragePageController implements Controller {
 		this.model.switchEngineToDriveMode(carID).then(response => {
 			clearInterval(this.carsAnimationIDs[carID]);
 
-			if (response.ok && !this.winnerID && Object.keys(this.carsAnimationIDs).length > 1) {
+			if (response.ok && !this.winnerID && this.isRaceActive) {
 				raceTime = Number((raceTime / 1000).toFixed(2));
 				this.winnerID = carID;
 
@@ -219,6 +220,7 @@ export default class GaragePageController implements Controller {
 
 		this.deleteAnimation(carID);
 		if (Object.keys(this.carsAnimationIDs).length === 0) {
+			this.isRaceActive = false;
 			this.view.gameControllers.buttons.raceButton.removeAttribute('disabled');
 			this.view.gameControllers.buttons.resetButton.setAttribute('disabled', '');
 			unlockBlock(this.view.switchButtonsBlock);
