@@ -11,33 +11,33 @@ export default class WinnersPageModel implements Model {
 	readonly WINNERSPERPAGE = 10;
 	private readonly API = new AsyncRaceAPI();
 
-	public async getDisplayedWinnersData(sortingFunction: SortingFunction): Promise<ListOfWinnersData> {
-		const responseData = await this.API.getListOfWinnersData(this.pageNumber, this.WINNERSPERPAGE);
+	public async getDisplayedWinners(sortingFunction: SortingFunction): Promise<ListOfWinnersData> {
+		const responseData = await this.API.getWinners(this.pageNumber, this.WINNERSPERPAGE);
 		if (responseData.totalCount) this._winnersAmount = Number(responseData.totalCount); 
 		this.updatePagesAmount();
 		return (await responseData.data).sort(sortingFunction);
 	}
 
-	public async getDisplayedCarsData(ListOfCarIDs: string[]): Promise<ListOfCarsData> {
+	public async getDisplayedCars(ListOfCarIDs: string[]): Promise<ListOfCarsData> {
 		const carsData = await Promise.all(
-			ListOfCarIDs.map(carID => this.API.getCarDataByID(carID)),
+			ListOfCarIDs.map(carID => this.API.getCar(carID)),
 		);
 		return carsData;
 	}
 
-	public async getWinnerData(winnerID: string): Promise<ResponseWinnerData> {
-		const winnerData = await this.API.getWinnerDataByID(winnerID);
+	public async getWinner(winnerID: string): Promise<ResponseWinnerData> {
+		const winnerData = await this.API.getWinner(winnerID);
 		return winnerData;
 	}
 
 	public addWinner = async (winnerData: ResponseWinnerData): Promise<void> => {
-		await this.API.createWinnerOnServer(winnerData);
+		await this.API.createWinner(winnerData);
 		this._winnersAmount++;
 	};
 
 	public async updateWinner(winnerData: ResponseWinnerData, lastTime: number): Promise<void> {
 		const { id, wins, time } = winnerData;
-		await this.API.updateWinnerOnServer(
+		await this.API.updateWinner(
 			{
 				id: id,
 				wins: wins + 1,

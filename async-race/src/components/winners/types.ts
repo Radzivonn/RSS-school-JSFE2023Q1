@@ -1,8 +1,8 @@
 import { ListOfCarsData, ListOfWinnersData, ResponseWinnerData } from '@/utils/commonTypes';
 
 export interface Model {
-	getDisplayedWinnersData(sortingFunction: SortingFunction): Promise<ListOfWinnersData>;
-	getDisplayedCarsData(ListOfCarIDs: string[]): Promise<ListOfCarsData>
+	getDisplayedWinners(sortingFunction: SortingFunction): Promise<ListOfWinnersData>;
+	getDisplayedCars(ListOfCarIDs: string[]): Promise<ListOfCarsData>
 }
 
 export interface Controller {

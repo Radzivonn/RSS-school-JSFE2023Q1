@@ -1,5 +1,11 @@
 import { View } from './types';
-import { createCarNode, createElement, createPaginationButtons, lockBlock, unlockBlock } from '@/utils/helperFuncs';
+import {
+createCarNode,
+createElement,
+createPaginationButtons,
+disableBlock,
+enableBlock,
+} from '@/utils/helperFuncs';
 import { ResponseCarData, ListOfCarsData } from '@/utils/commonTypes';
 
 export default class GaragePageView implements View {
@@ -167,7 +173,7 @@ export default class GaragePageView implements View {
 	}
 
 	public updateView(pageNumber: number, carsAmount: number, carsData: ListOfCarsData): void {
-		unlockBlock(this.routingButtons);
+		enableBlock(this.routingButtons);
 		this.updatePageHeaders(carsAmount, pageNumber);
 		this.updateTracksBlock(carsData);
 	}
@@ -189,16 +195,16 @@ export default class GaragePageView implements View {
 			const carNameNode = trackNode.querySelector('.car-name') as HTMLElement;
 			carNameNode.textContent = carData.name;
 			carNode.style.fill = carData.color;
-			this.setUpdateBlockValues('', '#000000');
+			this.setUpdateFormValues('', '#000000');
 		}
 	}
 
-	public setCreateBlockValues(inputText: string, color: string): void {
+	public setCreateFormValues(inputText: string, color: string): void {
 		this.gameControllers.inputs.createCarInput.value = inputText;
 		this.gameControllers.colorPalettes.createCarPalette.value = color;
 	}
 
-	public setUpdateBlockValues(inputText: string, color: string): void {
+	public setUpdateFormValues(inputText: string, color: string): void {
 		this.gameControllers.inputs.updateCarInput.value = inputText;
 		this.gameControllers.colorPalettes.updateCarPalette.value = color;
 	}
@@ -208,10 +214,10 @@ export default class GaragePageView implements View {
 		const carButtons = track.querySelector('.car-buttons') as HTMLElement;
 		track.querySelector('.start-button')?.setAttribute('disabled', '');
 		track.querySelector('.stop-button')?.removeAttribute('disabled');
-		lockBlock(carButtons);
+		disableBlock(carButtons);
 		this.gameControllers.buttons.raceButton.setAttribute('disabled', '');
 		this.gameControllers.buttons.resetButton.removeAttribute('disabled');
-		lockBlock(carButtons, this.routingButtons, this.switchButtonsBlock);
+		disableBlock(carButtons, this.routingButtons, this.switchButtonsBlock);
 	}
 
 	public setCarControlsDuringParking(carID: string): void {
@@ -219,7 +225,7 @@ export default class GaragePageView implements View {
 		const carButtons = track.querySelector('.car-buttons') as HTMLElement;
 		track.querySelector('.start-button')?.removeAttribute('disabled');
 		track.querySelector('.stop-button')?.setAttribute('disabled', '');
-		unlockBlock(carButtons);
+		enableBlock(carButtons);
 	}
 
 	public putCarBack(car: HTMLElement): void {

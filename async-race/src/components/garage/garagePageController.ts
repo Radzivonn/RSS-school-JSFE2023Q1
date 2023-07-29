@@ -1,5 +1,5 @@
 import { Controller, AnimationIDs } from './types';
-import { lockBlock, unlockBlock, animateElement } from '@/utils/helperFuncs';
+import { disableBlock, enableBlock, animateElement } from '@/utils/helperFuncs';
 import GaragePageModel from './garagePageModel';
 import GaragePageView from './garagePageView';
 import { ResponseWinnerData } from '@/utils/commonTypes';
@@ -23,7 +23,7 @@ export default class GaragePageController implements Controller {
 	}
 
 	private async renderView(): Promise<void> {
-		const carsData = await this.model.getDisplayedCarsData();
+		const carsData = await this.model.getDisplayedCars();
 		this.view.updateView(
 			this.model.pageNumber,
 			this.model.carsAmount,
@@ -33,7 +33,7 @@ export default class GaragePageController implements Controller {
 
 	public getView(): HTMLElement {
 		const componentView = this.view.createView();
-		lockBlock(this.view.updatingBlock);
+		disableBlock(this.view.updatingBlock);
 		this.renderView();
 		return componentView;
 	}
@@ -77,7 +77,7 @@ export default class GaragePageController implements Controller {
 			},
 		);
 
-		this.view.setCreateBlockValues('', '#000000');
+		this.view.setCreateFormValues('', '#000000');
 		this.renderView();
 	}
 
@@ -100,7 +100,7 @@ export default class GaragePageController implements Controller {
 	private async updateCarButtonHandler(): Promise<void> {
 		const carID = this.model.selectedCarID;
 		if (carID) {
-			const carData = await this.model.updateCarData(
+			const carData = await this.model.updateCar(
 				carID,
 				{
 					name: this.view.gameControllers.inputs.updateCarInput.value,
@@ -110,7 +110,7 @@ export default class GaragePageController implements Controller {
 
 			this.view.updateTrack(carData);
 			this.model.selectedCarID = null;
-			lockBlock(this.view.updatingBlock);
+			disableBlock(this.view.updatingBlock);
 		}
 	}
 
@@ -153,13 +153,13 @@ export default class GaragePageController implements Controller {
 
 	private async selectButtonHandler(button: HTMLElement): Promise<void> {
 		const track = button.closest('.track') as HTMLElement; // take parent element with class "track"
-		const carData = await this.model.getCarData(track.id);
+		const carData = await this.model.getCar(track.id);
 	
 		if (Object.keys(carData).length > 0) {
 			const updatingBlock = this.view.updatingBlock;
-			unlockBlock(updatingBlock);
+			enableBlock(updatingBlock);
 
-			this.view.setUpdateBlockValues(carData.name, carData.color);
+			this.view.setUpdateFormValues(carData.name, carData.color);
 			this.model.selectedCarID = track.id;
 		}
 	}
@@ -168,8 +168,8 @@ export default class GaragePageController implements Controller {
 		const track = button.closest('.track') as HTMLElement; // take parent element with class "track"
 		this.model.deleteCar(track.id);
 
-		this.view.setUpdateBlockValues('', '#000000');
-		lockBlock(this.view.updatingBlock);
+		this.view.setUpdateFormValues('', '#000000');
+		disableBlock(this.view.updatingBlock);
 		this.renderView();
 	}
 
@@ -183,7 +183,7 @@ export default class GaragePageController implements Controller {
 		this.carsInRace++;
 		this.view.setCarControlsDuringMove(carID);
 
-		const carName = (await this.model.getCarData(carID)).name;
+		const carName = (await this.model.getCar(carID)).name;
 		const carVelocity = (await this.model.toggleEngine(String(carID), 'started')).velocity;
 		let raceTime = this.model.DISTANCE / carVelocity; // race time in milliseconds
 
@@ -192,14 +192,14 @@ export default class GaragePageController implements Controller {
 
 		this.model.switchEngineToDriveMode(carID).then(response => {
 			this.stopAnimation(carID);
-			if (response.ok && this.wasCarWentFirst()) {
+			if (response.ok && this.DidCarWentFirst()) {
 				raceTime = Number((raceTime / 1000).toFixed(2)); // race time in seconds
 				this.carWon(carID, raceTime, carName);
 			}
 		});
 	}
 
-	private wasCarWentFirst(): boolean {
+	private DidCarWentFirst(): boolean {
 		return !this.winnerID && this.isRaceActive;
 	}
 
@@ -231,7 +231,7 @@ export default class GaragePageController implements Controller {
 			this.isRaceActive = false;
 			this.view.gameControllers.buttons.raceButton.removeAttribute('disabled');
 			this.view.gameControllers.buttons.resetButton.setAttribute('disabled', '');
-			unlockBlock(this.view.switchButtonsBlock);
+			enableBlock(this.view.switchButtonsBlock);
 			this.renderView();
 		}
 

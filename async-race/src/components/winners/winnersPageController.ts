@@ -25,9 +25,9 @@ export default class WinnersController implements Controller {
 	private async renderView(
 		sortingFunction: SortingFunction = sortingFunctions.fromLargestToSmallest.wins,
 	): Promise<void> {
-		const winnersData = await this.model.getDisplayedWinnersData(sortingFunction);
+		const winnersData = await this.model.getDisplayedWinners(sortingFunction);
 		const winnersIDs = winnersData.map(winnerData => String(winnerData.id));
-		const carsData = await this.model.getDisplayedCarsData(winnersIDs);
+		const carsData = await this.model.getDisplayedCars(winnersIDs);
 
 		this.view.updateView(
 			this.model.pageNumber,
@@ -71,7 +71,7 @@ export default class WinnersController implements Controller {
 	}
 
 	private async carWonHandler(e: CustomEvent) {
-		const winnerData = await this.model.getWinnerData(String(e.detail.id));
+		const winnerData = await this.model.getWinner(String(e.detail.id));
 		if (Object.keys(winnerData).length > 0) this.model.updateWinner(winnerData, e.detail.time);
 		else this.model.addWinner(e.detail);
 	}

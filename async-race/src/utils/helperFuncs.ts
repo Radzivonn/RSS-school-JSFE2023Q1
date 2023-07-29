@@ -51,7 +51,7 @@ export function getRandomInt(min: number, max: number): number {
  * A function that turns on the disabled attribute on all child elements of the block
  * @param block HTML block whose disabled attribute turns ON 
  */
-export const lockBlock = (...blocks: HTMLElement[]): void => {
+export const disableBlock = (...blocks: HTMLElement[]): void => {
 	blocks.forEach(block => {
 		for (const childElem of block.children) childElem.setAttribute('disabled', '');
 	});
@@ -61,7 +61,7 @@ export const lockBlock = (...blocks: HTMLElement[]): void => {
  * A function that turns off the disabled attribute on all child elements of the block
  * @param block HTML block whose disabled attribute turns OFF
  */
-export const unlockBlock = (...blocks: HTMLElement[]): void => {
+export const enableBlock = (...blocks: HTMLElement[]): void => {
 	blocks.forEach(block => {
 		for (const childElem of block.children) childElem.removeAttribute('disabled');
 	});
@@ -69,12 +69,12 @@ export const unlockBlock = (...blocks: HTMLElement[]): void => {
 
 type DrawFunction = (element: HTMLElement, progress: number) => void;
 
-export const drawCarMove: DrawFunction = (element: HTMLElement, progress: number): void => {
+const drawCarMovement: DrawFunction = (element: HTMLElement, progress: number): void => {
 	const FINISHOFFSET = 151;
 	element.style.transform = `translate(${progress * (document.documentElement.clientWidth - FINISHOFFSET)}px)`;
 };
 
-export const animateElement = (element: HTMLElement, duration: number, drawFunc: DrawFunction = drawCarMove): NodeJS.Timer => {
+export const animateElement = (element: HTMLElement, duration: number, drawFunc: DrawFunction = drawCarMovement): NodeJS.Timer => {
 	const start = performance.now();
 	
 	const animationID = setInterval(() => {

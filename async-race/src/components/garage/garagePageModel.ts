@@ -15,12 +15,12 @@ export default class GaragePageModel implements Model {
 	private readonly API = new AsyncRaceAPI();
 
 	public async createCar(reqCarData: RequestCarData): Promise<ResponseCarData> {
-		const carData = await this.API.createCarOnServer(reqCarData);
+		const carData = await this.API.createCar(reqCarData);
 		return carData;
 	}
 
-	public async getDisplayedCarsData(): Promise<ListOfCarsData> {
-		const responseData = await this.API.getListOfCarsData(this.pageNumber, this.TRACKSPERPAGE);
+	public async getDisplayedCars(): Promise<ListOfCarsData> {
+		const responseData = await this.API.getCars(this.pageNumber, this.TRACKSPERPAGE);
 		if (responseData.totalCount) this._carsAmount = Number(responseData.totalCount);
 		const carsData = await responseData.data;
 
@@ -28,8 +28,8 @@ export default class GaragePageModel implements Model {
 		return carsData;
 	}
 
-	public async getCarData(id: string): Promise<ResponseCarData> {
-		const data = await this.API.getCarDataByID(id);
+	public async getCar(id: string): Promise<ResponseCarData> {
+		const data = await this.API.getCar(id);
 		return data;
 	}
 
@@ -45,23 +45,23 @@ export default class GaragePageModel implements Model {
 		};
 	};
 
-	public async updateCarData(carID: string, reqData: RequestCarData): Promise<ResponseCarData> {
-		const carData = await this.API.updateCarOnServer(carID, reqData);
+	public async updateCar(carID: string, reqData: RequestCarData): Promise<ResponseCarData> {
+		const carData = await this.API.updateCar(carID, reqData);
 		return carData;
 	}
 
 	public async deleteCar(carID: string): Promise<void> {
-		await this.API.deleteCarOnServer(carID);
-		await this.API.deleteWinnerOnServer(carID);
+		await this.API.deleteCar(carID);
+		await this.API.deleteWinner(carID);
 	}
 
 	public async toggleEngine(carID: string, engineStatus: EngineStatus): Promise<EngineData> {
-		const engineData = this.API.toggleEngineOnServer(carID, engineStatus);
+		const engineData = this.API.toggleEngine(carID, engineStatus);
 		return engineData;
 	}
 
 	public async switchEngineToDriveMode(carID: string): Promise<Response> {
-		const response = this.API.switchDriveModeOnServer(carID);
+		const response = this.API.switchDriveMode(carID);
 		return response;
 	}
 
