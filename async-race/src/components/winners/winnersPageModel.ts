@@ -1,6 +1,5 @@
 import { Model, SortingFunction } from './types';
 import { ListOfCarsData, ListOfWinnersData, ResponseWinnerData } from '@/utils/commonTypes';
-import { BASEREQUESTURL } from '@/utils/commonVars';
 import AsyncRaceAPI from '@/utils/asyncRaceAPI';
 
 export default class WinnersPageModel implements Model {
@@ -10,7 +9,7 @@ export default class WinnersPageModel implements Model {
 	private _carsAmount = 0;
 	public sortingFunction: SortingFunction | null = null;
 	readonly WINNERSPERPAGE = 10;
-	private readonly API = new AsyncRaceAPI(BASEREQUESTURL);
+	private readonly API = new AsyncRaceAPI();
 
 	public async getDisplayedWinnersData(sortingFunction: SortingFunction): Promise<ListOfWinnersData> {
 		const responseData = await this.API.getListOfWinnersData(this.pageNumber, this.WINNERSPERPAGE);

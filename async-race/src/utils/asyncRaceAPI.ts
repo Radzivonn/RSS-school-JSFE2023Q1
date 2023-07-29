@@ -7,7 +7,7 @@ import {
 	EngineData,
 	EngineStatus,
 } from './commonTypes';
-import { RequestDirs } from './commonVars';
+import { BASEREQUESTURL, RequestDirs } from './commonVars';
 
 type ListOfData = {
 	data: Promise<ListOfCarsData & ListOfWinnersData>,
@@ -15,129 +15,101 @@ type ListOfData = {
 };
 
 export default class AsyncRaceAPI {
-	private baseUrl: string;
+	private baseURL = BASEREQUESTURL;
 
-	constructor(baseUrl: string) {
-		this.baseUrl = baseUrl;
-	}
-
-	private requestData = async (
-		URL: string,
-		method = 'GET',
-		headers: HeadersInit = {},
-		body: BodyInit | null = null,
-	): Promise<Response> => {
-		const response = await fetch(URL, {
-			method: method,
-			headers: headers,
-			body: body,
-		});
-		return response;
+	private request = async (URL: string, requestParams: RequestInit): Promise<Response> => {
+		return fetch(`${this.baseURL}/${URL}`, requestParams);
 	};
 
 	public getListOfCarsData = async (pageNumber: number, carsPerPage: number): Promise<ListOfData> => {
-		let URL = `${this.baseUrl}/${RequestDirs.CARSDATAPATH}?`;
-		if (pageNumber) URL += `_page=${pageNumber}`;
-		if (carsPerPage) URL += `&_limit=${carsPerPage}`;
-		const response = await this.requestData(URL);
+		const queryParams = new URLSearchParams({ _page: String(pageNumber), _limit: String(carsPerPage) });
+		const endPoint = `${RequestDirs.CARSDATAPATH}?${queryParams}`;
+		const response = await this.request(endPoint, {	method: 'GET' });
 		return { data: response.json(), totalCount: response.headers.get('X-Total-Count') };
 	};
 
-	public getListOfWinnersData = async (pageNumber: number, WinnersPerPage: number): Promise<ListOfData> => {
-		let URL = `${this.baseUrl}/${RequestDirs.WINNERSDATAPATH}?`;
-		if (pageNumber) URL += `_page=${pageNumber}`;
-		if (WinnersPerPage) URL += `&_limit=${WinnersPerPage}`;
-		const response = await this.requestData(URL);
+	public getListOfWinnersData = async (pageNumber: number, winnersPerPage: number): Promise<ListOfData> => {
+		const queryParams = new URLSearchParams({ _page: String(pageNumber), _limit: String(winnersPerPage) });
+		const endPoint = `${RequestDirs.WINNERSDATAPATH}?${queryParams}`;
+		const response = await this.request(endPoint, {	method: 'GET' });
 		return { data: response.json(), totalCount: response.headers.get('X-Total-Count') };
 	};
 
 	public getCarDataByID = async (carID: string): Promise<ResponseCarData> => {
-		const response = await this.requestData(
-			`${this.baseUrl}/${RequestDirs.CARSDATAPATH}/${carID}`,
-		);
+		const endPoint = `${RequestDirs.CARSDATAPATH}/${carID}`;
+		const response = await this.request(endPoint, { method: 'GET' });
 		return response.json();
 	};
 
-	public getWinnerDataByID = async (carID: string): Promise<ResponseWinnerData> => {
-		const response = await this.requestData(
-			`${this.baseUrl}/${RequestDirs.WINNERSDATAPATH}/${carID}`,
-		);
+	public getWinnerDataByID = async (winnerID: string): Promise<ResponseWinnerData> => {
+		const endPoint = `${RequestDirs.WINNERSDATAPATH}/${winnerID}`;
+		const response = await this.request(endPoint, { method: 'GET' });
 		return response.json();
 	};
 
 	public createWinnerOnServer = async (winnerData: ResponseWinnerData): Promise<void> => {
-		await this.requestData(
-			`${this.baseUrl}/${RequestDirs.WINNERSDATAPATH}`,
-			'POST',
-			{ 'Content-Type': 'application/json' },
-			JSON.stringify(winnerData),
-		);
+		const endPoint = `${RequestDirs.WINNERSDATAPATH}`;
+		await this.request(endPoint, {
+			method: 'POST',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify(winnerData),
+		});
 	};
 
 	public updateWinnerOnServer = async (winnerData: ResponseWinnerData): Promise<ResponseWinnerData> => {
-		const response = await this.requestData(
-			`${this.baseUrl}/${RequestDirs.WINNERSDATAPATH}/${String(winnerData.id)}`,
-			'PUT',
-			{ 'Content-Type': 'application/json' },
-			JSON.stringify({
+		const endPoint = `${RequestDirs.WINNERSDATAPATH}/${String(winnerData.id)}`;
+		const response = await this.request(endPoint, {
+			method: 'PUT',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify({
 				wins: winnerData.wins,
 				time: winnerData.time,
 			}),
-		);
+		});
 		return response.json();
 	};
 
-	public requestCarCreation = (carData: RequestCarData): Promise<Response> => {
-		return this.requestData(
-			`${this.baseUrl}/${RequestDirs.CARSDATAPATH}`,
-			'POST',
-			{ 'Content-Type': 'application/json' },
-			JSON.stringify(carData),
-		);
-	};
-
 	public createCarOnServer = async (carData: RequestCarData): Promise<ResponseCarData> => {
-		const response = await this.requestCarCreation(carData);
+		const endPoint = `${RequestDirs.CARSDATAPATH}`;
+		const response = await this.request(endPoint, {
+			method: 'POST',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify(carData),
+		});
 		return response.json();
 	};
 
 	public updateCarOnServer = async (carID: string, carData: RequestCarData): Promise<ResponseCarData> => {
-		const response = await this.requestData(
-			`${this.baseUrl}/${RequestDirs.CARSDATAPATH}/${carID}`,
-			'PUT',
-			{ 'Content-Type': 'application/json' },
-			JSON.stringify(carData),
-		);
+		const endPoint = `${RequestDirs.CARSDATAPATH}/${carID}`;
+		const response = await this.request(endPoint, {
+			method: 'PUT',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify(carData),
+		});
 		return response.json();
 	};
 
 	public deleteCarOnServer = async (carID: string): Promise<void> => {
-		await this.requestData(
-			`${this.baseUrl}/${RequestDirs.CARSDATAPATH}/${carID}`,
-			'DELETE',
-		);
+		const endPoint = `${RequestDirs.CARSDATAPATH}/${carID}`;
+		await this.request(endPoint, { method: 'DELETE' });
 	};
 
 	public deleteWinnerOnServer = async (carID: string): Promise<void> => {
-		await this.requestData(
-			`${this.baseUrl}/${RequestDirs.WINNERSDATAPATH}/${carID}`,
-			'DELETE',
-		);
+		const endPoint = `${RequestDirs.WINNERSDATAPATH}/${carID}`;
+		await this.request(endPoint, { method: 'DELETE' });
 	};
 
 	public toggleEngineOnServer = async (carID: string, engineStatus: EngineStatus): Promise<EngineData> => {
-		const response = await this.requestData(
-			`${this.baseUrl}/${RequestDirs.ENGINEDATAPATH}?id=${carID}&status=${engineStatus}`,
-			'PATCH',
-		);
+		const queryParams = new URLSearchParams({ id: String(carID), status: String(engineStatus) });
+		const endPoint = `${RequestDirs.ENGINEDATAPATH}?${queryParams}`;
+		const response = await this.request(endPoint, { method: 'PATCH' });
 		return response.json();
 	};
 
 	public switchDriveModeOnServer = async (carID: string): Promise<Response> => {
-		const response = await this.requestData(
-			`${this.baseUrl}/${RequestDirs.ENGINEDATAPATH}?id=${carID}&status=drive`,
-			'PATCH',
-		);
+		const queryParams = new URLSearchParams({ id: String(carID), status: 'drive' });
+		const endPoint = `${RequestDirs.ENGINEDATAPATH}?${queryParams}`;
+		const response = await this.request(endPoint, { method: 'PATCH' });
 		return response;
 	};
 }

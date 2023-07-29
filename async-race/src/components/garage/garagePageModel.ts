@@ -1,6 +1,6 @@
 import { Model } from './types';
 import { ListOfCarsData, ResponseCarData, RequestCarData, EngineData, EngineStatus } from '@/utils/commonTypes';
-import { BASEREQUESTURL, carNames, carModels, carColors } from '@/utils/commonVars';
+import { carNames, carModels, carColors } from '@/utils/commonVars';
 import { getRandomInt } from '@/utils/helperFuncs';
 import AsyncRaceAPI from '@/utils/asyncRaceAPI';
 
@@ -12,7 +12,7 @@ export default class GaragePageModel implements Model {
 	readonly TRACKSPERPAGE = 7;
 	readonly DISTANCE = 500000;
 	private readonly RANDOMCARSAMOUT = 100;
-	private readonly API = new AsyncRaceAPI(BASEREQUESTURL);
+	private readonly API = new AsyncRaceAPI();
 
 	public async createCar(reqCarData: RequestCarData): Promise<ResponseCarData> {
 		const carData = await this.API.createCarOnServer(reqCarData);
