@@ -1,3 +1,4 @@
+import { PagePathes } from '@/utils/commonVars';
 import GaragePageController from './garage/garagePageController';
 import WinnersController from './winners/winnersPageController';
 import { createElement } from '@/utils/helperFuncs';
@@ -28,9 +29,9 @@ export default class App {
 
 	private async routingButtonsHandler(e: Event): Promise<void> {
 		const clickedButton = (e.target as HTMLElement)?.closest('.nav-button');
-		if (clickedButton && clickedButton.id === 'toGarage') {
+		if (clickedButton && clickedButton.id === PagePathes.GARAGE) {
 			this.switchPage(this.garagePage.getView());
-		} else if (clickedButton && clickedButton.id === 'toWinners') {
+		} else if (clickedButton && clickedButton.id === PagePathes.WINNERS) {
 			this.switchPage(this.winnersPage.getView());
 		}
 	}
@@ -41,8 +42,8 @@ export default class App {
 
 	private createNavigationButtons(): HTMLElement[] {
 		return [
-			createElement({ tag: 'button', classNames: ['button', 'nav-button'], id: 'toGarage', text: 'to garage' }),
-			createElement({ tag: 'button', classNames: ['button', 'nav-button'], id: 'toWinners', text: 'to winners' }),
+			createElement({ tag: 'button', classNames: ['button', 'nav-button'], id: PagePathes.GARAGE, text: 'to garage' }),
+			createElement({ tag: 'button', classNames: ['button', 'nav-button'], id: PagePathes.WINNERS, text: 'to winners' }),
 		];
 	}
 }

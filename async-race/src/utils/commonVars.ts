@@ -2,10 +2,19 @@ import { ResponseWinnerData } from './commonTypes';
 
 export const BASEREQUESTURL = 'http://127.0.0.1:3000';
 
+export enum PagePathes {
+	GARAGE = 'toGarage',
+	WINNERS = 'toWinners',
+}
+
 export enum RequestDirs {
 	CARSDATAPATH = 'garage',
 	WINNERSDATAPATH = 'winners',
 	ENGINEDATAPATH = 'engine',
+}
+
+export enum CustomEvents {
+	CARWON = 'carWon',
 }
 
 export const carNames = ['Tesla', 'Ford', 'BMW', 'Mersedes-Benz', 'Porshe', 'Lada', 'lamborghini', 'Chevrolet', 'Nissan', 'Mitsubishi', 'Audi'];

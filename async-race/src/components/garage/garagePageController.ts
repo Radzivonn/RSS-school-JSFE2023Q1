@@ -3,6 +3,7 @@ import { lockBlock, unlockBlock, animateElement } from '@/utils/helperFuncs';
 import GaragePageModel from './garagePageModel';
 import GaragePageView from './garagePageView';
 import { ResponseWinnerData } from '@/utils/commonTypes';
+import { CustomEvents } from '@/utils/commonVars';
 
 export default class GaragePageController implements Controller {
 	public view: GaragePageView;
@@ -210,7 +211,7 @@ export default class GaragePageController implements Controller {
 			wins: 1,
 			time: raceTime,
 		};
-		document.dispatchEvent(new CustomEvent('carWon', { detail }));
+		document.dispatchEvent(new CustomEvent(CustomEvents.CARWON, { detail }));
 
 		this.view.writeWinnerMessage(`${carName} went first ${raceTime} !`);
 	}

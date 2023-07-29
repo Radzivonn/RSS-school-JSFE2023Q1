@@ -1,7 +1,7 @@
 import WinnersPageModel from './winnersPageModel';
 import WinnersPageView from './winnersPageView';
 import { Controller, SortingCriterion, SortingFunction } from './types';
-import { sortingFunctions } from '@/utils/commonVars';
+import { CustomEvents, sortingFunctions } from '@/utils/commonVars';
 
 export default class WinnersController implements Controller {
 	public view: WinnersPageView;
@@ -43,7 +43,7 @@ export default class WinnersController implements Controller {
 			(e) => this.paginationButtonsHandler(e),
 		);
 		this.view.winnersColumnsNames.addEventListener('click', (e) => this.sortButtonHandler(e));
-		document.addEventListener('carWon', (e) => this.carWonHandler(e as CustomEvent));
+		document.addEventListener(CustomEvents.CARWON, (e) => this.carWonHandler(e as CustomEvent));
 	}
 
 	private paginationButtonsHandler(e: MouseEvent): void {
