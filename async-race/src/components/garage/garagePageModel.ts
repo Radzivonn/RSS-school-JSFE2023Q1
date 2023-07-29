@@ -15,8 +15,7 @@ export default class GaragePageModel implements Model {
 	private readonly API = new AsyncRaceAPI();
 
 	public async createCar(reqCarData: RequestCarData): Promise<ResponseCarData> {
-		const carData = await this.API.createCar(reqCarData);
-		return carData;
+		return this.API.createCar(reqCarData);
 	}
 
 	public async getDisplayedCars(): Promise<ListOfCarsData> {
@@ -34,7 +33,7 @@ export default class GaragePageModel implements Model {
 	}
 
 	public async generateRandomCars(): Promise<void> {
-		for (let i = 0; i < this.RANDOMCARSAMOUT; i++) this.createCar(this.createRandomCarData());
+		for (let i = 0; i < this.RANDOMCARSAMOUT; i++) await this.createCar(this.createRandomCarData());
 		this.updatePagesAmount();
 	}
 
