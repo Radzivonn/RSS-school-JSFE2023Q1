@@ -1,4 +1,4 @@
-import { ListOfCarsData, ListOfWinnersData } from '@/utils/commonTypes';
+import { Cars, Winners } from '@/utils/commonTypes';
 import { View } from './types';
 import { createCarNode, createElement, createPaginationButtons } from '@/utils/helperFuncs';
 
@@ -58,7 +58,7 @@ export default class WinnersPageView implements View {
 		return winnersTable;
 	}
 
-	public updateView(pageNumber: number, winnersAmount: number, winnersData: ListOfWinnersData, carsData: ListOfCarsData) {
+	public updateView(pageNumber: number, winnersAmount: number, winnersData: Winners, carsData: Cars) {
 		this.updatePageHeaders(winnersAmount, pageNumber);
 		this.updateWinnersTableView(winnersData, carsData);
 	}
@@ -68,7 +68,7 @@ export default class WinnersPageView implements View {
 		this.pageNumber.textContent = `${pageNumber}`;
 	}
 
-	private updateWinnersTableView(winnersData: ListOfWinnersData, carsData: ListOfCarsData) {
+	private updateWinnersTableView(winnersData: Winners, carsData: Cars) {
 		const numberColumn: HTMLElement[] = [];
 		const carColumn: HTMLElement[] = [];
 		const nameColumn: HTMLElement[] = [];

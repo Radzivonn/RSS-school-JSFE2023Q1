@@ -43,7 +43,7 @@ export default class WinnersController implements Controller {
 			(e) => this.paginationButtonsHandler(e),
 		);
 		this.view.winnersColumnsNames.addEventListener('click', (e) => this.sortButtonHandler(e));
-		document.addEventListener(CustomEvents.CARWON, (e) => this.carWonHandler(e as CustomEvent));
+		document.addEventListener(CustomEvents.CAR_WON, (e) => this.carWonHandler(e as CustomEvent));
 	}
 
 	private paginationButtonsHandler(e: MouseEvent): void {

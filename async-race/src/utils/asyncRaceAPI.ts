@@ -1,54 +1,54 @@
 import {
-	ListOfCarsData,
-	ListOfWinnersData,
-	ResponseCarData,
-	RequestCarData,
-	ResponseWinnerData,
-	EngineData,
+	Cars,
+	Winners,
+	CarResponse,
+	CarRequest,
+	WinnerResponse,
+	EngineResponse,
 	EngineStatus,
 } from './commonTypes';
-import { BASEREQUESTURL, RequestDirs } from './commonVars';
+import { RequestDirs } from './commonVars';
 
 type ListOfData = {
-	data: Promise<ListOfCarsData & ListOfWinnersData>,
+	data: Promise<Cars & Winners>,
 	totalCount: string | null
 };
 
 export default class AsyncRaceAPI {
-	private baseURL = BASEREQUESTURL;
+	private readonly BASE_URL = 'http://127.0.0.1:3000';
 
 	private request = async (URL: string, requestParams: RequestInit): Promise<Response> => {
-		return fetch(`${this.baseURL}/${URL}`, requestParams);
+		return fetch(`${this.BASE_URL}/${URL}`, requestParams);
 	};
 
 	public getCars = async (pageNumber: number, carsPerPage: number): Promise<ListOfData> => {
 		const queryParams = new URLSearchParams({ _page: String(pageNumber), _limit: String(carsPerPage) });
-		const endPoint = `${RequestDirs.CARSDATAPATH}?${queryParams}`;
+		const endPoint = `${RequestDirs.CARS_PATH}?${queryParams}`;
 		const response = await this.request(endPoint, {	method: 'GET' });
 		return { data: response.json(), totalCount: response.headers.get('X-Total-Count') };
 	};
 
 	public getWinners = async (pageNumber: number, winnersPerPage: number): Promise<ListOfData> => {
 		const queryParams = new URLSearchParams({ _page: String(pageNumber), _limit: String(winnersPerPage) });
-		const endPoint = `${RequestDirs.WINNERSDATAPATH}?${queryParams}`;
+		const endPoint = `${RequestDirs.WINNERS_PATH}?${queryParams}`;
 		const response = await this.request(endPoint, {	method: 'GET' });
 		return { data: response.json(), totalCount: response.headers.get('X-Total-Count') };
 	};
 
-	public getCar = async (carID: string): Promise<ResponseCarData> => {
-		const endPoint = `${RequestDirs.CARSDATAPATH}/${carID}`;
+	public getCar = async (carID: string): Promise<CarResponse> => {
+		const endPoint = `${RequestDirs.CARS_PATH}/${carID}`;
 		const response = await this.request(endPoint, { method: 'GET' });
 		return response.json();
 	};
 
-	public getWinner = async (winnerID: string): Promise<ResponseWinnerData> => {
-		const endPoint = `${RequestDirs.WINNERSDATAPATH}/${winnerID}`;
+	public getWinner = async (winnerID: string): Promise<WinnerResponse> => {
+		const endPoint = `${RequestDirs.WINNERS_PATH}/${winnerID}`;
 		const response = await this.request(endPoint, { method: 'GET' });
 		return response.json();
 	};
 
-	public createWinner = async (winnerData: ResponseWinnerData): Promise<void> => {
-		const endPoint = `${RequestDirs.WINNERSDATAPATH}`;
+	public createWinner = async (winnerData: WinnerResponse): Promise<void> => {
+		const endPoint = `${RequestDirs.WINNERS_PATH}`;
 		await this.request(endPoint, {
 			method: 'POST',
 			headers: { 'Content-Type': 'application/json' },
@@ -56,8 +56,8 @@ export default class AsyncRaceAPI {
 		});
 	};
 
-	public updateWinner = async (winnerData: ResponseWinnerData): Promise<ResponseWinnerData> => {
-		const endPoint = `${RequestDirs.WINNERSDATAPATH}/${String(winnerData.id)}`;
+	public updateWinner = async (winnerData: WinnerResponse): Promise<WinnerResponse> => {
+		const endPoint = `${RequestDirs.WINNERS_PATH}/${String(winnerData.id)}`;
 		const response = await this.request(endPoint, {
 			method: 'PUT',
 			headers: { 'Content-Type': 'application/json' },
@@ -69,8 +69,8 @@ export default class AsyncRaceAPI {
 		return response.json();
 	};
 
-	public createCar = async (carData: RequestCarData): Promise<ResponseCarData> => {
-		const endPoint = `${RequestDirs.CARSDATAPATH}`;
+	public createCar = async (carData: CarRequest): Promise<CarResponse> => {
+		const endPoint = `${RequestDirs.CARS_PATH}`;
 		const response = await this.request(endPoint, {
 			method: 'POST',
 			headers: { 'Content-Type': 'application/json' },
@@ -79,8 +79,8 @@ export default class AsyncRaceAPI {
 		return response.json();
 	};
 
-	public updateCar = async (carID: string, carData: RequestCarData): Promise<ResponseCarData> => {
-		const endPoint = `${RequestDirs.CARSDATAPATH}/${carID}`;
+	public updateCar = async (carID: string, carData: CarRequest): Promise<CarResponse> => {
+		const endPoint = `${RequestDirs.CARS_PATH}/${carID}`;
 		const response = await this.request(endPoint, {
 			method: 'PUT',
 			headers: { 'Content-Type': 'application/json' },
@@ -90,25 +90,25 @@ export default class AsyncRaceAPI {
 	};
 
 	public deleteCar = async (carID: string): Promise<void> => {
-		const endPoint = `${RequestDirs.CARSDATAPATH}/${carID}`;
+		const endPoint = `${RequestDirs.CARS_PATH}/${carID}`;
 		await this.request(endPoint, { method: 'DELETE' });
 	};
 
 	public deleteWinner = async (carID: string): Promise<void> => {
-		const endPoint = `${RequestDirs.WINNERSDATAPATH}/${carID}`;
+		const endPoint = `${RequestDirs.WINNERS_PATH}/${carID}`;
 		await this.request(endPoint, { method: 'DELETE' });
 	};
 
-	public toggleEngine = async (carID: string, engineStatus: EngineStatus): Promise<EngineData> => {
+	public toggleEngine = async (carID: string, engineStatus: EngineStatus): Promise<EngineResponse> => {
 		const queryParams = new URLSearchParams({ id: String(carID), status: String(engineStatus) });
-		const endPoint = `${RequestDirs.ENGINEDATAPATH}?${queryParams}`;
+		const endPoint = `${RequestDirs.ENGINE_PATH}?${queryParams}`;
 		const response = await this.request(endPoint, { method: 'PATCH' });
 		return response.json();
 	};
 
 	public switchDriveMode = async (carID: string): Promise<Response> => {
 		const queryParams = new URLSearchParams({ id: String(carID), status: 'drive' });
-		const endPoint = `${RequestDirs.ENGINEDATAPATH}?${queryParams}`;
+		const endPoint = `${RequestDirs.ENGINE_PATH}?${queryParams}`;
 		const response = await this.request(endPoint, { method: 'PATCH' });
 		return response;
 	};

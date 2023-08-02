@@ -1,32 +1,25 @@
-export type ResponseCarData = {
+export type CarResponse = {
 	name: string,
 	color: string,
 	id: number,
 };
 
-export type ListOfCarsData = ResponseCarData[];
+export type Cars = CarResponse[];
 
-export type RequestWinnerData = {
-	wins: number,
-	time: number,
-};
-
-export type ResponseWinnerData = {
+export type WinnerResponse = {
 	id: number,
 	wins: number,
 	time: number,
 };
 
-export type ListOfWinnersData = ResponseWinnerData[];
+export type Winners = WinnerResponse[];
 
-export type RequestCarData = {
+export type CarRequest = {
 	name: string,
 	color: string,
 };
 
-export type ListOfCreatedCarsData = RequestCarData[];
-
-export type EngineData = {
+export type EngineResponse = {
 	velocity: number,
 	distance: number,
 };

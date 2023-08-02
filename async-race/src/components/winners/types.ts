@@ -1,8 +1,8 @@
-import { ListOfCarsData, ListOfWinnersData, ResponseWinnerData } from '@/utils/commonTypes';
+import { Cars, Winners, WinnerResponse } from '@/utils/commonTypes';
 
 export interface Model {
-	getDisplayedWinners(sortingFunction: SortingFunction): Promise<ListOfWinnersData>;
-	getDisplayedCars(ListOfCarIDs: string[]): Promise<ListOfCarsData>
+	getDisplayedWinners(sortingFunction: SortingFunction): Promise<Winners>;
+	getDisplayedCars(ListOfCarIDs: string[]): Promise<Cars>
 }
 
 export interface Controller {
@@ -17,10 +17,10 @@ export interface View {
 	updateView(
 		pageNumber: number,
 		winnersAmount: number,
-		winnersData: ListOfWinnersData,
-		carsData: ListOfCarsData
+		winnersData: Winners,
+		carsData: Cars
 	): void;
 }
 
 export type SortingCriterion = 'wins' | 'time';
-export type SortingFunction = (carA: ResponseWinnerData, carB: ResponseWinnerData) => number;
+export type SortingFunction = (carA: WinnerResponse, carB: WinnerResponse) => number;

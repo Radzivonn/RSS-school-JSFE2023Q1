@@ -43,24 +43,15 @@ export const createCarNode = (color: string): HTMLElement => {
 };
 
 export function getRandomInt(min: number, max: number): number {
-	// Maximum not included, minimum included
 	return Math.floor(Math.random() * (Math.floor(max) - Math.ceil(min))) + Math.ceil(min);
 }
 
-/**
- * A function that turns on the disabled attribute on all child elements of the block
- * @param block HTML block whose disabled attribute turns ON 
- */
 export const disableBlock = (...blocks: HTMLElement[]): void => {
 	blocks.forEach(block => {
 		for (const childElem of block.children) childElem.setAttribute('disabled', '');
 	});
 };
 
-/**
- * A function that turns off the disabled attribute on all child elements of the block
- * @param block HTML block whose disabled attribute turns OFF
- */
 export const enableBlock = (...blocks: HTMLElement[]): void => {
 	blocks.forEach(block => {
 		for (const childElem of block.children) childElem.removeAttribute('disabled');
@@ -70,8 +61,8 @@ export const enableBlock = (...blocks: HTMLElement[]): void => {
 type DrawFunction = (element: HTMLElement, progress: number) => void;
 
 const drawCarMovement: DrawFunction = (element: HTMLElement, progress: number): void => {
-	const FINISHOFFSET = 151;
-	element.style.transform = `translate(${progress * (document.documentElement.clientWidth - FINISHOFFSET)}px)`;
+	const FINISH_OFFSET = 151;
+	element.style.transform = `translate(${progress * (document.documentElement.clientWidth - FINISH_OFFSET)}px)`;
 };
 
 export const animateElement = (element: HTMLElement, duration: number, drawFunc: DrawFunction = drawCarMovement): NodeJS.Timer => {

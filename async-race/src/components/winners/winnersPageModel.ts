@@ -1,5 +1,5 @@
 import { Model, SortingFunction } from './types';
-import { ListOfCarsData, ListOfWinnersData, ResponseWinnerData } from '@/utils/commonTypes';
+import { Cars, Winners, WinnerResponse } from '@/utils/commonTypes';
 import AsyncRaceAPI from '@/utils/asyncRaceAPI';
 
 export default class WinnersPageModel implements Model {
@@ -8,34 +8,34 @@ export default class WinnersPageModel implements Model {
 	private _winnersAmount = 0;
 	private _carsAmount = 0;
 	public sortingFunction: SortingFunction | null = null;
-	readonly WINNERSPERPAGE = 10;
+	readonly WINNERS_PER_PAGE = 10;
 	private readonly API = new AsyncRaceAPI();
 
-	public async getDisplayedWinners(sortingFunction: SortingFunction): Promise<ListOfWinnersData> {
-		const responseData = await this.API.getWinners(this.pageNumber, this.WINNERSPERPAGE);
+	public async getDisplayedWinners(sortingFunction: SortingFunction): Promise<Winners> {
+		const responseData = await this.API.getWinners(this.pageNumber, this.WINNERS_PER_PAGE);
 		if (responseData.totalCount) this._winnersAmount = Number(responseData.totalCount); 
 		this.updatePagesAmount();
 		return (await responseData.data).sort(sortingFunction);
 	}
 
-	public async getDisplayedCars(ListOfCarIDs: string[]): Promise<ListOfCarsData> {
+	public async getDisplayedCars(ListOfCarIDs: string[]): Promise<Cars> {
 		const carsData = await Promise.all(
 			ListOfCarIDs.map(carID => this.API.getCar(carID)),
 		);
 		return carsData;
 	}
 
-	public async getWinner(winnerID: string): Promise<ResponseWinnerData> {
+	public async getWinner(winnerID: string): Promise<WinnerResponse> {
 		const winnerData = await this.API.getWinner(winnerID);
 		return winnerData;
 	}
 
-	public addWinner = async (winnerData: ResponseWinnerData): Promise<void> => {
+	public addWinner = async (winnerData: WinnerResponse): Promise<void> => {
 		await this.API.createWinner(winnerData);
 		this._winnersAmount++;
 	};
 
-	public async updateWinner(winnerData: ResponseWinnerData, lastTime: number): Promise<void> {
+	public async updateWinner(winnerData: WinnerResponse, lastTime: number): Promise<void> {
 		const { id, wins, time } = winnerData;
 		await this.API.updateWinner(
 			{
@@ -46,7 +46,7 @@ export default class WinnersPageModel implements Model {
 	}
 
 	private updatePagesAmount(): void {
-		this._pagesAmount = Math.ceil(this.winnersAmount / this.WINNERSPERPAGE);
+		this._pagesAmount = Math.ceil(this.winnersAmount / this.WINNERS_PER_PAGE);
 	}
 	/**
 	 * Returns true if page was switched to next, else returns false

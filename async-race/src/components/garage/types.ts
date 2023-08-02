@@ -1,15 +1,15 @@
-import { ListOfCarsData, RequestCarData, ResponseCarData, EngineStatus, EngineData } from '@/utils/commonTypes';
+import { Cars, CarRequest, CarResponse, EngineStatus, EngineResponse } from '@/utils/commonTypes';
 
 export interface Model {
-	getDisplayedCars(): Promise<ListOfCarsData>;
-	createCar(reqCarData: RequestCarData): Promise<ResponseCarData>;
-	getCar(id: string): Promise<ResponseCarData>
+	getDisplayedCars(): Promise<Cars>;
+	createCar(reqCarData: CarRequest): Promise<CarResponse>;
+	getCar(id: string): Promise<CarResponse>
 	switchToNextPage(): boolean;
 	switchToPrevPage(): boolean;
 	generateRandomCars(): Promise<void>;
-	updateCar(carID: string, reqData: RequestCarData): Promise<ResponseCarData>;
+	updateCar(carID: string, reqData: CarRequest): Promise<CarResponse>;
 	deleteCar(carID: string): Promise<void>;
-	toggleEngine(carID: string, engineStatus: EngineStatus): Promise<EngineData>;
+	toggleEngine(carID: string, engineStatus: EngineStatus): Promise<EngineResponse>;
 	switchEngineToDriveMode(carID: string): Promise<Response>
 }
 
@@ -25,7 +25,7 @@ export interface View {
 	updateView(
 		pageNumber: number,
 		carsAmount: number,
-		carsData: ListOfCarsData
+		carsData: Cars
 	): void;
 }
 

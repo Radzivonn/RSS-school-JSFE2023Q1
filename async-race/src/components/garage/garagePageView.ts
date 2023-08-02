@@ -6,7 +6,7 @@ createPaginationButtons,
 disableBlock,
 enableBlock,
 } from '@/utils/helperFuncs';
-import { ResponseCarData, ListOfCarsData } from '@/utils/commonTypes';
+import { CarResponse, Cars } from '@/utils/commonTypes';
 
 export default class GaragePageView implements View {
 	public routingButtons: HTMLElement;
@@ -120,11 +120,11 @@ export default class GaragePageView implements View {
 		return raceNode;
 	}
 
-	private createTracksForPage(carsData: ListOfCarsData): HTMLElement[] {
+	private createTracksForPage(carsData: Cars): HTMLElement[] {
 		return carsData.map(carData => this.createTrack(carData));
 	}
 
-	private createTrack(carData: ResponseCarData): HTMLElement {
+	private createTrack(carData: CarResponse): HTMLElement {
 		const track = createElement({ tag: 'div', classNames: ['track'], id: String(carData.id) });
 		const carButtons = createElement({ tag: 'div', classNames: ['car-buttons'] });
 		const carControlButtons = createElement({ tag: 'div', classNames: ['car-control-buttons'] });
@@ -172,7 +172,7 @@ export default class GaragePageView implements View {
 		return track;
 	}
 
-	public updateView(pageNumber: number, carsAmount: number, carsData: ListOfCarsData): void {
+	public updateView(pageNumber: number, carsAmount: number, carsData: Cars): void {
 		enableBlock(this.routingButtons);
 		this.updatePageHeaders(carsAmount, pageNumber);
 		this.updateTracksBlock(carsData);
@@ -184,11 +184,11 @@ export default class GaragePageView implements View {
 		this.resetWinnerMessage();
 	}
 
-	public updateTracksBlock(carsData: ListOfCarsData): void {
+	public updateTracksBlock(carsData: Cars): void {
 		this.tracksBlock.replaceChildren(...this.createTracksForPage(carsData));
 	}
 
-	public updateTrack(carData: ResponseCarData): void {
+	public updateTrack(carData: CarResponse): void {
 		const trackNode = document.getElementById(String(carData.id));
 		if (trackNode) {
 			const carNode = trackNode.querySelector('.car') as HTMLElement;

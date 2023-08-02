@@ -2,7 +2,7 @@ import { Controller, AnimationIDs } from './types';
 import { disableBlock, enableBlock, animateElement } from '@/utils/helperFuncs';
 import GaragePageModel from './garagePageModel';
 import GaragePageView from './garagePageView';
-import { ResponseWinnerData } from '@/utils/commonTypes';
+import { WinnerResponse } from '@/utils/commonTypes';
 import { CustomEvents } from '@/utils/commonVars';
 
 export default class GaragePageController implements Controller {
@@ -206,12 +206,12 @@ export default class GaragePageController implements Controller {
 	private carWon(carID: string, raceTime: number, carName: string): void {
 		this.winnerID = carID;
 
-		const detail: ResponseWinnerData = {
+		const detail: WinnerResponse = {
 			id: Number(carID),
 			wins: 1,
 			time: raceTime,
 		};
-		document.dispatchEvent(new CustomEvent(CustomEvents.CARWON, { detail }));
+		document.dispatchEvent(new CustomEvent(CustomEvents.CAR_WON, { detail }));
 
 		this.view.writeWinnerMessage(`${carName} went first ${raceTime} !`);
 	}

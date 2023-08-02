@@ -1,6 +1,4 @@
-import { ResponseWinnerData } from './commonTypes';
-
-export const BASEREQUESTURL = 'http://127.0.0.1:3000';
+import { WinnerResponse } from './commonTypes';
 
 export enum PagePathes {
 	GARAGE = 'toGarage',
@@ -8,13 +6,13 @@ export enum PagePathes {
 }
 
 export enum RequestDirs {
-	CARSDATAPATH = 'garage',
-	WINNERSDATAPATH = 'winners',
-	ENGINEDATAPATH = 'engine',
+	CARS_PATH = 'garage',
+	WINNERS_PATH = 'winners',
+	ENGINE_PATH = 'engine',
 }
 
 export enum CustomEvents {
-	CARWON = 'carWon',
+	CAR_WON = 'carWon',
 }
 
 export const carNames = ['Tesla', 'Ford', 'BMW', 'Mersedes-Benz', 'Porshe', 'Lada', 'lamborghini', 'Chevrolet', 'Nissan', 'Mitsubishi', 'Audi'];
@@ -25,11 +23,11 @@ export const carColors = ['#000000', '#FF0000', '#FFEA00', '#03FCA1', '#0398FC',
 
 export const sortingFunctions = {
 	fromLargestToSmallest: {
-		wins: (carA: ResponseWinnerData, carB: ResponseWinnerData) => carB.wins - carA.wins,
-		time: (carA: ResponseWinnerData, carB: ResponseWinnerData) => carB.time - carA.time,
+		wins: (carA: WinnerResponse, carB: WinnerResponse) => carB.wins - carA.wins,
+		time: (carA: WinnerResponse, carB: WinnerResponse) => carB.time - carA.time,
 	},
 	fromSmallestToLargest: {
-		wins: (carA: ResponseWinnerData, carB: ResponseWinnerData) => carA.wins - carB.wins,
-		time: (carA: ResponseWinnerData, carB: ResponseWinnerData) => carA.time - carB.time,
+		wins: (carA: WinnerResponse, carB: WinnerResponse) => carA.wins - carB.wins,
+		time: (carA: WinnerResponse, carB: WinnerResponse) => carA.time - carB.time,
 	},
 };
