@@ -67,26 +67,13 @@ export default class GaragePageModel implements Model {
 		this._pagesAmount = Math.ceil(this.carsAmount / this.TRACKS_PER_PAGE);
 	}
 
-	/**
-	 * Returns true if page was switched to next, else returns false
-	 */
-	public switchToNextPage(): boolean {
-		if (this._pageNumber < this.pagesAmount) {
-			this._pageNumber += 1;
-			return true;
-		}
-		return false;
+
+	public switchToNextPage(): void {
+		if (this._pageNumber < this.pagesAmount) this._pageNumber += 1;
 	}
 
-	/**
-	 * Returns true if page was switched to previous, else returns false
-	 */
-	public switchToPrevPage(): boolean {
-		if (this._pageNumber > 1) {
-			this._pageNumber -= 1;
-			return true;
-		}
-		return false;
+	public switchToPreviosPage(): void {
+		if (this._pageNumber > 1)	this._pageNumber -= 1;
 	}
 
 	public get pageNumber(): number {

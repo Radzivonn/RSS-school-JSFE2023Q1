@@ -2,7 +2,12 @@ import { Cars, Winners, WinnerResponse } from '@/utils/commonTypes';
 
 export interface Model {
 	getDisplayedWinners(sortingFunction: SortingFunction): Promise<Winners>;
-	getDisplayedCars(ListOfCarIDs: string[]): Promise<Cars>
+	getDisplayedCars(ListOfCarIDs: string[]): Promise<Cars>;
+	getWinner(winnerID: string): Promise<WinnerResponse>;
+	addWinner (winnerData: WinnerResponse): Promise<void>;
+	updateWinner(winnerData: WinnerResponse, lastTime: number): Promise<void>;
+	switchToNextPage(): void;
+	switchToPreviosPage(): void;
 }
 
 export interface Controller {

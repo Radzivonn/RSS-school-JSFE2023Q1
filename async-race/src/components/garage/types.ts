@@ -4,8 +4,8 @@ export interface Model {
 	getDisplayedCars(): Promise<Cars>;
 	createCar(reqCarData: CarRequest): Promise<CarResponse>;
 	getCar(id: string): Promise<CarResponse>
-	switchToNextPage(): boolean;
-	switchToPrevPage(): boolean;
+	switchToNextPage(): void;
+	switchToPreviosPage(): void;
 	generateRandomCars(): Promise<void>;
 	updateCar(carID: string, reqData: CarRequest): Promise<CarResponse>;
 	deleteCar(carID: string): Promise<void>;

@@ -2,7 +2,6 @@ import { View } from './types';
 import {
 createCarNode,
 createElement,
-createPaginationButtons,
 disableBlock,
 enableBlock,
 } from '@/utils/helperFuncs';
@@ -65,20 +64,22 @@ export default class GaragePageView implements View {
 		},
 	};
 	public winnerMessage = createElement({ tag: 'h1', classNames: ['win-message'] });
-	public switchButtonsBlock = createElement({ tag: 'div', classNames: ['switch-buttons'] });
+	public previousButton = createElement({ tag: 'button', classNames: ['button', 'previous-button'], text: 'prev' });
+	public nextButton = createElement({ tag: 'button', classNames: ['button', 'next-button'], text: 'next' });
 
 	constructor(routingButtons: HTMLElement) {
-		this.switchButtonsBlock.append(...createPaginationButtons());
 		this.routingButtons = routingButtons;
 	}
 
 	public createView(): HTMLElement {
+		const paginationButtons = createElement({ tag: 'div', classNames: ['pagination-buttons'] });
+		paginationButtons.append(this.previousButton, this.nextButton);
+	
 		const garageNode = createElement({ tag: 'div', classNames: ['garage'] });
-
 		garageNode.append(
 			this.createCarsCreatorBlock(),
 			this.createRaceBlock(),
-			this.switchButtonsBlock,
+			paginationButtons,
 			this.winnerMessage,
 		);
 		return garageNode;
@@ -210,14 +211,17 @@ export default class GaragePageView implements View {
 	}
 
 	public setCarControlsDuringMove(carID: string): void {
+		this.gameControllers.buttons.raceButton.setAttribute('disabled', '');
+		this.gameControllers.buttons.resetButton.removeAttribute('disabled');
+
 		const track = document.getElementById(carID) as HTMLElement; // take parent element with class "track"
 		const carButtons = track.querySelector('.car-buttons') as HTMLElement;
 		track.querySelector('.start-button')?.setAttribute('disabled', '');
 		track.querySelector('.stop-button')?.removeAttribute('disabled');
-		disableBlock(carButtons);
-		this.gameControllers.buttons.raceButton.setAttribute('disabled', '');
-		this.gameControllers.buttons.resetButton.removeAttribute('disabled');
-		disableBlock(carButtons, this.routingButtons, this.switchButtonsBlock);
+		disableBlock(carButtons, this.routingButtons);
+
+		this.previousButton.setAttribute('disabled', '');
+		this.nextButton.setAttribute('disabled', '');
 	}
 
 	public setCarControlsDuringParking(carID: string): void {

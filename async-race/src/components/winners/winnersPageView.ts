@@ -1,6 +1,6 @@
 import { Cars, Winners } from '@/utils/commonTypes';
 import { View } from './types';
-import { createCarNode, createElement, createPaginationButtons } from '@/utils/helperFuncs';
+import { createCarNode, createElement } from '@/utils/helperFuncs';
 
 export default class WinnersPageView implements View {
 	public winnersAmount = createElement({ tag: 'output', classNames: ['cars-number'] });
@@ -13,10 +13,10 @@ export default class WinnersPageView implements View {
 		carWins: createElement({ tag: 'div', classNames: ['winners-table__wins-column'] }),
 		carBestTime: createElement({ tag: 'div', classNames: ['winners-table__best-time-column'] }),
 	};
-	public switchButtonsBlock = createElement({ tag: 'div', classNames: ['switch-buttons'] });
+	public previousButton = createElement({ tag: 'button', classNames: ['button', 'previous-button'], text: 'prev' });
+	public nextButton = createElement({ tag: 'button', classNames: ['button', 'next-button'], text: 'next' });
 
 	constructor() {
-		this.switchButtonsBlock.append(...createPaginationButtons());
 		this.winnersColumnsNames.append(
 			createElement({ tag: 'p', text: 'Number' }),
 			createElement({ tag: 'p', text: 'car' }),
@@ -30,16 +30,18 @@ export default class WinnersPageView implements View {
 		const winnersNode = createElement({ tag: 'div', classNames: ['winners-page'] });
 		const winnersHeader = createElement({ tag: 'h2', classNames: ['winners-header'], text: 'Winners' });
 		const winnersPageHeader = createElement({ tag: 'h3', classNames: ['winners-page-header'], text: 'Page #' });
-
+		const paginationButtons = createElement({ tag: 'div', classNames: ['pagination-buttons'] });
+		
 		winnersHeader.append(this.winnersAmount);
 		winnersPageHeader.append(this.pageNumber);
+		paginationButtons.append(this.previousButton, this.nextButton);
 
 		winnersNode.append(
 			winnersHeader,
 			winnersPageHeader,
 			this.winnersColumnsNames,
 			this.createWinnersTable(),
-			this.switchButtonsBlock,
+			paginationButtons,
 		);
 
 		return winnersNode;

@@ -63,10 +63,14 @@ export default class GaragePageController implements Controller {
 			'click',
 			(e) => this.carControlButtonsHandler(e),
 		);
-		this.view.switchButtonsBlock.addEventListener(
-			'click',
-			(e) => this.paginationButtonsHandler(e),
-		);
+		this.view.previousButton.addEventListener('click', () => {
+			this.model.switchToPreviosPage();
+			this.renderView();
+		});
+		this.view.nextButton.addEventListener('click', () => {
+			this.model.switchToNextPage();
+			this.renderView();
+		});
 	}
 
 	private async createCarButtonHandler(): Promise<void> {
@@ -84,17 +88,6 @@ export default class GaragePageController implements Controller {
 	private async generateCarsButtonHandler(): Promise<void> {
 		await this.model.generateRandomCars();
 		this.renderView();
-	}
-
-	private paginationButtonsHandler(e: MouseEvent): void {
-		const clickedElement = e.target as HTMLElement;
-		if (
-			clickedElement
-			&& ((clickedElement.classList.contains('next-button') && this.model.switchToNextPage())
-			|| (clickedElement.classList.contains('previous-button') && this.model.switchToPrevPage()))
-		) {
-			this.renderView();
-		}
 	}
 
 	private async updateCarButtonHandler(): Promise<void> {
@@ -231,7 +224,8 @@ export default class GaragePageController implements Controller {
 			this.isRaceActive = false;
 			this.view.gameControllers.buttons.raceButton.removeAttribute('disabled');
 			this.view.gameControllers.buttons.resetButton.setAttribute('disabled', '');
-			enableBlock(this.view.switchButtonsBlock);
+			this.view.previousButton.removeAttribute('disabled');
+			this.view.nextButton.removeAttribute('disabled');
 			this.renderView();
 		}
 

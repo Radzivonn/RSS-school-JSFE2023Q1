@@ -24,12 +24,6 @@ export const createElement = (params: ElementParams): HTMLElement => {
 	return element;
 };
 
-export const createPaginationButtons = (): HTMLElement[] =>
-	[
-		createElement({ tag: 'button', classNames: ['button', 'previous-button'], text: 'prev' }),
-		createElement({ tag: 'button', classNames: ['button', 'next-button'], text: 'next' }),
-	];
-
 export const createCarNode = (color: string): HTMLElement => {
 	const car = createElement(
 		{

@@ -38,22 +38,16 @@ export default class WinnersController implements Controller {
 	}
 
 	private bindListeners(): void {
-		this.view.switchButtonsBlock.addEventListener(
-			'click',
-			(e) => this.paginationButtonsHandler(e),
-		);
 		this.view.winnersColumnsNames.addEventListener('click', (e) => this.sortButtonHandler(e));
+		this.view.previousButton.addEventListener('click', () => {
+			this.model.switchToPreviosPage();
+			this.renderView();
+		});
+		this.view.nextButton.addEventListener('click', () => {
+			this.model.switchToNextPage();
+			this.renderView();
+		});
 		document.addEventListener(CustomEvents.CAR_WON, (e) => this.carWonHandler(e as CustomEvent));
-	}
-
-	private paginationButtonsHandler(e: MouseEvent): void {
-		const clickedElement = e.target as HTMLElement;
-		if (
-			(clickedElement && clickedElement.classList.contains('next-button') && this.model.switchToNextPage())
-			|| (clickedElement && clickedElement.classList.contains('previous-button') && this.model.switchToPrevPage())
-		) {
-			this.renderView();		
-		}
 	}
 
 	private sortButtonHandler(e: MouseEvent): void {
