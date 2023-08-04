@@ -1,3 +1,4 @@
+import { CustomAnimation } from '@/utils/animation';
 import { Cars, CarRequest, CarResponse, EngineStatus, EngineResponse } from '@/utils/commonTypes';
 
 export interface Model {
@@ -29,6 +30,6 @@ export interface View {
 	): void;
 }
 
-export type AnimationIDs = {
-	[key: string]: NodeJS.Timer
+export type CarAnimations = {
+	[key: string]: CustomAnimation;
 };

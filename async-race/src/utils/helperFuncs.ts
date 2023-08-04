@@ -52,21 +52,9 @@ export const enableBlock = (...blocks: HTMLElement[]): void => {
 	});
 };
 
-type DrawFunction = (element: HTMLElement, progress: number) => void;
+export type DrawFunction = (element: HTMLElement, progress: number) => void;
 
-const drawCarMovement: DrawFunction = (element: HTMLElement, progress: number): void => {
+export const drawCarMovement: DrawFunction = (element: HTMLElement, progress: number): void => {
 	const FINISH_OFFSET = 151;
 	element.style.transform = `translate(${progress * (document.documentElement.clientWidth - FINISH_OFFSET)}px)`;
-};
-
-export const animateElement = (element: HTMLElement, duration: number, drawFunc: DrawFunction = drawCarMovement): NodeJS.Timer => {
-	const start = performance.now();
-	
-	const animationID = setInterval(() => {
-		const progress = (performance.now() - start) / duration;
-		if (progress < 1) drawFunc(element, progress);
-		else clearInterval(animationID);
-	}, 10);
-
-	return animationID;
 };

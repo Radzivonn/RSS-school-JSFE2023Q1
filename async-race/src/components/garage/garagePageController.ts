@@ -1,14 +1,15 @@
-import { Controller, AnimationIDs } from './types';
-import { disableBlock, enableBlock, animateElement } from '@/utils/helperFuncs';
+import { Controller, CarAnimations } from './types';
+import { disableBlock, enableBlock, drawCarMovement } from '@/utils/helperFuncs';
 import GaragePageModel from './garagePageModel';
 import GaragePageView from './garagePageView';
 import { WinnerResponse } from '@/utils/commonTypes';
 import { CustomEvents } from '@/utils/commonVars';
+import { CustomAnimation } from '@/utils/animation';
 
 export default class GaragePageController implements Controller {
 	public view: GaragePageView;
 	public model: GaragePageModel;
-	private carsAnimationIDs: AnimationIDs = {};
+	private carsAnimations: CarAnimations = {};
 	private winnerID: string | null = null;
 	private isRaceActive = false;
 	private carsInRace = 0;
@@ -114,14 +115,14 @@ export default class GaragePageController implements Controller {
 
 		this.view.tracksBlock.querySelectorAll('.track').forEach(track => {
 			const car = track.querySelector('.car') as HTMLElement;
-			if (!this.carsAnimationIDs[track.id]) this.startCar(car, track.id);
+			if (!this.carsAnimations[track.id]) this.startCar(car, track.id);
 		});
 	}
 
 	private async resetCars(): Promise<void> {
 		const allTracks = this.view.tracksBlock.querySelectorAll('.track');
 		for (const track of allTracks) {
-			if (this.carsAnimationIDs[track.id]) {
+			if (this.carsAnimations[track.id]) {
 				const car = track.querySelector('.car') as HTMLElement;
 				await this.stopCar(car, track.id);
 			}
@@ -145,7 +146,7 @@ export default class GaragePageController implements Controller {
 	}
 
 	private async selectButtonHandler(button: HTMLElement): Promise<void> {
-		const track = button.closest('.track') as HTMLElement; // take parent element with class "track"
+		const track = button.closest('.track') as HTMLElement;
 		const carData = await this.model.getCar(track.id);
 	
 		if (Object.keys(carData).length > 0) {
@@ -158,7 +159,7 @@ export default class GaragePageController implements Controller {
 	}
 
 	private async removeButtonHandler(button: HTMLElement): Promise<void> {
-		const track = button.closest('.track') as HTMLElement; // take parent element with class "track"
+		const track = button.closest('.track') as HTMLElement;
 		this.model.deleteCar(track.id);
 
 		this.view.setUpdateFormValues('', '#000000');
@@ -180,8 +181,9 @@ export default class GaragePageController implements Controller {
 		const carVelocity = (await this.model.toggleEngine(String(carID), 'started')).velocity;
 		let raceTime = this.model.DISTANCE / carVelocity; // race time in milliseconds
 
-		const animationID = animateElement(car, raceTime);
-		this.carsAnimationIDs[carID] = animationID;
+		const carAnimation = new CustomAnimation({ element: car, duration: raceTime, draw: drawCarMovement });
+		carAnimation.initAnimation();
+		this.carsAnimations[carID] = carAnimation;
 
 		this.model.switchEngineToDriveMode(carID).then(response => {
 			this.stopAnimation(carID);
@@ -233,12 +235,14 @@ export default class GaragePageController implements Controller {
 		this.view.putCarBack(car);
 	}
 
-	private stopAnimation(carID: string): void  {
-		clearInterval(this.carsAnimationIDs[carID]);
+	private stopAnimation(carID: string) {
+		if (this.carsAnimations[carID]) {
+			this.carsAnimations[carID].cancelAnimation();
+		}
 	}
 
 	private deleteAnimation(carID: string): void {
 		this.stopAnimation(carID);
-		delete this.carsAnimationIDs[carID];
+		delete this.carsAnimations[carID];
 	}
 }
