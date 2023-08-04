@@ -12,7 +12,7 @@ export default class WinnersController implements Controller {
 		this.view = new WinnersPageView();
 	}
 
-	public async init(): Promise<void> {
+	public init() {
 		this.bindListeners();
 	}
 

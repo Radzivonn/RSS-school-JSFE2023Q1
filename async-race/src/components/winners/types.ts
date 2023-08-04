@@ -13,7 +13,7 @@ export interface Model {
 export interface Controller {
 	view: View;
 	model: Model;
-	init(): Promise<void>;
+	init(): void;
 	getView(): HTMLElement;
 }
 
