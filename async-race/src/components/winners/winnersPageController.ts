@@ -22,9 +22,7 @@ export default class WinnersController implements Controller {
 		return componentView;
 	}
 
-	private async renderView(
-		sortingFunction: SortingFunction = sortingFunctions.fromLargestToSmallest.wins,
-	): Promise<void> {
+	private async renderView(sortingFunction: SortingFunction = sortingFunctions.fromLargestToSmallest.wins) {
 		const winnersData = await this.model.getDisplayedWinners(sortingFunction);
 		const winnersIDs = winnersData.map(winnerData => String(winnerData.id));
 		const carsData = await this.model.getDisplayedCars(winnersIDs);
@@ -38,7 +36,7 @@ export default class WinnersController implements Controller {
 	}
 
 	private bindListeners(): void {
-		this.view.winnersColumnsNames.addEventListener('click', (e) => this.sortButtonHandler(e));
+		this.view.winnersColumnsNames.addEventListener('click', (e) => this.sortHandler(e));
 		this.view.previousButton.addEventListener('click', () => {
 			this.model.switchToPreviosPage();
 			this.renderView();
@@ -50,7 +48,7 @@ export default class WinnersController implements Controller {
 		document.addEventListener(CustomEvents.CAR_WON, (e) => this.carWonHandler(e as CustomEvent));
 	}
 
-	private sortButtonHandler(e: MouseEvent): void {
+	private sortHandler(e: MouseEvent): void {
 		const clickedElement = e.target as HTMLElement;
 		if (clickedElement.classList.contains('sort-button')) {
 			const criterion = clickedElement.id as SortingCriterion;

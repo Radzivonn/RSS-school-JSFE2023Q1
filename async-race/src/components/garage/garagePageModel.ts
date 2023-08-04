@@ -40,7 +40,7 @@ export default class GaragePageModel implements Model {
 		return data;
 	}
 
-	public async generateRandomCars(): Promise<void> {
+	public async generateRandomCars() {
 		for (let i = 0; i < this.RANDOM_CARS_AMOUNT; i++) await this.createCar(this.createRandomCarData());
 		this.updatePagesAmount();
 	}
@@ -57,7 +57,7 @@ export default class GaragePageModel implements Model {
 		return carData;
 	}
 
-	public async removeCar(carID: string): Promise<void> {
+	public async removeCar(carID: string) {
 		await this.API.removeCar(carID);
 		await this.API.deleteWinner(carID);
 		await this.getDisplayedCars();

@@ -9,7 +9,7 @@ export default class App {
 	private garagePage = new GaragePageController(this.routingButtons);
 	private winnersPage = new WinnersController();
 
-	public async init(): Promise<void> {
+	public async init() {
 		this.garagePage.init();
 		this.winnersPage.init();
 
@@ -27,7 +27,7 @@ export default class App {
 		this.routingButtons.addEventListener('click', (e) => this.routingButtonsHandler(e));
 	}
 
-	private async routingButtonsHandler(e: Event): Promise<void> {
+	private async routingButtonsHandler(e: Event) {
 		const clickedButton = (e.target as HTMLElement)?.closest('.nav-button');
 		if (clickedButton && clickedButton.id === PagePathes.GARAGE) {
 			this.switchPage(await this.garagePage.getView());

@@ -23,7 +23,7 @@ export default class GaragePageController implements Controller {
 		this.bindListeners();
 	}
 
-	private async renderView(): Promise<void> {
+	private async renderView() {
 		this.view.updateView(
 			this.model.pageNumber,
 			this.model.carsAmount,
@@ -44,27 +44,27 @@ export default class GaragePageController implements Controller {
 	private bindListeners() {
 		this.view.gameControllers.buttons.createCarButton.addEventListener(
 			'click',
-			() => this.createCarButtonHandler(),
+			() => this.createCarHandler(),
 		);
 		this.view.gameControllers.buttons.updateCarButton.addEventListener(
 			'click',
-			() => this.updateCarButtonHandler(),
+			() => this.updateCarHandler(),
 		);
-		this.view.gameControllers.buttons.raceButton.addEventListener(
+		this.view.gameControllers.buttons.startRaceButton.addEventListener(
 			'click',
-			() => this.raceButtonHandler(),
+			() => this.startRaceHandler(),
 		);
-		this.view.gameControllers.buttons.resetButton.addEventListener(
+		this.view.gameControllers.buttons.resetRaceButton.addEventListener(
 			'click',
-			() => this.resetCars(),
+			() => this.resetRaceHandler(),
 		);
 		this.view.gameControllers.buttons.generateCarsButton.addEventListener(
 			'click',
-			() => this.generateCarsButtonHandler(),
+			() => this.generateCarsHandler(),
 		);
 		this.view.tracksBlock.addEventListener(
 			'click',
-			(e) => this.carControlButtonsHandler(e),
+			(e) => this.carControlsHandler(e),
 		);
 		this.view.previousButton.addEventListener('click', async () => {
 			await this.model.switchToPreviosPage();
@@ -76,7 +76,7 @@ export default class GaragePageController implements Controller {
 		});
 	}
 
-	private async createCarButtonHandler(): Promise<void> {
+	private async createCarHandler() {
 		await this.model.createCar(
 			{
 				name: this.view.gameControllers.inputs.createCarInput.value,
@@ -88,12 +88,12 @@ export default class GaragePageController implements Controller {
 		this.renderView();
 	}
 
-	private async generateCarsButtonHandler(): Promise<void> {
+	private async generateCarsHandler() {
 		await this.model.generateRandomCars();
 		this.renderView();
 	}
 
-	private async updateCarButtonHandler(): Promise<void> {
+	private async updateCarHandler() {
 		const carID = this.model.selectedCarID;
 		if (carID) {
 			const carData = await this.model.updateCar(
@@ -110,10 +110,10 @@ export default class GaragePageController implements Controller {
 		}
 	}
 
-	private async raceButtonHandler(): Promise<void> {
+	private async startRaceHandler() {
 		this.isRaceActive = true;
 		this.winnerID = null;
-		this.view.gameControllers.buttons.raceButton.setAttribute('disabled', '');
+		this.view.gameControllers.buttons.startRaceButton.setAttribute('disabled', '');
 
 		this.view.tracksBlock.querySelectorAll('.track').forEach(track => {
 			const car = track.querySelector('.car') as HTMLElement;
@@ -121,7 +121,7 @@ export default class GaragePageController implements Controller {
 		});
 	}
 
-	private async resetCars(): Promise<void> {
+	private async resetRaceHandler() {
 		const allTracks = this.view.tracksBlock.querySelectorAll('.track');
 		for (const track of allTracks) {
 			if (this.carsAnimations[track.id]) {
@@ -131,23 +131,23 @@ export default class GaragePageController implements Controller {
 		}
 	}
 
-	private carControlButtonsHandler(e: MouseEvent) {
+	private carControlsHandler(e: MouseEvent) {
 		const clickedElement = e.target as HTMLElement | null;
 		if (clickedElement) {
 			switch (clickedElement.id) {
-				case 'select': this.selectButtonHandler(clickedElement);
+				case 'select': this.selectHandler(clickedElement);
 					break;
-				case 'remove': this.removeButtonHandler(clickedElement);
+				case 'remove': this.removeHandler(clickedElement);
 					break;
-				case 'start': this.startButtonHandler(clickedElement);
+				case 'start': this.startCarHandler(clickedElement);
 					break;
-				case 'stop': this.stopButtonHandler(clickedElement);
+				case 'stop': this.stopCarHandler(clickedElement);
 					break;
 			}
 		}
 	}
 
-	private async selectButtonHandler(button: HTMLElement): Promise<void> {
+	private async selectHandler(button: HTMLElement) {
 		const track = button.closest('.track') as HTMLElement;
 		const carData = await this.model.getCar(track.id);
 	
@@ -160,7 +160,7 @@ export default class GaragePageController implements Controller {
 		}
 	}
 
-	private async removeButtonHandler(button: HTMLElement): Promise<void> {
+	private async removeHandler(button: HTMLElement) {
 		const track = button.closest('.track') as HTMLElement;
 		await this.model.removeCar(track.id);
 
@@ -169,13 +169,13 @@ export default class GaragePageController implements Controller {
 		this.renderView();
 	}
 
-	private startButtonHandler(button: HTMLElement) {
+	private startCarHandler(button: HTMLElement) {
 		const track = button.closest('.track') as HTMLElement;
 		const car = track.querySelector('.car') as HTMLElement;
 		this.startCar(car, track.id);
 	}
 
-	private async startCar(car: HTMLElement, carID: string): Promise<void> {
+	private async startCar(car: HTMLElement, carID: string) {
 		this.carsInRace++;
 		this.view.setCarControlsDuringMove(carID);
 
@@ -213,13 +213,13 @@ export default class GaragePageController implements Controller {
 		this.view.writeWinnerMessage(`${carName} went first ${raceTime} !`);
 	}
 
-	private stopButtonHandler(button: HTMLElement) {
+	private stopCarHandler(button: HTMLElement) {
 		const track = button.closest('.track') as HTMLElement;
 		const car = track.querySelector('.car') as HTMLElement;
 		this.stopCar(car, track.id);
 	}
 
-	private async stopCar(car: HTMLElement, carID: string): Promise<void> {
+	private async stopCar(car: HTMLElement, carID: string) {
 		await this.model.toggleEngine(carID, 'stopped');
 		this.deleteAnimation(carID);
 
@@ -232,8 +232,8 @@ export default class GaragePageController implements Controller {
 
 	private allCarsParked() {
 		this.isRaceActive = false;
-		this.view.gameControllers.buttons.raceButton.removeAttribute('disabled');
-		this.view.gameControllers.buttons.resetButton.setAttribute('disabled', '');
+		this.view.gameControllers.buttons.startRaceButton.removeAttribute('disabled');
+		this.view.gameControllers.buttons.resetRaceButton.setAttribute('disabled', '');
 		this.view.previousButton.removeAttribute('disabled');
 		this.view.nextButton.removeAttribute('disabled');
 		this.renderView();

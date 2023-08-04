@@ -30,12 +30,12 @@ export default class WinnersPageModel implements Model {
 		return winnerData;
 	}
 
-	public addWinner = async (winnerData: WinnerResponse): Promise<void> => {
+	public addWinner = async (winnerData: WinnerResponse) => {
 		await this.API.createWinner(winnerData);
 		this._winnersAmount++;
 	};
 
-	public async updateWinner(winnerData: WinnerResponse, lastTime: number): Promise<void> {
+	public async updateWinner(winnerData: WinnerResponse, lastTime: number) {
 		const { id, wins, time } = winnerData;
 		await this.API.updateWinner(
 			{

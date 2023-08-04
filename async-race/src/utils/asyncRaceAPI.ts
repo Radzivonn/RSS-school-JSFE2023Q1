@@ -52,7 +52,7 @@ export default class AsyncRaceAPI {
 		return response.json();
 	};
 
-	public createWinner = async (winnerData: WinnerResponse): Promise<void> => {
+	public createWinner = async (winnerData: WinnerResponse) => {
 		const endPoint = `${RequestDirs.WINNERS_PATH}`;
 		await this.request(endPoint, {
 			method: 'POST',
@@ -94,12 +94,12 @@ export default class AsyncRaceAPI {
 		return response.json();
 	};
 
-	public removeCar = async (carID: string): Promise<void> => {
+	public removeCar = async (carID: string) => {
 		const endPoint = `${RequestDirs.CARS_PATH}/${carID}`;
 		await this.request(endPoint, { method: 'DELETE' });
 	};
 
-	public deleteWinner = async (carID: string): Promise<void> => {
+	public deleteWinner = async (carID: string) => {
 		const endPoint = `${RequestDirs.WINNERS_PATH}/${carID}`;
 		await this.request(endPoint, { method: 'DELETE' });
 	};
