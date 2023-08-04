@@ -9,7 +9,7 @@ export interface Model {
 	switchToPreviosPage(): void;
 	generateRandomCars(): Promise<void>;
 	updateCar(carID: string, reqData: CarRequest): Promise<CarResponse>;
-	deleteCar(carID: string): Promise<void>;
+	removeCar(carID: string): Promise<void>;
 	toggleEngine(carID: string, engineStatus: EngineStatus): Promise<EngineResponse>;
 	switchEngineToDriveMode(carID: string): Promise<Response>
 }
@@ -17,8 +17,8 @@ export interface Model {
 export interface Controller {
 	view: View;
 	model: Model;
-	init(): Promise<void>;
-	getView(): HTMLElement;
+	init(): void;
+	getView(): Promise<HTMLElement>;
 }
 
 export interface View {

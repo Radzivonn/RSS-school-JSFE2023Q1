@@ -10,10 +10,10 @@ export default class App {
 	private winnersPage = new WinnersController();
 
 	public async init(): Promise<void> {
-		await this.garagePage.init();
-		await this.winnersPage.init();
+		this.garagePage.init();
+		this.winnersPage.init();
 
-		this.switchPage(this.garagePage.getView());
+		this.switchPage(await this.garagePage.getView());
 		this.routingButtons.append(...this.createNavigationButtons());
 		document.body.append(
 			this.routingButtons,
@@ -30,7 +30,7 @@ export default class App {
 	private async routingButtonsHandler(e: Event): Promise<void> {
 		const clickedButton = (e.target as HTMLElement)?.closest('.nav-button');
 		if (clickedButton && clickedButton.id === PagePathes.GARAGE) {
-			this.switchPage(this.garagePage.getView());
+			this.switchPage(await this.garagePage.getView());
 		} else if (clickedButton && clickedButton.id === PagePathes.WINNERS) {
 			this.switchPage(this.winnersPage.getView());
 		}

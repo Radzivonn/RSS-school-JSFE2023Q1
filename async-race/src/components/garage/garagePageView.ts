@@ -174,7 +174,11 @@ export default class GaragePageView implements View {
 	}
 
 	public updateView(pageNumber: number, carsAmount: number, carsData: Cars): void {
-		enableBlock(this.routingButtons);
+		enableBlock(
+			this.routingButtons,
+			this.creatingBlock,
+			this.updatingBlock,
+		);
 		this.updatePageHeaders(carsAmount, pageNumber);
 		this.updateTracksBlock(carsData);
 	}
@@ -218,7 +222,12 @@ export default class GaragePageView implements View {
 		const carButtons = track.querySelector('.car-buttons') as HTMLElement;
 		track.querySelector('.start-button')?.setAttribute('disabled', '');
 		track.querySelector('.stop-button')?.removeAttribute('disabled');
-		disableBlock(carButtons, this.routingButtons);
+		disableBlock(
+			this.routingButtons,
+			this.creatingBlock,
+			this.updatingBlock,
+			carButtons,
+		);
 
 		this.previousButton.setAttribute('disabled', '');
 		this.nextButton.setAttribute('disabled', '');

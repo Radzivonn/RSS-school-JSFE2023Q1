@@ -9,8 +9,13 @@ import {
 } from './commonTypes';
 import { RequestDirs } from './commonVars';
 
-type ListOfData = {
-	data: Promise<Cars & Winners>,
+type CarsResponse = {
+	data: Promise<Cars>,
+	totalCount: string | null
+};
+
+type WinnersResponse = {
+	data: Promise<Winners>,
 	totalCount: string | null
 };
 
@@ -21,14 +26,14 @@ export default class AsyncRaceAPI {
 		return fetch(`${this.BASE_URL}/${URL}`, requestParams);
 	};
 
-	public getCars = async (pageNumber: number, carsPerPage: number): Promise<ListOfData> => {
+	public getCars = async (pageNumber: number, carsPerPage: number): Promise<CarsResponse> => {
 		const queryParams = new URLSearchParams({ _page: String(pageNumber), _limit: String(carsPerPage) });
 		const endPoint = `${RequestDirs.CARS_PATH}?${queryParams}`;
 		const response = await this.request(endPoint, {	method: 'GET' });
 		return { data: response.json(), totalCount: response.headers.get('X-Total-Count') };
 	};
 
-	public getWinners = async (pageNumber: number, winnersPerPage: number): Promise<ListOfData> => {
+	public getWinners = async (pageNumber: number, winnersPerPage: number): Promise<WinnersResponse> => {
 		const queryParams = new URLSearchParams({ _page: String(pageNumber), _limit: String(winnersPerPage) });
 		const endPoint = `${RequestDirs.WINNERS_PATH}?${queryParams}`;
 		const response = await this.request(endPoint, {	method: 'GET' });
@@ -89,7 +94,7 @@ export default class AsyncRaceAPI {
 		return response.json();
 	};
 
-	public deleteCar = async (carID: string): Promise<void> => {
+	public removeCar = async (carID: string): Promise<void> => {
 		const endPoint = `${RequestDirs.CARS_PATH}/${carID}`;
 		await this.request(endPoint, { method: 'DELETE' });
 	};

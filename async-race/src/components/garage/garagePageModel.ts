@@ -9,13 +9,20 @@ export default class GaragePageModel implements Model {
 	private _pageNumber = 1;
 	private _pagesAmount = 0;
 	private _carsAmount = 0;
+	private _displayedCars: Cars = [];
 	readonly TRACKS_PER_PAGE = 7;
 	readonly DISTANCE = 500000;
 	private readonly RANDOM_CARS_AMOUNT = 100;
 	private readonly API = new AsyncRaceAPI();
 
 	public async createCar(reqCarData: CarRequest): Promise<CarResponse> {
-		return this.API.createCar(reqCarData);
+		const carData = await this.API.createCar(reqCarData);
+		if (this._displayedCars.length < this.TRACKS_PER_PAGE) {
+			this._displayedCars.push(carData);
+		}
+		this._carsAmount++;
+		this.updatePagesAmount();
+		return carData;
 	}
 
 	public async getDisplayedCars(): Promise<Cars> {
@@ -24,6 +31,7 @@ export default class GaragePageModel implements Model {
 		const carsData = await responseData.data;
 
 		this.updatePagesAmount();
+		this._displayedCars = carsData;
 		return carsData;
 	}
 
@@ -49,9 +57,10 @@ export default class GaragePageModel implements Model {
 		return carData;
 	}
 
-	public async deleteCar(carID: string): Promise<void> {
-		await this.API.deleteCar(carID);
+	public async removeCar(carID: string): Promise<void> {
+		await this.API.removeCar(carID);
 		await this.API.deleteWinner(carID);
+		await this.getDisplayedCars();
 	}
 
 	public async toggleEngine(carID: string, engineStatus: EngineStatus): Promise<EngineResponse> {
@@ -63,17 +72,22 @@ export default class GaragePageModel implements Model {
 		return response;
 	}
 
-	private updatePagesAmount(): void {
+	private updatePagesAmount() {
 		this._pagesAmount = Math.ceil(this.carsAmount / this.TRACKS_PER_PAGE);
 	}
 
-
-	public switchToNextPage(): void {
-		if (this._pageNumber < this.pagesAmount) this._pageNumber += 1;
+	public async switchToNextPage() {
+		if (this._pageNumber < this.pagesAmount) {
+			this._pageNumber += 1;
+			await this.getDisplayedCars();
+		}
 	}
 
-	public switchToPreviosPage(): void {
-		if (this._pageNumber > 1)	this._pageNumber -= 1;
+	public async switchToPreviosPage() {
+		if (this._pageNumber > 1) {
+			this._pageNumber -= 1;
+			await this.getDisplayedCars();
+		}
 	}
 
 	public get pageNumber(): number {
@@ -86,5 +100,9 @@ export default class GaragePageModel implements Model {
 
 	public get carsAmount() {
 		return this._carsAmount;
+	}
+
+	public get displayedCars() {
+		return this._displayedCars;
 	}
 }
