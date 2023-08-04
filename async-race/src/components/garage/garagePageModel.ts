@@ -41,7 +41,13 @@ export default class GaragePageModel implements Model {
 	}
 
 	public async generateRandomCars() {
-		for (let i = 0; i < this.RANDOM_CARS_AMOUNT; i++) await this.createCar(this.createRandomCarData());
+		const carResponses: Promise<CarResponse>[] = [];
+
+		for (let i = 0; i < this.RANDOM_CARS_AMOUNT; i++) {
+			carResponses.push(this.createCar(this.createRandomCarData()));
+		}
+		await Promise.all(carResponses);
+
 		this.updatePagesAmount();
 	}
 
