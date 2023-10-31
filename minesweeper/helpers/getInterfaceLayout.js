@@ -1,7 +1,7 @@
 import createNode from './createNode';
 
-const lightThemeIconPath = require('../../assets/svg/light-theme-icon.svg');
-const darkThemeIconPath = require('../../assets/svg/dark-theme-icon.svg');
+const lightThemeIconPath = require('../assets/svg/light-theme-icon.svg');
+const darkThemeIconPath = require('../assets/svg/dark-theme-icon.svg');
 
 export const getSettingsWidgetLayout = (gameSettings, colorTheme) => `
 <div class="settings-modal">

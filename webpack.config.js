@@ -7,15 +7,17 @@ const ESLintPlugin = require('eslint-webpack-plugin');
 
 const SRCNAME = 'minesweeper';
 
-const devServer = (isDev) => !isDev ? {} : {
-  devServer: {
-    open: true,
-    port: 8080,
-    contentBase: path.join(__dirname, 'public'),
-  },
-};
+const devServer = (isDev) => (!isDev
+    ? {}
+    : {
+        devServer: {
+          open: true,
+          port: 8080,
+          static: path.join(__dirname, 'public'),
+        },
+      });
 
-const esLintPlugin = (isDev) => isDev ? [] : [ new ESLintPlugin({ extensions: ['.js'] }) ];
+const esLintPlugin = (isDev) => (isDev ? [] : [new ESLintPlugin({ extensions: ['.js'] })]);
 
 module.exports = ({ development }) => ({
   mode: development ? 'development' : 'production',
@@ -27,13 +29,13 @@ module.exports = ({ development }) => ({
     filename: '[name].[contenthash].js',
     path: path.resolve(__dirname, 'dist'),
     assetModuleFilename: 'assets/[hash][ext]',
-	},
+  },
   module: {
-		rules: [
-			{
-				test: /\.html$/i,
-				loader: 'html-loader'
-			},
+    rules: [
+      {
+        test: /\.html$/i,
+        loader: 'html-loader',
+      },
       {
         test: /\.(?:ico|gif|png|jpg|jpeg|svg)$/i,
         type: 'asset/resource',
@@ -48,8 +50,8 @@ module.exports = ({ development }) => ({
       },
       {
         test: /\.s[ac]ss$/i,
-        use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader']
-			}
+        use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader'],
+      },
     ],
   },
   plugins: [
@@ -57,18 +59,20 @@ module.exports = ({ development }) => ({
     new MiniCssExtractPlugin({ filename: '[name].[contenthash].css' }),
     new HtmlWebpackPlugin({ template: `./${SRCNAME}/index.html` }),
     new CopyPlugin({
-      patterns: [{
-        from: 'public',
-        noErrorOnMissing: true,
-      }],
+      patterns: [
+        {
+          from: 'public',
+          noErrorOnMissing: true,
+        },
+      ],
     }),
     new CleanWebpackPlugin({ cleanStaleWebpackAssets: false }),
   ],
   resolve: {
-		extensions: ['.js'],
-		alias: {
-			'@': path.resolve(__dirname, SRCNAME)
-		}
+    extensions: ['.js'],
+    alias: {
+      '@': path.resolve(__dirname, SRCNAME),
+    },
   },
-  ...devServer(development)
-})
+  ...devServer(development),
+});
