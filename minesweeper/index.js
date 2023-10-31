@@ -1,4 +1,6 @@
 import './style/main.scss';
-import GameController from './modules/controllers/gameController';
+import GameController from './modules/gameController';
 
-const game = new GameController(); // init game
+const game = new GameController();
+
+window.addEventListener('DOMContentLoaded', () => game.init());
