@@ -2,7 +2,7 @@ import { getEmptyMinefield } from '../helpers/createMinefield';
 import {
   defaultColorTheme,
   defaultGameSettings,
-} from '../helpers/defaultGameSettings';
+} from '../constants/defaultGameSettings';
 
 export default class GameModel {
   setGameSettings() {
